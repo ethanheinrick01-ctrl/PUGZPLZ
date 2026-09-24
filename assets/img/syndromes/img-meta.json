@@ -1,0 +1,250 @@
+{
+ "apert-1": {
+  "file": "slide-43-0.jpeg",
+  "slide": 43,
+  "syn": "apert",
+  "w": 126,
+  "h": 127,
+  "deck": "L2 student copy"
+ },
+ "apert-2": {
+  "file": "slide-43-1.jpeg",
+  "slide": 43,
+  "syn": "apert",
+  "w": 128,
+  "h": 127,
+  "deck": "L2 student copy"
+ },
+ "apert-hands": {
+  "file": "slide-43-2.jpeg",
+  "slide": 43,
+  "syn": "apert",
+  "w": 600,
+  "h": 450,
+  "deck": "L2 student copy"
+ },
+ "bor-ears": {
+  "file": "slide-45-1.jpg",
+  "slide": 45,
+  "syn": "bor",
+  "w": 600,
+  "h": 303,
+  "deck": "L2 student copy"
+ },
+ "charge-1": {
+  "file": "slide-46-0.jpg",
+  "slide": 46,
+  "syn": "charge",
+  "w": 236,
+  "h": 314,
+  "deck": "L2 student copy"
+ },
+ "cdls-1": {
+  "file": "slide-48-0.jpeg",
+  "slide": 48,
+  "syn": "cdls",
+  "w": 349,
+  "h": 300,
+  "deck": "L2 student copy"
+ },
+ "cdls-2": {
+  "file": "slide-50-0.jpeg",
+  "slide": 50,
+  "syn": "cdls",
+  "w": 369,
+  "h": 320,
+  "deck": "L2 student copy"
+ },
+ "cdls-3": {
+  "file": "slide-50-1.jpeg",
+  "slide": 50,
+  "syn": "cdls",
+  "w": 369,
+  "h": 320,
+  "deck": "L2 student copy"
+ },
+ "crouzon-1": {
+  "file": "slide-53-1.jpg",
+  "slide": 53,
+  "syn": "crouzon",
+  "w": 720,
+  "h": 405,
+  "deck": "L2 student copy"
+ },
+ "crouzon-2": {
+  "file": "slide-53-2.jpg",
+  "slide": 53,
+  "syn": "crouzon",
+  "w": 242,
+  "h": 208,
+  "deck": "L2 student copy"
+ },
+ "down-1": {
+  "file": "slide-55-0.jpg",
+  "slide": 55,
+  "syn": "down",
+  "w": 634,
+  "h": 423,
+  "deck": "L2 student copy"
+ },
+ "down-2": {
+  "file": "slide-55-2.jpg",
+  "slide": 55,
+  "syn": "down",
+  "w": 720,
+  "h": 393,
+  "deck": "L2 student copy"
+ },
+ "fas-1": {
+  "file": "slide-57-0.jpeg",
+  "slide": 57,
+  "syn": "fas",
+  "w": 183,
+  "h": 130,
+  "deck": "L2 student copy"
+ },
+ "fas-diagram": {
+  "file": "slide-57-1.jpg",
+  "slide": 57,
+  "syn": "fas",
+  "w": 400,
+  "h": 321,
+  "deck": "L2 student copy"
+ },
+ "fas-2": {
+  "file": "slide-57-2.jpg",
+  "slide": 57,
+  "syn": "fas",
+  "w": 250,
+  "h": 310,
+  "deck": "L2 student copy"
+ },
+ "goldenhar-1": {
+  "file": "slide-59-1.jpeg",
+  "slide": 59,
+  "syn": "goldenhar",
+  "w": 500,
+  "h": 500,
+  "deck": "L2 student copy"
+ },
+ "goldenhar-2": {
+  "file": "slide-59-2.jpg",
+  "slide": 59,
+  "syn": "goldenhar",
+  "w": 451,
+  "h": 423,
+  "deck": "L2 student copy"
+ },
+ "jbs-1": {
+  "file": "slide-62-0.jpg",
+  "slide": 62,
+  "syn": "jbs",
+  "w": 200,
+  "h": 251,
+  "deck": "L2 student copy"
+ },
+ "jbs-2": {
+  "file": "slide-62-1.jpg",
+  "slide": 62,
+  "syn": "jbs",
+  "w": 259,
+  "h": 194,
+  "deck": "L2 student copy"
+ },
+ "pierre-1": {
+  "file": "slide-64-0.jpeg",
+  "slide": 64,
+  "syn": "pierre",
+  "w": 255,
+  "h": 392,
+  "deck": "L2 student copy"
+ },
+ "pierre-2": {
+  "file": "slide-65-0.jpeg",
+  "slide": 65,
+  "syn": "pierre",
+  "w": 235,
+  "h": 125,
+  "deck": "L2 student copy"
+ },
+ "stickler-1": {
+  "file": "slide-67-0.jpg",
+  "slide": 67,
+  "syn": "stickler",
+  "w": 297,
+  "h": 170,
+  "deck": "L2 student copy"
+ },
+ "treacher-1": {
+  "file": "slide-70-0.jpeg",
+  "slide": 70,
+  "syn": "treacher",
+  "w": 688,
+  "h": 438,
+  "deck": "L2 student copy"
+ },
+ "treacher-2": {
+  "file": "slide-70-1.jpeg",
+  "slide": 70,
+  "syn": "treacher",
+  "w": 160,
+  "h": 90,
+  "deck": "L2 student copy"
+ },
+ "turner-1": {
+  "file": "slide-72-0.jpg",
+  "slide": 72,
+  "syn": "turner",
+  "w": 200,
+  "h": 271,
+  "deck": "L2 student copy"
+ },
+ "turner-2": {
+  "file": "slide-72-1.jpg",
+  "slide": 72,
+  "syn": "turner",
+  "w": 276,
+  "h": 371,
+  "deck": "L2 student copy"
+ },
+ "waardenburg-1": {
+  "file": "slide-76-0.jpg",
+  "slide": 76,
+  "syn": "waardenburg",
+  "w": 300,
+  "h": 300,
+  "deck": "L2 student copy"
+ },
+ "waardenburg-2": {
+  "file": "slide-76-4.jpeg",
+  "slide": 76,
+  "syn": "waardenburg",
+  "w": 502,
+  "h": 720,
+  "deck": "L2 student copy"
+ },
+ "waardenburg-3": {
+  "file": "slide-76-1.jpg",
+  "slide": 76,
+  "syn": "waardenburg",
+  "w": 380,
+  "h": 253,
+  "deck": "L2 student copy"
+ },
+ "pedigree-a": {
+  "file": "slide-14-0.png",
+  "slide": 14,
+  "syn": "pedigree",
+  "w": 526,
+  "h": 542,
+  "deck": "L2 student copy"
+ },
+ "pedigree-b": {
+  "file": "slide-17-0.png",
+  "slide": 17,
+  "syn": "pedigree",
+  "w": 509,
+  "h": 538,
+  "deck": "L2 student copy"
+ }
+}
