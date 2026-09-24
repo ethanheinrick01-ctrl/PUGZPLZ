@@ -1,0 +1,778 @@
+### xb-mc-19  [mc]
+Her slide says reading passages allow the clinician to compare oral reading results with:
+  A) The client's standardized receptive vocabulary score
+  B) Published norms for oral reading words per minute
+  C) Single-word/short-phrase and conversational samples
+  D) The client's AMR and SMR diadochokinetic rates
+ANSWER FORMAT: one letter
+
+### m2-hip-04  [multi]
+Select ALL items her slide lists as protected health information (PHI).
+  A) Diagnoses
+  B) Names
+  C) Birth dates
+  D) A de-identified statistic about all clients seen this year
+  E) Insurance information
+ANSWER FORMAT: all correct letters, comma-separated
+
+### m11-k-01  [mc]
+A parent asks, 'What caused my child's delay?' Based on her 9/14 lecture, which response fits best?
+  A) Say it's usually too complex to pin on one cause; show compassion
+  B) Name the most likely single cause so the parent has some closure
+  C) Refer the question to the child's pediatrician without further comment
+  D) Tell the parent the cause is unknowable and move straight to testing
+ANSWER FORMAT: one letter
+
+### m11-q-01  [multi]
+Select ALL topics her Week 4 slide lists among common intake interview questions.
+  A) Expectations of the evaluation
+  B) Consistency of the behavior
+  C) The client's preferred standardized test
+  D) Attempts to improve the behavior
+  E) Suspicions about the cause
+ANSWER FORMAT: all correct letters, comma-separated
+
+### m11-q-02  [mc]
+Her Week 4 intake-questions slide opens with which instruction?
+  A) Ask yes/no questions to save time
+  B) Use a standardized interview protocol
+  C) Maintain an ethnographic interview mindset
+  D) Interview the child before the caregiver
+ANSWER FORMAT: one letter
+
+### m7-band-06  [mc]
+Using her bell-curve slide, which standard score is the ONLY one in the 'Significantly Below Average' band?
+  A) 84
+  B) 69
+  C) 71
+  D) 78
+ANSWER FORMAT: one letter
+
+### m6-bc-03  [tf]
+Every standardized language test establishes a basal after exactly five consecutive correct responses.
+ANSWER FORMAT: True or False
+
+### xa-mc-08  [mc]
+On her bell-curve slide, a standard score of 115 corresponds to approximately which percentile?
+  A) 84th
+  B) 16th
+  C) 50th
+  D) 98th
+ANSWER FORMAT: one letter
+
+### m10-an-04  [tf]
+According to her slide, assessment findings should always be considered within the context of the client's case history.
+ANSWER FORMAT: True or False
+
+### m17-v-03  [mc]
+A child's retell has grammatical sentences but leaves out the problem and resolution. Which level is weakest?
+  A) Macrostructure
+  B) Higher-level language
+  C) Semantic intent
+  D) Microstructure
+ANSWER FORMAT: one letter
+
+### bb-eth-02  [mc]
+CASE: Ethan Miller, kindergarten. Mother reports he is hard for others to understand (/r/, /l/, /th/; 'wabbit' for 'rabbit'). 4-5 ear infections ages 2-4; PE tubes at 3; passed a school hearing screening this year. Birth date: July 26, 2021. Evaluation date: October 5, 2026.
+Which component should you verify rather than assume, given his ear history?
+  A) His age-equivalent score on an articulation test
+  B) His current reading level and letter knowledge
+  C) A swallowing study because of the PE-tube history
+  D) Current hearing/middle-ear status (screen or recent audiology)
+ANSWER FORMAT: one letter
+
+### m17-n-02  [mc]
+After a story about a boy who loses his dog, 'Why did the boy go looking for his dog?' is her example of which kind of question?
+  A) Identifying the main characters
+  B) Identifying the story's setting
+  C) Predicting what happens next
+  D) Explaining why an event happened
+ANSWER FORMAT: one letter
+
+### m11-s-04  [mc]
+Which follow-up prompt appears on her handout?
+  A) 'Don't you think he just needs more time?'
+  B) 'Can you give me an example?'
+  C) 'Which test would you like us to use?'
+  D) 'Is it your fault he isn't talking?'
+ANSWER FORMAT: one letter
+
+### m9-int-01  [order]
+Order the three phases of an intake interview and match the task that begins each.
+  1. Opening phase: introductions, purpose and structure of the meeting
+  2. Body of the interview: major content areas
+  3. Closing phase: summarize major points
+ANSWER FORMAT: the numbers in correct order, comma-separated
+
+### m3-eba-02  [tf]
+The video reports that clinicians tend to apply evidence-based thinking to treatment decisions but not to assessment decisions.
+ANSWER FORMAT: True or False
+
+### xb-mc-09  [mc]
+A parent asks what the 16th percentile means. Using her slide's definition, which explanation is accurate?
+  A) Your child scored 16 points below the average standard score
+  B) As well as or better than about 16% of same-age peers
+  C) Your child answered about 16% of the test items correctly
+  D) Your child scored better than about 84% of same-age peers
+ANSWER FORMAT: one letter
+
+### m5-meth-02  [mc]
+On her slide, rating scales and checklists fall under which assessment method?
+  A) Information from clients and others
+  B) Dynamic assessment (test-teach-retest)
+  C) Standardized (norm or criterion) tests
+  D) Observations (naturalistic or structured)
+ANSWER FORMAT: one letter
+
+### m15-na-03  [multi]
+Select ALL sources for obtaining narratives on her slide.
+  A) Wordless storybooks
+  B) Sequencing picture cards
+  C) Wordless videos
+  D) Retelling the plot of a movie
+  E) Picture-naming test plates
+ANSWER FORMAT: all correct letters, comma-separated
+
+### m7-ci-01  [mc]
+Which confidence level does her slide describe as 'most commonly used clinically'?
+  A) 95%
+  B) 99%
+  C) 68%
+  D) 90%
+ANSWER FORMAT: one letter
+
+### m6-ca-01  [tf]
+If a client's chronological age is calculated incorrectly, every age-based score derived from the test may also be wrong.
+ANSWER FORMAT: True or False
+
+### m9-comp-01  [mc]
+Why does her slide say a hearing screening is typically included in a speech-language evaluation?
+  A) Insurance requires a hearing test for every evaluation
+  B) SLPs diagnose the degree of hearing loss during evaluations
+  C) Hearing loss can mimic or compound speech-language difficulties
+  D) A failed screening confirms a speech sound disorder
+ANSWER FORMAT: one letter
+
+### m18-tr-01  [num]
+A scaled score of 7 sits at what standard score and z score?
+  Fields: Standard score; z score
+ANSWER FORMAT: numbers in field order, comma-separated
+
+### m13-air-01  [mc]
+During the video, the audience was asked: if you hear hyponasality, is it more likely obstruction or velopharyngeal dysfunction?
+  A) Obstruction
+  B) Velopharyngeal dysfunction
+  C) Neither; hyponasality is always normal
+  D) Cranial nerve VII weakness
+ANSWER FORMAT: one letter
+
+### m14-ddk-01  [mc]
+A child produces AMRs adequately but SMRs poorly. According to the video, this pattern suggests:
+  A) Neuromuscular involvement with fatigue breakdown
+  B) Typical development for a young child
+  C) Dysarthria or weakness of the articulators
+  D) A motor planning/sequencing (programming) deficit
+ANSWER FORMAT: one letter
+
+### ba-maya-08  [mc]
+CASE: Jessica Thompson brings Maya (2 years, 1 month; born full term) for a speech-language evaluation. Opening concern: 'Maya just isn't talking. She makes sounds, but she doesn't really say words.' You have 20 minutes for the parent interview before direct assessment. (Adapted from her Group B parent handout; facts are only revealed if you ask.)
+Research she cited on 9/9 bears on a 2-year-old who won't perform in the clinic. Which statement reflects it?
+  A) Only standardized scores are valid for children under three
+  B) Parent report is often more accurate than clinic performance
+  C) Parent report should be discarded when the child won't perform
+  D) Toddlers usually perform best with unfamiliar adults present
+ANSWER FORMAT: one letter
+
+### m2-ebp-04  [tf]
+In the EBP framework, 'assess the evidence' is the step that comes immediately before 'gather evidence.'
+ANSWER FORMAT: True or False
+
+### m7-band-07  [tf]
+On her bell curve, a standard score of 85 is in the average range.
+ANSWER FORMAT: True or False
+
+### m11-s-02  [order]
+Order the segments of her 20-minute pediatric diagnostic interview simulation.
+  1. Developmental, medical & hearing history (11-15)
+  2. School, family & parent priorities (15-18)
+  3. Speech & communication concerns (2-7)
+  4. Summarize & close (18-20)
+  5. Language & social communication (7-11)
+  6. Introduction & rapport (0-2)
+ANSWER FORMAT: the numbers in correct order, comma-separated
+
+### m8-ss-03  [mc]
+For clinical purposes, the textbook says sensitivity and specificity are typically considered sufficient at:
+  A) .60 (60%) or higher
+  B) .50 (50%) or higher
+  C) .95 (95%) or higher
+  D) .80 (80%) or higher
+ANSWER FORMAT: one letter
+
+### xb-tf-16  [tf]
+Her slide lists 'score according to question intent' as one way a standardized test might be modified for a CLD client.
+ANSWER FORMAT: True or False
+
+### m8-six-05  [tf]
+If a test is not valid, reliable, standardized, sensitive, specific and free from bias, its results cannot be trusted for accurate decision-making.
+ANSWER FORMAT: True or False
+
+### xa-tf-03  [tf]
+HIPAA's Security Rule requires safeguards to protect electronic protected health information.
+ANSWER FORMAT: True or False
+
+### m13-air-03  [match]
+Match each finding to what the video says it points toward.
+  1. Intermittent congestion
+  2. Consistent unilateral or bilateral obstruction
+  3. Nasal emission during pressure sounds
+  4. Hyponasality without congestion
+  A) Allergies
+  B) Possible VPI
+  C) Enlarged tonsils or adenoids
+  D) Structural issue (turbinates, tonsils, adenoids)
+ANSWER FORMAT: e.g. 1C,2A,...
+
+### m12-f-01  [mc]
+On tongue extension, a client's tongue deviates to the left. According to the textbook's interpretation, this suggests:
+  A) A submucous cleft
+  B) Weakness on the right side
+  C) A normal variant requiring no follow-up
+  D) Weakness on the left side
+ANSWER FORMAT: one letter
+
+### ba-rep-07  [mc]
+CASE: Jordan, 8 years 4 months, third grade. Teacher reports trouble following multi-step directions. Results: a comprehensive language test core standard score 76 (95% CI 70-82); receptive subtest scaled score 6; expressive subtest scaled score 5; age equivalent 6;2. A receptive vocabulary test standard score 88. Parent asks, 'So is he behind?'
+Where in the report does 'Receptive and expressive language skills are in the below-average range and affect his ability to follow multi-step classroom directions' belong?
+  A) Assessment procedures
+  B) Clinical impressions
+  C) Reason for referral
+  D) Identifying information
+ANSWER FORMAT: one letter
+
+### m13-four-01  [match]
+Match each movement concept to its definition from the video.
+  1. Stability
+  2. Mobility
+  3. Dissociation
+  4. Grading
+  A) Control speed, force and range of movement
+  B) Move efficiently through range without restriction
+  C) Maintain a controlled, supported position
+  D) Move one part independently of another
+ANSWER FORMAT: e.g. 1C,2A,...
+
+### m2-eth-02  [tf]
+ASHA's position is that evidence-based practice is a core professional standard, so assessment must be informed by the best available evidence, the clinician's expertise and the client's perspective.
+ANSWER FORMAT: True or False
+
+### bb-adu-06  [multi]
+CASE: A 68-year-old man is admitted to acute care after a stroke. The physician asks whether he can safely eat. Later, an outpatient evaluation is requested because his family says his speech is 'slurred and tired'.
+Which factors on her slide could make his intelligibility worse late in the session? Select ALL.
+  A) Atypical prosody
+  B) Insufficient vocal intensity
+  C) Length and complexity of utterances
+  D) His use of gestures and other paralinguistic cues
+  E) Level of fatigue
+ANSWER FORMAT: all correct letters, comma-separated
+
+### m14-pa-01  [mc]
+In an adult, the presenter says well-defined rugae behind the upper teeth suggest:
+  A) The tongue isn't habitually elevating to that area
+  B) Normal adult anatomy that needs no comment
+  C) A torus palatinus (bony protuberance)
+  D) A submucous cleft of the hard palate
+ANSWER FORMAT: one letter
+
+### m9-hist-04  [tf]
+Allergy awareness belongs in the case history because allergens may be used during assessment or treatment.
+ANSWER FORMAT: True or False
+
+### m5-man-01  [mc]
+Before administering any standardized test, her slide says to read the manual. Which is NOT one of the four things she lists to learn from it?
+  A) How to administer the test correctly
+  B) Population for whom the test is designed
+  C) The age equivalent the client is expected to earn
+  D) Purpose of the test
+ANSWER FORMAT: one letter
+
+### m14-ddk-03  [match]
+Match each DDK pattern to the presenter's interpretation.
+  1. Slow, imprecise AMRs and SMRs
+  2. Adequate AMRs, poor SMRs
+  3. Irregular rhythm or fatigue breakdown
+  4. Equal stress or segmentation
+  A) Possible dysarthria or weakness
+  B) Impaired temporal coordination
+  C) Motor planning or sequencing deficit
+  D) Neuromuscular involvement
+ANSWER FORMAT: e.g. 1C,2A,...
+
+### m12-p-02  [mc]
+Which is NOT one of the precautions her slide lists as most relevant for SLPs?
+  A) Appropriate client placement
+  B) Respiratory hygiene
+  C) UV sterilization of the room between every client
+  D) Clean and disinfect the environment
+ANSWER FORMAT: one letter
+
+### bb-adu-01  [mc]
+CASE: A 68-year-old man is admitted to acute care after a stroke. The physician asks whether he can safely eat. Later, an outpatient evaluation is requested because his family says his speech is 'slurred and tired'.
+In acute care, her slide says the evaluation is most likely to be:
+  A) A broad functional-outcomes battery
+  B) Curriculum-based sampling
+  C) Targeted and time-sensitive, e.g., a bedside swallowing screen
+  D) A full language battery before anything else
+ANSWER FORMAT: one letter
+
+### m2-int-01  [mc]
+On the Foundational Integrity slide, 'rely on valid and reliable assessment approaches' is the sub-point for which feature of a good assessment?
+  A) Tailored to the individual client
+  B) Uses a variety of assessment methods
+  C) Evidence based
+  D) Thorough
+ANSWER FORMAT: one letter
+
+### m7-ae-02  [mc]
+A 10-year-old earns an age equivalent of 8 years, 6 months. What does her slide say this means?
+  A) The child performed similarly to the average 8.5-year-old in the norm sample
+  B) The child qualifies for services because the score is 18 months below age
+  C) The child functions like an 8.5-year-old in all areas
+  D) The child is 1.5 SD below the mean
+ANSWER FORMAT: one letter
+
+### bb-eth-07  [tf]
+CASE: Ethan Miller, kindergarten. Mother reports he is hard for others to understand (/r/, /l/, /th/; 'wabbit' for 'rabbit'). 4-5 ear infections ages 2-4; PE tubes at 3; passed a school hearing screening this year. Birth date: July 26, 2021. Evaluation date: October 5, 2026.
+When closing the interview with Ethan's mother, you should summarize her concerns and ask whether you got them right before the evaluation begins.
+ANSWER FORMAT: True or False
+
+### m3-eba-01  [mc]
+In the ASHA video, evidence-based assessment integrates best available evidence from scientific research, clinical practice experience, and:
+  A) Colleague consensus about the best test
+  B) Standardized normative data
+  C) Insurance and eligibility requirements
+  D) Client preferences and characteristics
+ANSWER FORMAT: one letter
+
+### m1-reas-02  [tf]
+Assessment is simply administering tests; clinical reasoning begins only after the test scores are obtained.
+ANSWER FORMAT: True or False
+
+### m7-band-04  [hotspot]
+Click the band where a standard score of 64 falls.
+  (Visual task; choose the region)
+  A) Above average band
+  B) Average band
+  C) Significantly above average band
+  D) Below average band
+  E) Significantly below average band
+ANSWER FORMAT: one letter
+
+### m5-acc-06  [mc]
+What is the deciding question when classifying a change to a standardized test as an accommodation or a modification?
+  A) Whether it was done for a client with a documented disability
+  B) Whether it is written into the client's current IEP or plan
+  C) Whether it changes what is measured or the protocol, or only access
+  D) Whether it raises the client's score on the subtest being given
+ANSWER FORMAT: one letter
+
+### m5-nc-02  [tf]
+Standardized and norm-referenced mean the same thing.
+ANSWER FORMAT: True or False
+
+### m7-ci-02  [tf]
+As the confidence level increases, the confidence interval becomes narrower.
+ANSWER FORMAT: True or False
+
+### xa-mc-20  [mc]
+According to her Week 5 slide, the reliability and validity of informal assessment findings depend on:
+  A) Whether a teaching phase was included
+  B) The test publisher's norms
+  C) The clinician's expertise and how representative the data are
+  D) The number of standardized tests also given
+ANSWER FORMAT: one letter
+
+### xb-mc-12  [mc]
+Her slide cites ASHA's Scope of Practice from which year as explicitly recommending multiple data sources?
+  A) 2004
+  B) 1996
+  C) 2021
+  D) 2016
+ANSWER FORMAT: one letter
+
+### xb-tf-06  [tf]
+Before administering a standardized test, her slide says to review its psychometric properties and the population for whom it was designed.
+ANSWER FORMAT: True or False
+
+### xb-tf-12  [tf]
+Her slide says an evaluation should identify the nature and severity of any disorder, not just produce a single test score.
+ANSWER FORMAT: True or False
+
+### m10-out-03  [multi]
+Select ALL outcome scenarios listed on her slide.
+  A) Disorder diagnosed, treatment plan recommended
+  B) Client performs within normal limits, so the case history is discarded
+  C) Client performs within normal limits
+  D) Disorder diagnosed, treatment plan recommended, further testing recommended
+ANSWER FORMAT: all correct letters, comma-separated
+
+### xb-mc-08  [mc]
+According to her slide, which score type is described as descriptive and should NOT be used to determine eligibility or severity?
+  A) Age equivalent
+  B) Percentile rank
+  C) Standard score
+  D) z score
+ANSWER FORMAT: one letter
+
+### ba-maya-02  [multi]
+CASE: Jessica Thompson brings Maya (2 years, 1 month; born full term) for a speech-language evaluation. Opening concern: 'Maya just isn't talking. She makes sounds, but she doesn't really say words.' You have 20 minutes for the parent interview before direct assessment. (Adapted from her Group B parent handout; facts are only revealed if you ask.)
+The parent reveals only what you ask. Select ALL areas the handout expects an examiner to explore for a toddler who is 'not talking.'
+  A) Play and social communication
+  B) Hearing history
+  C) A complete list of every word she has ever said
+  D) Gestures and nonverbal communication
+  E) Receptive language
+ANSWER FORMAT: all correct letters, comma-separated
+
+### xa-mc-04  [mc]
+According to the video, which situation is NOT appropriate in a diagnostic accuracy study?
+  A) The target disorder has an unambiguous definition
+  B) The index test is included in the reference standard test battery
+  C) All participants receive the same reference standard
+  D) The diagnostic system is described clearly enough to replicate
+ANSWER FORMAT: one letter
+
+### bb-sel-04  [mc]
+CASE: You must diagnose (or rule out) a language disorder in a 4-year-old who speaks African American English. A colleague suggests the test 'everybody uses'. You check its manual.
+A third test reports sensitivity 72% and specificity 90% for language disorder. Which concern follows?
+  A) The test must be unreliable because the two values differ
+  B) Specificity is too low, so it will over-identify typical children
+  C) Both values are acceptable, so there is no real concern
+  D) Sensitivity under ~80% means it may miss disordered children
+ANSWER FORMAT: one letter
+
+### m13-rest-03  [tf]
+According to the video, an atypical rest posture by itself does not equal pathology.
+ANSWER FORMAT: True or False
+
+### m16-t-02  [sort]
+Sort each scenario by method.
+  Groups: A) Clinical observation; B) Informal assessment; C) Dynamic assessment
+  1. You watch the child during play and notice short utterances
+  2. You notice how a client repairs a breakdown while talking with his mother
+  3. You show a picture sequence and record the child's story grammar and sequencing
+  4. You make a word list with /s/ in several positions and record correct productions
+  5. You teach a story framework with modeling and cues, then have the child retell a new story
+  6. You teach a new sound with cues and feedback, then retest with reduced support
+ANSWER FORMAT: e.g. 1A,2C,...
+
+### m16-d-02  [order]
+Order her dynamic-assessment example for a new speech sound.
+  1. Retest: see whether production improves, particularly with reduced support
+  2. Teach: instruction, modeling, cues, feedback, practice
+  3. Test: ask the child to produce the sound without assistance
+ANSWER FORMAT: the numbers in correct order, comma-separated
+
+### m9-q-03  [mc]
+Her slide says ASHA's Preferred Practice Patterns were originally approved in:
+  A) 2004
+  B) 2016
+  C) 2021
+  D) 1996
+ANSWER FORMAT: one letter
+
+### m15-in-02  [tf]
+The clinician's familiarity with the client can affect intelligibility judgments.
+ANSWER FORMAT: True or False
+
+### m3-acc-01  [mc]
+The video's 'diagnostic system' consists of the index test, the target disorder, and the:
+  A) Normative sample
+  B) Cutoff score only
+  C) Confidence interval
+  D) Gold/reference standard
+ANSWER FORMAT: one letter
+
+### bb-adu-02  [tf]
+CASE: A 68-year-old man is admitted to acute care after a stroke. The physician asks whether he can safely eat. Later, an outpatient evaluation is requested because his family says his speech is 'slurred and tired'.
+The ASHA video's adult case shows that a bedside swallow evaluation with no issues noted can still miss aspiration later found on instrumental assessment.
+ANSWER FORMAT: True or False
+
+### m4-cld-04  [mc]
+Form 3-2 and Form 3-3, cited on her Week 3 slide, are:
+  A) Language history surveys (children and adults)
+  B) Release of information forms
+  C) Interpreter training checklists
+  D) Case history forms for speech sound disorders
+ANSWER FORMAT: one letter
+
+### m1-conf-03  [mc]
+In her 9/11 lecture, when did she say a formal (standardized) measure can supersede informal measures?
+  A) When the client is from a culturally and linguistically diverse background
+  B) When the informal measure took longer to administer
+  C) Whenever the formal and informal results disagree
+  D) When a standardized score is required for the client to qualify for services
+ANSWER FORMAT: one letter
+
+### m15-ph-01  [mc]
+Which clinical question do syllable-by-syllable stimulus phrases help answer on her slide?
+  A) Which of the client's languages is dominant?
+  B) At what syllable length does articulation decrease?
+  C) What is the client's standard score on this task?
+  D) How many utterances are in the client's sample?
+ANSWER FORMAT: one letter
+
+### xb-tf-08  [tf]
+Basal and ceiling rules help find the client's zone of performance while keeping the assessment efficient, standardized and valid.
+ANSWER FORMAT: True or False
+
+### xa-mc-05  [mc]
+Naturalistic observation, systematic observation and contextual analysis, and simulated observations and structured play are all types of:
+  A) Dynamic assessment
+  B) Criterion-referenced testing
+  C) Information from clients and others
+  D) Observation
+ANSWER FORMAT: one letter
+
+### xb-tf-04  [tf]
+The ASHA video warns that sensitivity and specificity values reported for one target disorder cannot be presumed to apply to a different target disorder.
+ANSWER FORMAT: True or False
+
+### ba-rep-08  [mc]
+CASE: Jordan, 8 years 4 months, third grade. Teacher reports trouble following multi-step directions. Results: a comprehensive language test core standard score 76 (95% CI 70-82); receptive subtest scaled score 6; expressive subtest scaled score 5; age equivalent 6;2. A receptive vocabulary test standard score 88. Parent asks, 'So is he behind?'
+You discover the examiner forgot to credit the items below Jordan's basal. Which value is wrong FIRST?
+  A) The percentile rank
+  B) The standard score
+  C) The confidence interval
+  D) The raw score
+ANSWER FORMAT: one letter
+
+### m3-acc-04  [mc]
+The video defines specificity as the ability of the index test to:
+  A) Determine the absence of the disorder
+  B) Measure only one skill
+  C) Determine the presence of the disorder
+  D) Produce the same score on repeated administration
+ANSWER FORMAT: one letter
+
+### m7-pr-03  [tf]
+Percentile ranks are often the easiest scores for parents and clients to understand.
+ANSWER FORMAT: True or False
+
+### xb-mc-18  [mc]
+All of the following are true of the TRMR as presented in the video EXCEPT:
+  A) Greater than 80% indicates typical mobility
+  B) It grades the frenum by its appearance
+  C) Less than 50% indicates moderate to severe restriction
+  D) It divides tongue-up opening by maximum opening and multiplies by 100
+ANSWER FORMAT: one letter
+
+### m8-bias-01  [mc]
+Group differences in scores that result from societal differences rather than the test itself describe which type of bias (textbook)?
+  A) Intrinsic test bias
+  B) Extrinsic test bias
+  C) Confirmation bias
+  D) Item bias
+ANSWER FORMAT: one letter
+
+### m6-ca-05  [num]
+Month borrow only (no day borrow). Birth date: November 4, 2020. Test date: April 20, 2026.
+  Fields: Years (y); Months (m); Days (d)
+ANSWER FORMAT: numbers in field order, comma-separated
+
+### m15-ph-02  [multi]
+Select ALL ways to chart behaviors on her slide.
+  A) Note subtype or variance of behavior
+  B) Convert every behavior to a standard score
+  C) Note each time the behavior is exhibited
+  D) Note instances of correct and incorrect behaviors
+ANSWER FORMAT: all correct letters, comma-separated
+
+### m4-asked-02  [tf]
+Cultural competence is a skill set that is completed once a clinician finishes a multicultural training course.
+ANSWER FORMAT: True or False
+
+### m9-int-02  [mc]
+In which intake phase do you explain the purpose and structure of the meeting?
+  A) Debriefing
+  B) Opening phase
+  C) Closing phase
+  D) Body of the interview
+ANSWER FORMAT: one letter
+
+### xa-tf-05  [tf]
+The first question in the video's decision-making process asks whether the test can be used for diagnosis, and the test manual is the most likely place to find its purpose.
+ANSWER FORMAT: True or False
+
+### xa-mc-01  [mc]
+All of the following are listed on her 'Why and How' slide as part of learning to think like a clinician EXCEPT:
+  A) Memorizing the names of the major tests
+  B) Recognizing limitations of the data
+  C) Integrating interviews, observations, records and testing
+  D) Asking the right questions
+ANSWER FORMAT: one letter
+
+### m13-pos-01  [mc]
+Facial asymmetry is present at rest but IMPROVES with movement. According to the video, this more often points to:
+  A) A submucous cleft affecting the facial muscles
+  B) Cranial nerve VII weakness under movement demands
+  C) A structural difference or habitual resting pattern
+  D) Normal development that needs no documentation
+ANSWER FORMAT: one letter
+
+### m13-why-02  [mc]
+According to the video, what is the tongue depressor for during an OPE?
+  A) Stabilization, not force
+  B) Forcing the tongue into position to test strength
+  C) Checking nasal airflow
+  D) Measuring the palate height
+ANSWER FORMAT: one letter
+
+### m1-proc-02  [mc]
+Which pairing of a process stage and its activity is NOT correct on her slide?
+  A) Assessment: administer formal and informal measures, including oral mechanism examinations
+  B) Observation: observe communication skills in natural or structured settings
+  C) Report & Results Conference: communicate results and recommendations to the client, family and/or team
+  D) Analysis & Interpretation: identify the reason for the evaluation and review background records
+ANSWER FORMAT: one letter
+
+### xb-mc-02  [mc]
+Her Week 1 slide's central question about cultural and linguistic factors is:
+  A) Is an interpreter available in the client's primary language today?
+  B) Does the client speak English well enough to take the standardized test?
+  C) Is this a language/cultural difference or an underlying disorder?
+  D) Which standardized test has the largest and most recent normative sample?
+ANSWER FORMAT: one letter
+
+### m18-ca-01  [num]
+Use a 30-day borrow. Birth date: October 25, 2018. Test date: March 12, 2026.
+  Fields: Years (y); Months (m); Days (d)
+ANSWER FORMAT: numbers in field order, comma-separated
+
+### xb-mc-05  [mc]
+Which assessment would most directly answer 'How does my client compare to the average?'
+  A) Dynamic assessment
+  B) A criterion-referenced test
+  C) A norm-referenced standardized test
+  D) A rating scale completed by a teacher
+ANSWER FORMAT: one letter
+
+### m3-prob-04  [tf]
+The video reports that only 57% of SLPs use psychometrics such as validity, reliability, sensitivity and specificity when selecting an assessment.
+ANSWER FORMAT: True or False
+
+### xa-mc-18  [mc]
+A client's jaw can open fully but slides forward whenever the tongue moves. Which concept is most directly weak?
+  A) Stability
+  B) Dissociation
+  C) Mobility
+  D) Grading
+ANSWER FORMAT: one letter
+
+### xb-tf-13  [tf]
+Play-based assessment on her slide requires the clinician to direct each activity rather than follow the child's lead.
+ANSWER FORMAT: True or False
+
+### m14-pa-02  [mc]
+Which palate finding did the presenter say 'we are not worried about'?
+  A) A cleft
+  B) A narrow, vaulted palate
+  C) A fistula
+  D) Torus palatinus
+ANSWER FORMAT: one letter
+
+### m18-bd-05  [mc]
+Which statement about the score of exactly 70 is supported by her slides?
+  A) It is definitively 'Below Average' on her slide
+  B) It is the −2 SD point on her bell curve (≈ 2nd percentile)
+  C) It is definitively 'Significantly Below Average' on her slide
+  D) It is 1 SD below the mean
+ANSWER FORMAT: one letter
+
+### m7-sc-05  [num]
+A child earns a standard score of 70 on a test with mean 100 and SD 15. Give the z score and the scaled score (mean 10, SD 3) at the same position.
+  Fields: z score; Scaled score
+ANSWER FORMAT: numbers in field order, comma-separated
+
+### m4-role-01  [tf]
+According to the Week 3 multicultural deck, the clinician's primary role with a culturally and linguistically diverse client is to determine disorder or difference.
+ANSWER FORMAT: True or False
+
+### xa-tf-10  [tf]
+On her bell curve, a standard score of 82 falls in the average range because it is within 1.5 SD of the mean.
+ANSWER FORMAT: True or False
+
+### m13-rest-02  [tf]
+In typical oral rest posture per the video, the tongue rests low and forward behind the lower front teeth.
+ANSWER FORMAT: True or False
+
+### m3-case-02  [mc]
+In the second evaluation of the 3-year-old, which findings changed the treatment plan?
+  A) A standardized language test showing a severe receptive language disorder in Spanish
+  B) A failed hearing screen (moderate sensorineural loss) and motor sequencing issues on the oral mech exam
+  C) Aspiration of thin liquids on a videofluoroscopic swallow study after transfer
+  D) Evidence from family interviews that the difficulties were a dialect difference
+ANSWER FORMAT: one letter
+
+### m4-role-02  [mc]
+All of the following are ways to conduct ethnographic research listed on her slide EXCEPT:
+  A) Interview members of the community
+  B) Watch movies and TV shows from the client's cultural group
+  C) Attend cultural events
+  D) Administer a standardized test normed on the client's cultural group
+ANSWER FORMAT: one letter
+
+### m10-sh-02  [mc]
+According to her slide, what distinguishes an EHR from an EMR?
+  A) EHRs are paper records, while EMRs are digital records
+  B) EHRs contain only billing and insurance information
+  C) EMRs are exempt from HIPAA because they stay inside one clinic
+  D) EHR records can be shared across health care organizations
+ANSWER FORMAT: one letter
+
+### m12-t-03  [mc]
+In her 9/21 lecture, why did she classify the oral mechanism examination as an informal measure?
+  A) It takes less than five minutes to complete with most clients
+  B) It is usually performed by an assistant rather than the SLP
+  C) It is done only during the observation stage of the process
+  D) It isn't standardized and has no psychometric foundation
+ANSWER FORMAT: one letter
+
+### m14-doc-02  [tf]
+In the video's chicken-and-egg analogy, structure is the egg and function is the chicken.
+ANSWER FORMAT: True or False
+
+### m12-t-01  [mc]
+According to her slide, which tools will the clinician NEED (not just 'may need') for an orofacial examination?
+  A) Flashlight, bite block, mouth swab
+  B) Gloves, stopwatch, mirror
+  C) Tongue depressor, cotton gauze, applicator stick
+  D) Disposable gloves, flashlight, tongue depressor
+ANSWER FORMAT: one letter
+
+### m10-sh-01  [mc]
+All of the following are recommendations for sharing assessment findings on her slide EXCEPT:
+  A) Emphasize the client's strengths
+  B) Begin with next steps so caregivers know the plan before hearing results
+  C) Use jargon-free language, illustrations, charts and diagrams
+  D) Allow time to process
+ANSWER FORMAT: one letter
+
+### ba-cld-03  [mc]
+CASE: Ana, 6 years 0 months, recently arrived; Spanish at home, English at school for 5 months. Her teacher refers her because she 'barely talks in class'. An English-normed test places her far below average.
+You teach Ana a new word-learning strategy with modeling and cues; she learns quickly and uses it with new words. According to her Week 3 slide, this result:
+  A) Replaces the need to collect a language history from the family
+  B) Is invalid because dynamic assessment isn't used with CLD clients
+  C) Confirms a language disorder because she needed teaching at all
+  D) Points AWAY from impairment (non-improvers are more likely impaired)
+ANSWER FORMAT: one letter
+
+### m7-band-03  [hotspot]
+Click the band where a standard score of 115 falls.
+  (Visual task; choose the region)
+  A) Significantly below average band
+  B) Below average band
+  C) Significantly above average band
+  D) Above average band
+  E) Average band
+ANSWER FORMAT: one letter

@@ -1,0 +1,195 @@
+{
+ "method": "Blind answer-key audit. Items were exported with runtime-style shuffled options (keys stored separately). Independent subagents answered using only a text pack of the course sources (decks, lecture transcripts, video captions, OPE transcript, handouts, textbook chapters, syllabus, historical codex) and were forbidden from reading the lab, the keys or the package. Answers were then compared to the keys programmatically.",
+ "rounds": [
+  {
+   "round": "Round 1: full bank (438 graded items, 4 auditors)",
+   "items": 438,
+   "disagreements": [
+    {
+     "id": "xa-mc-18",
+     "key": "A",
+     "auditor": "B"
+    }
+   ],
+   "agreement": "437/438",
+   "auditor_flags": [
+    {
+     "id": "m18-tr-02",
+     "flag": "Exact value is 122.5 (non-integer); key should specify whether 122.5, 122 or 123 is accepted (no rounding convention in W2 slide 17)"
+    },
+    {
+     "id": "m7-ci-04",
+     "flag": "Literal slide wording (W2 slide 19; also LECTURE_09022026 l.21) says CIs 'increase the reliability of the test', which is psychometrically inaccurate (TB1 p51-52 frames CI as range for true score/measurement error); keyable as True only on her wording"
+    },
+    {
+     "id": "m6-bc-05",
+     "flag": "Only source is student PPVT_submission.txt (basal 3 correct / ceiling 6 incorrect); not verifiable from course materials, and the published PPVT-5 actually uses 12-item set rules, so the 'finding' may be factually wrong"
+    },
+    {
+     "id": "bb-adu-03",
+     "flag": "No source states the tongue-deviation laterality rule; W4 slide 5 only lists 'deviation of tongue or uvula'; OPE (jaw section, ~[33:38]) says deviation toward one side reflects weakness on that side, supporting B by analogy only"
+    },
+    {
+     "id": "bb-eth-06",
+     "flag": "Minor stem wording: calls options 'recommendation statements' though slide 14 (W3A) is about functional-impact statements in reports; C still clearly best"
+    },
+    {
+     "id": "m11-k-03",
+     "flag": "Lecture transcript is garbled: LECTURE_09142026 l.121-122 'focusing on the speaker... eye contact... so they know you're listening', 'affirming' at l.122 and LECTURE_09092026 l.86; supportable but from noisy ASR"
+    },
+    {
+     "id": "m18-bd-02",
+     "flag": "Sources conflict: slide bell curve (W2 slide 18) puts 70-85 as Below Average, but TB1 p51 says -1.5 to -2 SD (77.5-70) is 'usually considered significantly below average'; key E only under slide convention"
+    },
+    {
+     "id": "xb-tf-17",
+     "flag": "Maya/Group B parent handout (MOCKP_parent_handout_OCR.txt) is EMPTY (0 bytes); no source states whether Maya's hearing was checked; answer is a guess"
+    },
+    {
+     "id": "m1-conf-02",
+     "flag": "Supported only by garbled lecture ASR: LECTURE_09092026 l.66-69 ('informal and observation just as clinically relevant...justify that I'm recommending therapy')"
+    },
+    {
+     "id": "m11-c-03",
+     "flag": "Parent handout (MOCKP_parent_handout_OCR.txt) is EMPTY; answer inferred from 'facts are only revealed if you ask' in ba-maya stems and LECTURE_09142026 ('make your partner work for it'); cannot verify handout text"
+    },
+    {
+     "id": "m11-c-02",
+     "flag": "Maya/Group B mock materials not in srcpack (MOCKP empty); only Group A examiner handout (Ethan, 5;2) available; claim about toddler 'not talking' unverifiable"
+    },
+    {
+     "id": "ba-maya-07",
+     "flag": "Order taken from Group A examiner handout (MOCKX, Ethan case) 'Summarize & Close' list; the Group B (Maya) handout is not in srcpack, so assumes identical list"
+    },
+    {
+     "id": "bb-adu-06",
+     "flag": "Stem qualifier 'late in the session' is ambiguous: W4_deck slide 13 lists A,B,C,E all as intelligibility-reducing factors, but only E (fatigue), arguably B, is specifically time-of-session dependent; a key of E only or B,E is also defensible"
+    },
+    {
+     "id": "ba-maya-02",
+     "flag": "MOCKP_parent_handout_OCR.txt (Group B/Maya handout) is empty (0 bytes) and no Maya examiner handout exists in srcpack; answer inferred from Ethan examiner handout (MOCKX) section structure, not verifiable against the cited Group B handout"
+    },
+    {
+     "id": "xa-mc-18",
+     "flag": "Stability (A) also defensible: OPE_transcript [6:40] lists 'jaw movement during tongue-driven tasks' as a stability sign and [35:33] lists jaw 'sliding forward or laterally to assist articulation' as jaw instability; dissociation (B) supported by [7:34] 'Can the tongue move without the jaw following?'"
+    },
+    {
+     "id": "m7-band-03",
+     "flag": "Boundary score: course convention treats 85-115 as Average (inclusive), but W2_deck slide 18 bell-curve bands have a line at 115 and 'Above Average' labeled 115-130, so D (Above average) is also defensible on the picture alone"
+    },
+    {
+     "id": "m7-band-08",
+     "flag": "Source conflict: TB1 p51 says -1.5 to -2 SD (standard score 77.5 to 70) is 'usually considered significantly below average', so under the textbook 72 is also significantly below average (option B). Stem's 'her class's terms' (W2 slide 18 bell curve, <70) makes C keyable."
+    },
+    {
+     "id": "ba-maya-03",
+     "flag": "Cited parent handout MOCKP_parent_handout_OCR.txt is empty (0 bytes), so the case facts cannot be checked. D is supported only by general principle: W3A slide 5 (screen hearing or review audiology results) and the VA case 1 hearing miss."
+    },
+    {
+     "id": "ba-rep-01",
+     "flag": "Source conflict: TB1 p51 counts -1.5 to -2 SD (standard score 77.5 to 70) as 'significantly below average', so 76 would be option D under the textbook. The stem says 'her bell curve' (W2 slide 18, 70-85 = below average), so B is keyable."
+    },
+    {
+     "id": "m13-jl-02",
+     "flag": "OPE_transcript line 40 [37:25] literally says jaw control improving 'WITHOUT queuing or postural support' = habitual/compensatory; stem says 'with cueing'. Intended meaning (improves with cueing = habitual; persists despite cueing = true weakness) supports A, but the caption text contradicts the stem wording"
+    },
+    {
+     "id": "m13-air-02",
+     "flag": "OPE_transcript lines 23-24: the mirror is described only during quiet nasal breathing (fogging symmetry); the pressure-sound nasal-escape check ('big puppy', /s/) is described by listening/observing, without saying a mirror is used. D is the intended answer, but the mirror+pressure-sound pairing is inferred, not stated"
+    },
+    {
+     "id": "m11-c-01",
+     "flag": "MOCKP_parent_handout_OCR.txt is empty (0 bytes), so the Maya case facts can't be checked against a source. D is the only hearing-relevant option"
+    },
+    {
+     "id": "m6-ca-06",
+     "flag": "Only source for 'her COMD 4382 practice key' is the historical CODEX_cleaned.md line 241 (key 6y10m28d). A true calendar count gives 29 days (option C), so the answer depends on the 30-day convention"
+    },
+    {
+     "id": "m18-ca-03",
+     "flag": "Answer uses the stated 30-day borrow. The real calendar count (May has 31 days) is 9y0m3d, so the key depends on the convention being applied"
+    },
+    {
+     "id": "ba-maya-01",
+     "flag": "The Group B (Maya) parent handout is empty in srcpack (MOCKP OCR 0 bytes). Answer based on the parallel examiner handout MOCKX: 'Can you tell me a little about...'; 'Start broad before moving to specific questions'"
+    },
+    {
+     "id": "m18-bd-04",
+     "flag": "85 is a boundary value. The given convention (85-115 average, inclusive) gives C. But the W2 slide 18 bell-curve image draws a band line at 85 with 'Below Average' spanning 70-85, and slide 17 says '85 is 1 SD below average', so B is also defensible from the image"
+    },
+    {
+     "id": "m18-mx-03",
+     "flag": "6 weeks = 1.5 months, so 7 - 1.5 = 5.5, a non-integer. The W2 slide 11 example only covers 8 weeks = 2 months, so a key expecting an integer (5 or 6) would conflict. The stem should state the rounding or use a multiple of 4 weeks"
+    }
+   ]
+  },
+  {
+   "round": "Round 2: 71 items whose distractors were rewritten after round 1",
+   "items": 71,
+   "disagreements": [],
+   "agreement": "71/71",
+   "auditor_flags": [
+    {
+     "id": "m15-dd-01",
+     "flag": "Slide text (W4 deck slide 6) puts 'More common' on its own line after Method 2, so it's ambiguous on the slide alone; TB6 p.~181 says 'the latter [method 2] is the more common method'"
+    },
+    {
+     "id": "bb-adu-06",
+     "flag": "Distractor A reverses the slide's factor: W4 deck slide 13 lists 'Lack of paralinguistic cues'. Using gestures/cues doesn't reduce intelligibility, but because A repeats the slide's phrase 'paralinguistic cues', a student could argue for it"
+    }
+   ]
+  },
+  {
+   "round": "Round 3: 11 practice T/F items converted to false forms",
+   "items": 11,
+   "disagreements": [],
+   "agreement": "11/11",
+   "auditor_flags": [
+    {
+     "id": "m6-adj-03",
+     "flag": "W2_deck.txt: 'Using adjusted age helps SLPs...avoid over-identifying delays' (line 87) - opposite of claim"
+    },
+    {
+     "id": "m15-ra-04",
+     "flag": "W4_deck.txt slide 12: 'Record sample of connected speech (minimum of 1-2 minutes)' - time-based, not 50-100 utterances (also TB6_ch6.txt:511-514)"
+    },
+    {
+     "id": "m3-prob-04",
+     "flag": "VA_why_EBA_captions.txt line 3: 80.6% used informal discussion with colleagues; only 57% report using psychometrics - stat misattributed"
+    },
+    {
+     "id": "m10-rep-03",
+     "flag": "W3A_deck.txt line 105: 'Results by domain: ...with both quantitative data and qualitative descriptions'"
+    },
+    {
+     "id": "m8-bias-02",
+     "flag": "W2_deck.txt line 195: 'Unbiased - Fair for all individuals and populations'; consistent results is the definition of Reliable (line 193)"
+    },
+    {
+     "id": "m13-pos-02",
+     "flag": "OPE_transcript.txt [13:22]: 'more concerned about neuromuscular weakness, cranial nerve involvement, especially cranial nerve number seven' - not XII"
+    },
+    {
+     "id": "m3-eba-02",
+     "flag": "VA_why_EBA_captions.txt [00:00:37]: 'SLPs...tend to think of evidence-based practice for treatment but not assessment' - reversed from claim"
+    },
+    {
+     "id": "m8-ss-02",
+     "flag": "TB1_ch1.txt line 747: 'The lower the test's sensitivity, the more likely the disorder will be missed (false negative)' - not a false positive"
+    },
+    {
+     "id": "m7-sc-03",
+     "flag": "W2_deck.txt line 154: 'A scaled score of 13 is 1 SD above average. A score of 7 is 1 SD below average.' - not 12/8"
+    },
+    {
+     "id": "m13-four-04",
+     "flag": "OPE_transcript.txt [8:32]: overshoot/undershoot/all-or-nothing are red flags for poor GRADING; poor dissociation's red flags (line [14:17]) are head turning, jaw lifting, excessive mentalis activation"
+    },
+    {
+     "id": "m4-diff-04",
+     "flag": "TB2_TB3_ch2_ch3.txt line 2734: 'Treatment is warranted only when difficulties occur in both languages' (also W3B_deck.txt:106)"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,4 @@
+items 440 modules 18 concepts 89
+[(('bossA', 'hotspot'), 1), (('bossA', 'mc'), 15), (('bossA', 'multi'), 2), (('bossA', 'num'), 1), (('bossA', 'order'), 1), (('bossA', 'tf'), 5), (('bossB', 'mc'), 18), (('bossB', 'multi'), 1), (('bossB', 'num'), 2), (('bossB', 'tf'), 4), (('mockA', 'mc'), 20), (('mockA', 'tf'), 20), (('mockB', 'mc'), 20), (('mockB', 'tf'), 20), (('practice', 'hotspot'), 13), (('practice', 'match'), 7), (('practice', 'mc'), 153), (('practice', 'multi'), 16), (('practice', 'num'), 18), (('practice', 'order'), 9), (('practice', 'sort'), 7), (('practice', 'teach'), 2), (('practice', 'tf'), 85)]
+pick-longest MC rate 28.8%
+rev 83c535151a82

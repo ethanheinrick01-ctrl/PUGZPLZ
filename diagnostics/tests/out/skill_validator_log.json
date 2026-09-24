@@ -1,0 +1,52 @@
+{
+  "ok": false,
+  "validator": "build-course-study-lab-v2",
+  "mode": "hydrated",
+  "target": "/home/claude/build/lab",
+  "offline": true,
+  "counts": {
+    "files": 55,
+    "exams": 0,
+    "liveExams": 0,
+    "modules": 0,
+    "concepts": 0,
+    "lessons": 0,
+    "activities": 0,
+    "gradedActivities": 0,
+    "visualRecords": 0,
+    "missingVisuals": 0,
+    "quizzes": 0,
+    "questions": 0,
+    "hashedFiles": 4
+  },
+  "hashes": {
+    "index.html": "4a4ebb1a35e1335866276bc6c9416eb788931ecc7c68daeda80acb82e914203d",
+    "data/data.js": "21dfdfc42e0f6299bb0d2ffe26f6d3aa21a2d21bc340569d1b95c86d460705bc",
+    "assets/engine.js": "b466082bd495d6829f40e16525bf9b54393c682d343eb6300849e72fdbc5b70f",
+    "assets/visuals.js": "5343a4aee7a1fa6e9492bc5f647b30d8c8ec85eecafea6abb066e4f1570d28eb"
+  },
+  "handoff": null,
+  "errors": [
+    {
+      "code": "missing-config",
+      "path": "course-config.js",
+      "message": "window.STUDY_SYSTEM_CONFIG was not defined."
+    },
+    {
+      "code": "incomplete-course-config",
+      "path": "course-config.js",
+      "message": "Configure courseCode, courseTitle, term, and systemTitle/labTitle."
+    },
+    {
+      "code": "missing-storage-key",
+      "path": "course-config.js:storage",
+      "message": "Quiz and guided-learning storage keys are both required."
+    },
+    {
+      "code": "missing-exam-lanes",
+      "path": "config.exams",
+      "message": "Configure at least one exam lane."
+    }
+  ],
+  "warnings": []
+}

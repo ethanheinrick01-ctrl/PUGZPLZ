@@ -1,48 +1,36 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>COMD 4590 Exam 1 Lab</title>
-<meta name="description" content="Offline study lab for COMD 4590 Aural Rehabilitation, Exam 1">
-<link rel="stylesheet" href="css/app.css?v=20260924-e1-3">
-<link rel="stylesheet" href="css/exam1.css?v=20260924-e1-3">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <title>Study Labs</title>
+  <meta name="description" content="Choose your Diagnostics or Aural Rehab Study Lab.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%23141d27'/%3E%3Cpath d='M14 16h15c5 0 7 3 7 6v28c-3-4-7-5-12-5H14zm36 0H39v29h11z' fill='%2389d5c5'/%3E%3C/svg%3E">
+  <style>
+    *{box-sizing:border-box}body{margin:0;background:#0d1219;color:#edf2f8;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100svh;display:grid;place-items:center;padding:32px 22px}main{width:min(820px,100%)}.eyebrow{color:#8fd6c7;letter-spacing:.15em;font-size:.78rem;text-transform:uppercase;font-weight:700}h1{font-size:clamp(2.25rem,7vw,3.75rem);letter-spacing:-.045em;line-height:1.1;margin:14px 0 18px}.intro{color:#aebbc9;font-size:1.08rem;line-height:1.6;margin:0 0 36px}.choices{display:grid;grid-template-columns:1fr 1fr;gap:18px}.choice{position:relative;display:flex;flex-direction:column;min-height:230px;padding:28px;border:1px solid #344251;border-radius:20px;text-decoration:none;background:#19222d;color:inherit;transition:background .15s,border-color .15s}.choice:hover{background:#202d3b;border-color:#8fd6c7}.choice:focus-visible{outline:3px solid #a3e5d6;outline-offset:5px}.course{color:#8fd6c7;font-size:.8rem;letter-spacing:.09em;font-weight:700}h2{font-size:1.7rem;line-height:1.25;margin:19px 0 30px;max-width:230px;letter-spacing:-.025em}.open{margin-top:auto;font-weight:600;color:#d8e5f2;display:flex;justify-content:space-between}.note{color:#aebbc9;font-size:.9rem;line-height:1.65;margin:24px 0 0;max-width:620px}@media(max-width:560px){body{padding:28px 20px}.choices{grid-template-columns:1fr}.choice{min-height:195px;padding:24px}h2{margin:15px 0 24px;max-width:none}}@media(prefers-reduced-motion:reduce){.choice{transition:none}}@media print{body{background:white;color:#111}.choice{background:white;border-color:#777}.course,.eyebrow,.open,.intro,.note{color:#333}}
+  </style>
+  <script>
+    // Keep old Aural Rehab bookmarks with hash routes working after the move.
+    if (/^#(?:exam1|home|guide|practice|session|review|cases|boss|mock|progress|data|sources|sutherland)(?:\/|$)/.test(location.hash)) {
+      location.replace('./aural-rehab/' + location.hash);
+    }
+  </script>
 </head>
 <body>
-<a class="skip" href="#main">Skip to content</a>
-<header class="top"><div class="bar">
-  <div class="brand">COMD 4590 Lab <small>Aural Rehab, Exam 1</small></div>
-  <nav class="main" aria-label="Main">
-    <a href="#exam1" data-r="exam1">Exam 1 · Sept 24</a>
-    <a href="#home" data-r="home">Home</a><a href="#guide" data-r="guide">Guide</a><a href="#practice" data-r="practice">Practice</a><a href="#review" data-r="review">Review</a><a href="#cases" data-r="cases">Cases</a><a href="#boss" data-r="boss">Boss</a><a href="#mock" data-r="mock">Mock</a><a href="#progress" data-r="progress">Progress</a><a href="#sutherland" data-r="sutherland">Sutherland</a><a href="#sources" data-r="sources">Sources</a><a href="#data" data-r="data">Data</a>
-  </nav>
-</div></header>
-<main id="main" tabindex="-1"><noscript>This lab needs JavaScript enabled.</noscript></main>
-<script src="js/core/util.js?v=20260924-e1-3"></script>
-<script src="js/core/conventions.js?v=20260924-e1-3"></script>
-<script src="js/core/svg.js?v=20260924-e1-3"></script>
-<script src="js/data/dots.js?v=20260924-e1-3"></script>
-<script src="js/data/sources.js?v=20260924-e1-3"></script>
-<script src="js/data/concepts.js?v=20260924-e1-3"></script>
-<script src="js/data/guide.js?v=20260924-e1-3"></script>
-<script src="js/data/items-s1.js?v=20260924-e1-3"></script>
-<script src="js/data/items-s2.js?v=20260924-e1-3"></script>
-<script src="js/data/items-s3.js?v=20260924-e1-3"></script>
-<script src="js/data/items-s4.js?v=20260924-e1-3"></script>
-<script src="js/data/items-s5.js?v=20260924-e1-3"></script>
-<script src="js/data/items-s6.js?v=20260924-e1-3"></script>
-<script src="js/data/items-s7.js?v=20260924-e1-3"></script>
-<script src="js/data/items-s8.js?v=20260924-e1-3"></script>
-<script src="js/data/items-s9.js?v=20260924-e1-3"></script>
-<script src="js/data/items-extra.js?v=20260924-e1-3"></script>
-<script src="js/data/cases.js?v=20260924-e1-3"></script>
-<script src="js/data/exam1.js?v=20260924-e1-3"></script>
-<script src="js/core/generators.js?v=20260924-e1-3"></script>
-<script src="js/core/store.js?v=20260924-e1-3"></script>
-<script src="js/core/engine.js?v=20260924-e1-3"></script>
-<script src="js/core/exam1.js?v=20260924-e1-3"></script>
-<script src="js/ui/item.js?v=20260924-e1-3"></script>
-<script src="js/ui/exam1.js?v=20260924-e1-3"></script>
-<script src="js/app.js?v=20260924-e1-3"></script>
+  <main>
+    <p class="eyebrow">Your study space</p>
+    <h1>Choose your lab.</h1>
+    <p class="intro">Pick a class and continue where you left off.</p>
+    <div class="choices">
+      <a class="choice" href="./diagnostics/" aria-label="Diagnostics Study Lab">
+        <span class="course">COMD 4756</span><h2>Diagnostics<br>Study Lab</h2><span class="open">Open lab <span aria-hidden="true">↗</span></span>
+      </a>
+      <a class="choice" href="./aural-rehab/" aria-label="Aural Rehab Study Lab">
+        <span class="course">COMD 4590</span><h2>Aural Rehab<br>Study Lab</h2><span class="open">Open lab <span aria-hidden="true">↗</span></span>
+      </a>
+    </div>
+    <p class="note">Your answers and unfinished sessions save in this browser. Each lab has its own progress and backup tools.</p>
+  </main>
 </body>
 </html>

@@ -1,0 +1,11 @@
+PASS localhost: pages render without console errors
+PASS localhost: no requests leave the local server
+PASS keyboard: Check enabled after answer + confidence
+PASS keyboard-only answer graded correct
+PASS focus moves to the verdict after checking
+PASS diagram enlarges in a dialog
+PASS Escape closes the dialog
+PASS every guide visual has a what-to-notice caption
+PASS print view hides navigation and buttons
+
+9/9 extra checks passed

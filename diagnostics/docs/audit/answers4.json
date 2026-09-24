@@ -1,0 +1,547 @@
+{
+ "xb-mc-17": {
+  "a": "C",
+  "conf": "high",
+  "flag": ""
+ },
+ "m15-in-03": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "m9-dir-03": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "m1-proc-04": {
+  "a": "False",
+  "conf": "high",
+  "flag": ""
+ },
+ "m4-da-01": {
+  "a": "D",
+  "conf": "high",
+  "flag": ""
+ },
+ "m3-q-02": {
+  "a": "D",
+  "conf": "high",
+  "flag": ""
+ },
+ "m7-sc-01": {
+  "a": "D",
+  "conf": "high",
+  "flag": ""
+ },
+ "m6-bc-04": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "xa-tf-09": {
+  "a": "True",
+  "conf": "high",
+  "flag": ""
+ },
+ "m5-meth-03": {
+  "a": "1A,2A,3A,4B,5B,6B,7C,8C",
+  "conf": "high",
+  "flag": ""
+ },
+ "m12-f-02": {
+  "a": "False",
+  "conf": "high",
+  "flag": ""
+ },
+ "m9-fi-02": {
+  "a": "D",
+  "conf": "high",
+  "flag": ""
+ },
+ "m13-four-02": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "xb-mc-01": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "m17-n-01": {
+  "a": "A",
+  "conf": "high",
+  "flag": ""
+ },
+ "m1-reas-01": {
+  "a": "A",
+  "conf": "high",
+  "flag": ""
+ },
+ "m9-comp-02": {
+  "a": "True",
+  "conf": "high",
+  "flag": ""
+ },
+ "bb-adu-04": {
+  "a": "D",
+  "conf": "high",
+  "flag": ""
+ },
+ "m12-p-01": {
+  "a": "True",
+  "conf": "high",
+  "flag": ""
+ },
+ "xa-tf-14": {
+  "a": "False",
+  "conf": "high",
+  "flag": ""
+ },
+ "xb-mc-07": {
+  "a": "C",
+  "conf": "high",
+  "flag": ""
+ },
+ "m3-acc-05": {
+  "a": "True",
+  "conf": "high",
+  "flag": ""
+ },
+ "m13-why-03": {
+  "a": "False",
+  "conf": "high",
+  "flag": ""
+ },
+ "m8-type-03": {
+  "a": "False",
+  "conf": "high",
+  "flag": ""
+ },
+ "m13-jl-02": {
+  "a": "A",
+  "conf": "medium",
+  "flag": "OPE_transcript line 40 [37:25] literally says jaw control improving 'WITHOUT queuing or postural support' = habitual/compensatory; stem says 'with cueing'. Intended meaning (improves with cueing = habitual; persists despite cueing = true weakness) supports A, but the caption text contradicts the stem wording"
+ },
+ "ba-cld-08": {
+  "a": "D",
+  "conf": "high",
+  "flag": ""
+ },
+ "bb-eth-04": {
+  "a": "C",
+  "conf": "high",
+  "flag": ""
+ },
+ "m13-rest-04": {
+  "a": "C",
+  "conf": "high",
+  "flag": ""
+ },
+ "xb-mc-11": {
+  "a": "D",
+  "conf": "high",
+  "flag": ""
+ },
+ "m16-i-01": {
+  "a": "A",
+  "conf": "high",
+  "flag": ""
+ },
+ "m2-ebp-02": {
+  "a": "2,4,3,1",
+  "conf": "high",
+  "flag": ""
+ },
+ "m6-raw-03": {
+  "a": "D",
+  "conf": "high",
+  "flag": ""
+ },
+ "m8-six-02": {
+  "a": "A",
+  "conf": "high",
+  "flag": ""
+ },
+ "m5-man-02": {
+  "a": "True",
+  "conf": "high",
+  "flag": ""
+ },
+ "xa-tf-16": {
+  "a": "False",
+  "conf": "high",
+  "flag": ""
+ },
+ "xa-mc-16": {
+  "a": "C",
+  "conf": "high",
+  "flag": ""
+ },
+ "bb-sel-06": {
+  "a": "True",
+  "conf": "high",
+  "flag": ""
+ },
+ "m13-air-02": {
+  "a": "D",
+  "conf": "medium",
+  "flag": "OPE_transcript lines 23-24: the mirror is described only during quiet nasal breathing (fogging symmetry); the pressure-sound nasal-escape check ('big puppy', /s/) is described by listening/observing, without saying a mirror is used. D is the intended answer, but the mirror+pressure-sound pairing is inferred, not stated"
+ },
+ "m15-ra-02": {
+  "a": "48",
+  "conf": "high",
+  "flag": ""
+ },
+ "m7-pr-01": {
+  "a": "A",
+  "conf": "high",
+  "flag": ""
+ },
+ "m6-adj-03": {
+  "a": "True",
+  "conf": "high",
+  "flag": ""
+ },
+ "m3-acc-03": {
+  "a": "False",
+  "conf": "high",
+  "flag": ""
+ },
+ "m3-prob-03": {
+  "a": "A,B,C,E",
+  "conf": "high",
+  "flag": ""
+ },
+ "xb-tf-01": {
+  "a": "True",
+  "conf": "high",
+  "flag": ""
+ },
+ "m11-c-01": {
+  "a": "D",
+  "conf": "medium",
+  "flag": "MOCKP_parent_handout_OCR.txt is empty (0 bytes), so the Maya case facts can't be checked against a source. D is the only hearing-relevant option"
+ },
+ "m3-prob-02": {
+  "a": "C",
+  "conf": "high",
+  "flag": ""
+ },
+ "m4-diff-04": {
+  "a": "True",
+  "conf": "high",
+  "flag": ""
+ },
+ "xb-tf-02": {
+  "a": "False",
+  "conf": "high",
+  "flag": ""
+ },
+ "m7-sc-03": {
+  "a": "True",
+  "conf": "high",
+  "flag": ""
+ },
+ "m12-f-03": {
+  "a": "D",
+  "conf": "high",
+  "flag": ""
+ },
+ "m15-dd-05": {
+  "a": "False",
+  "conf": "high",
+  "flag": ""
+ },
+ "m4-cld-02": {
+  "a": "D",
+  "conf": "high",
+  "flag": ""
+ },
+ "m6-ca-06": {
+  "a": "A",
+  "conf": "high",
+  "flag": "Only source for 'her COMD 4382 practice key' is the historical CODEX_cleaned.md line 241 (key 6y10m28d). A true calendar count gives 29 days (option C), so the answer depends on the 30-day convention"
+ },
+ "ba-cld-01": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "m7-ae-01": {
+  "a": "False",
+  "conf": "high",
+  "flag": ""
+ },
+ "xa-tf-07": {
+  "a": "True",
+  "conf": "high",
+  "flag": ""
+ },
+ "ba-maya-04": {
+  "a": "False",
+  "conf": "high",
+  "flag": ""
+ },
+ "m10-an-01": {
+  "a": "C",
+  "conf": "high",
+  "flag": ""
+ },
+ "m8-six-01": {
+  "a": "1C,2A,3F,4E,5B,6D",
+  "conf": "high",
+  "flag": ""
+ },
+ "m7-sc-04": {
+  "a": "True",
+  "conf": "high",
+  "flag": ""
+ },
+ "m6-bc-02": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "m3-q-03": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "ba-cld-06": {
+  "a": "False",
+  "conf": "high",
+  "flag": ""
+ },
+ "bb-sel-02": {
+  "a": "A",
+  "conf": "high",
+  "flag": ""
+ },
+ "m12-f-05": {
+  "a": "C",
+  "conf": "high",
+  "flag": ""
+ },
+ "m4-cld-01": {
+  "a": "C",
+  "conf": "high",
+  "flag": ""
+ },
+ "m6-raw-02": {
+  "a": "True",
+  "conf": "high",
+  "flag": ""
+ },
+ "xa-mc-02": {
+  "a": "D",
+  "conf": "high",
+  "flag": ""
+ },
+ "m6-ca-03": {
+  "a": "7,6,12",
+  "conf": "high",
+  "flag": ""
+ },
+ "m16-t-03": {
+  "a": "True",
+  "conf": "high",
+  "flag": ""
+ },
+ "xb-tf-03": {
+  "a": "True",
+  "conf": "high",
+  "flag": ""
+ },
+ "m12-f-04": {
+  "a": "A,B,C,E",
+  "conf": "high",
+  "flag": ""
+ },
+ "m18-ca-03": {
+  "a": "9,0,2",
+  "conf": "high",
+  "flag": "Answer uses the stated 30-day borrow. The real calendar count (May has 31 days) is 9y0m3d, so the key depends on the convention being applied"
+ },
+ "ba-maya-01": {
+  "a": "D",
+  "conf": "medium",
+  "flag": "The Group B (Maya) parent handout is empty in srcpack (MOCKP OCR 0 bytes). Answer based on the parallel examiner handout MOCKX: 'Can you tell me a little about...'; 'Start broad before moving to specific questions'"
+ },
+ "xb-mc-10": {
+  "a": "C",
+  "conf": "high",
+  "flag": ""
+ },
+ "m3-q-01": {
+  "a": "5,6,1,2,4,3",
+  "conf": "high",
+  "flag": ""
+ },
+ "bb-sel-07": {
+  "a": "D",
+  "conf": "high",
+  "flag": ""
+ },
+ "ba-maya-05": {
+  "a": "A",
+  "conf": "high",
+  "flag": ""
+ },
+ "m7-ci-05": {
+  "a": "1A,2B,3C,4D",
+  "conf": "high",
+  "flag": ""
+ },
+ "m16-o-02": {
+  "a": "A,B,C,D",
+  "conf": "high",
+  "flag": ""
+ },
+ "ba-rep-09": {
+  "a": "True",
+  "conf": "high",
+  "flag": ""
+ },
+ "m4-int-05": {
+  "a": "B,C,D,E",
+  "conf": "high",
+  "flag": ""
+ },
+ "m15-sa-03": {
+  "a": "A",
+  "conf": "high",
+  "flag": ""
+ },
+ "m10-an-03": {
+  "a": "C",
+  "conf": "high",
+  "flag": ""
+ },
+ "m8-ss-01": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "m4-da-02": {
+  "a": "False",
+  "conf": "high",
+  "flag": ""
+ },
+ "xa-mc-17": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "m1-reas-03": {
+  "a": "A,B,C,D",
+  "conf": "high",
+  "flag": ""
+ },
+ "m15-sa-04": {
+  "a": "True",
+  "conf": "high",
+  "flag": ""
+ },
+ "m9-dir-02": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "m6-ca-04": {
+  "a": "6,6,21",
+  "conf": "high",
+  "flag": ""
+ },
+ "m1-proc-03": {
+  "a": "A",
+  "conf": "high",
+  "flag": ""
+ },
+ "m4-asked-01": {
+  "a": "C",
+  "conf": "high",
+  "flag": ""
+ },
+ "bb-eth-03": {
+  "a": "C",
+  "conf": "high",
+  "flag": ""
+ },
+ "bb-sel-03": {
+  "a": "A",
+  "conf": "high",
+  "flag": ""
+ },
+ "m3-val-02": {
+  "a": "A",
+  "conf": "high",
+  "flag": ""
+ },
+ "m16-d-01": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "m18-bd-04": {
+  "a": "C",
+  "conf": "medium",
+  "flag": "85 is a boundary value. The given convention (85-115 average, inclusive) gives C. But the W2 slide 18 bell-curve image draws a band line at 85 with 'Below Average' spanning 70-85, and slide 17 says '85 is 1 SD below average', so B is also defensible from the image"
+ },
+ "m5-acc-03": {
+  "a": "False",
+  "conf": "high",
+  "flag": ""
+ },
+ "m15-dd-01": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "m7-band-05": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "m9-hist-01": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "m18-bd-01": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "m7-sc-02": {
+  "a": "C",
+  "conf": "high",
+  "flag": ""
+ },
+ "xa-mc-13": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "xa-tf-15": {
+  "a": "True",
+  "conf": "high",
+  "flag": ""
+ },
+ "m17-l-01": {
+  "a": "A,B,C,E",
+  "conf": "high",
+  "flag": ""
+ },
+ "xb-mc-06": {
+  "a": "A",
+  "conf": "high",
+  "flag": ""
+ },
+ "m18-mx-03": {
+  "a": "5.5",
+  "conf": "medium",
+  "flag": "6 weeks = 1.5 months, so 7 - 1.5 = 5.5, a non-integer. The W2 slide 11 example only covers 8 weeks = 2 months, so a key expecting an integer (5 or 6) would conflict. The stem should state the rounding or use a multiple of 4 weeks"
+ }
+}

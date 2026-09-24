@@ -1,0 +1,128 @@
+PASS home renders
+PASS nav → guide
+PASS nav → practice
+PASS nav → exams
+PASS nav → review
+PASS nav → tools
+PASS nav → sources
+PASS nav → progress
+PASS 18 modules listed
+PASS module m01 renders sections
+PASS module m02 renders sections
+PASS module m03 renders sections
+PASS module m04 renders sections
+PASS module m05 renders sections
+PASS module m06 renders sections
+PASS module m07 renders sections
+PASS module m08 renders sections
+PASS module m09 renders sections
+PASS module m10 renders sections
+PASS module m11 renders sections
+PASS module m12 renders sections
+PASS module m13 renders sections
+PASS module m14 renders sections
+PASS module m15 renders sections
+PASS module m16 renders sections
+PASS module m17 renders sections
+PASS module m18 renders sections
+PASS all 17 section visuals render
+PASS unknown module falls back to guide list
+PASS Check disabled before answer + confidence
+PASS practice correct → 'Correct' verdict
+PASS explanation + source shown after check
+PASS practice wrong → 'Not quite' + requeue notice
+PASS high-confidence miss flags misconception
+PASS attempt logged
+PASS missed item re-inserted after exactly 2 others
+PASS practice session reaches summary
+PASS concepts mastered after 2+ distinct correct answers
+PASS misconception cleared by re-mastery
+PASS mastery persists after reload
+PASS UI grading matches key for every answered item
+PASS grading exercised for all 8 graded types
+PASS hotspot selectable by keyboard
+PASS hint locks confidence to Low
+PASS mock starts with 20 T/F then 20 MC
+PASS no feedback leaks during exam (q1)
+PASS no feedback leaks during exam (q2)
+PASS no feedback leaks during exam (q3)
+PASS exam resumes at same question after reload
+PASS answers survive reload
+PASS navigator jumps
+PASS timer counts down while visible
+PASS submit asks for confirmation (in-page)
+PASS mock score equals independent computation
+PASS results show why for the chosen and correct options
+PASS repair-by-concept table present
+PASS exam answers counted toward concept history
+PASS blank answers not logged as attempts
+PASS flagged filter shows flagged item
+PASS remediation drill starts from results
+PASS retake: perfect run scores 100/100
+PASS retake stored as second attempt
+PASS boss shows case vignette
+PASS boss accuracy matches
+PASS discard clears active attempt without scoring
+PASS review lists concepts by status
+PASS score explorer boundaries 69/70/71/84/85/115/116/129/130/131
+PASS scaled 4 = SS 70 edge
+PASS CA tool shows both conventions
+PASS wpm tool
+PASS TRMR tool
+PASS export file has v2 schema + state
+PASS reset clears progress
+PASS import restores concepts and exam attempts
+PASS pre-import snapshot kept
+PASS invalid backup rejected with message
+PASS v1 backup import → provisional concepts
+PASS v1 quiz history displayed
+PASS no console errors in main session
+PASS no network requests leave file://
+PASS v1 keys detected on first load
+PASS v1 mastered → provisional v2 concepts
+PASS v1 records left untouched
+PASS v1 history shown on Progress
+PASS export includes raw v1 keys
+PASS provisional concept confirmed by one correct medium answer
+PASS no console errors (migration context)
+PASS no horizontal overflow 390px #home
+PASS no horizontal overflow 390px #guide/m07
+PASS no horizontal overflow 390px #guide/m14
+PASS no horizontal overflow 390px #practice
+PASS no horizontal overflow 390px #exams
+PASS no horizontal overflow 390px #tools
+PASS no horizontal overflow 390px #sources
+PASS no horizontal overflow 390px #progress
+PASS exam view fits 390px
+PASS practice feedback fits 390px
+PASS light theme persists across reload
+PASS no console errors at 390px
+PASS no external requests at 390px
+PASS no horizontal overflow 768px #home
+PASS no horizontal overflow 768px #guide/m07
+PASS no horizontal overflow 768px #guide/m14
+PASS no horizontal overflow 768px #practice
+PASS no horizontal overflow 768px #exams
+PASS no horizontal overflow 768px #tools
+PASS no horizontal overflow 768px #sources
+PASS no horizontal overflow 768px #progress
+PASS exam view fits 768px
+PASS practice feedback fits 768px
+PASS no console errors at 768px
+PASS no external requests at 768px
+PASS no horizontal overflow 1440px #home
+PASS no horizontal overflow 1440px #guide/m07
+PASS no horizontal overflow 1440px #guide/m14
+PASS no horizontal overflow 1440px #practice
+PASS no horizontal overflow 1440px #exams
+PASS no horizontal overflow 1440px #tools
+PASS no horizontal overflow 1440px #sources
+PASS no horizontal overflow 1440px #progress
+PASS exam view fits 1440px
+PASS practice feedback fits 1440px
+PASS no console errors at 1440px
+PASS no external requests at 1440px
+PASS app still runs with storage blocked + warns
+PASS no uncaught errors with storage blocked
+
+126/126 checks passed

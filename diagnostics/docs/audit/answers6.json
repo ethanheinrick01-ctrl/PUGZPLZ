@@ -1,0 +1,57 @@
+{
+  "m6-adj-03": {
+    "a": "False",
+    "conf": "high",
+    "flag": "W2_deck.txt: 'Using adjusted age helps SLPs...avoid over-identifying delays' (line 87) - opposite of claim"
+  },
+  "m15-ra-04": {
+    "a": "False",
+    "conf": "high",
+    "flag": "W4_deck.txt slide 12: 'Record sample of connected speech (minimum of 1-2 minutes)' - time-based, not 50-100 utterances (also TB6_ch6.txt:511-514)"
+  },
+  "m3-prob-04": {
+    "a": "False",
+    "conf": "high",
+    "flag": "VA_why_EBA_captions.txt line 3: 80.6% used informal discussion with colleagues; only 57% report using psychometrics - stat misattributed"
+  },
+  "m10-rep-03": {
+    "a": "False",
+    "conf": "high",
+    "flag": "W3A_deck.txt line 105: 'Results by domain: ...with both quantitative data and qualitative descriptions'"
+  },
+  "m8-bias-02": {
+    "a": "False",
+    "conf": "high",
+    "flag": "W2_deck.txt line 195: 'Unbiased - Fair for all individuals and populations'; consistent results is the definition of Reliable (line 193)"
+  },
+  "m13-pos-02": {
+    "a": "False",
+    "conf": "high",
+    "flag": "OPE_transcript.txt [13:22]: 'more concerned about neuromuscular weakness, cranial nerve involvement, especially cranial nerve number seven' - not XII"
+  },
+  "m3-eba-02": {
+    "a": "False",
+    "conf": "high",
+    "flag": "VA_why_EBA_captions.txt [00:00:37]: 'SLPs...tend to think of evidence-based practice for treatment but not assessment' - reversed from claim"
+  },
+  "m8-ss-02": {
+    "a": "False",
+    "conf": "high",
+    "flag": "TB1_ch1.txt line 747: 'The lower the test's sensitivity, the more likely the disorder will be missed (false negative)' - not a false positive"
+  },
+  "m7-sc-03": {
+    "a": "False",
+    "conf": "high",
+    "flag": "W2_deck.txt line 154: 'A scaled score of 13 is 1 SD above average. A score of 7 is 1 SD below average.' - not 12/8"
+  },
+  "m13-four-04": {
+    "a": "False",
+    "conf": "high",
+    "flag": "OPE_transcript.txt [8:32]: overshoot/undershoot/all-or-nothing are red flags for poor GRADING; poor dissociation's red flags (line [14:17]) are head turning, jaw lifting, excessive mentalis activation"
+  },
+  "m4-diff-04": {
+    "a": "False",
+    "conf": "high",
+    "flag": "TB2_TB3_ch2_ch3.txt line 2734: 'Treatment is warranted only when difficulties occur in both languages' (also W3B_deck.txt:106)"
+  }
+}

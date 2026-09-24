@@ -1,0 +1,552 @@
+{
+ "xb-mc-19": {
+  "a": "C",
+  "conf": "high",
+  "flag": ""
+ },
+ "m2-hip-04": {
+  "a": "A,B,C,E",
+  "conf": "high",
+  "flag": ""
+ },
+ "m11-k-01": {
+  "a": "A",
+  "conf": "high",
+  "flag": ""
+ },
+ "m11-q-01": {
+  "a": "A,B,D,E",
+  "conf": "high",
+  "flag": ""
+ },
+ "m11-q-02": {
+  "a": "C",
+  "conf": "high",
+  "flag": ""
+ },
+ "m7-band-06": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "m6-bc-03": {
+  "a": "False",
+  "conf": "high",
+  "flag": ""
+ },
+ "xa-mc-08": {
+  "a": "A",
+  "conf": "high",
+  "flag": ""
+ },
+ "m10-an-04": {
+  "a": "True",
+  "conf": "high",
+  "flag": ""
+ },
+ "m17-v-03": {
+  "a": "A",
+  "conf": "high",
+  "flag": ""
+ },
+ "bb-eth-02": {
+  "a": "D",
+  "conf": "high",
+  "flag": ""
+ },
+ "m17-n-02": {
+  "a": "D",
+  "conf": "high",
+  "flag": ""
+ },
+ "m11-s-04": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "m9-int-01": {
+  "a": "1,2,3",
+  "conf": "high",
+  "flag": ""
+ },
+ "m3-eba-02": {
+  "a": "True",
+  "conf": "high",
+  "flag": ""
+ },
+ "xb-mc-09": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "m5-meth-02": {
+  "a": "A",
+  "conf": "high",
+  "flag": ""
+ },
+ "m15-na-03": {
+  "a": "A,B,C,D",
+  "conf": "high",
+  "flag": ""
+ },
+ "m7-ci-01": {
+  "a": "A",
+  "conf": "high",
+  "flag": ""
+ },
+ "m6-ca-01": {
+  "a": "True",
+  "conf": "high",
+  "flag": ""
+ },
+ "m9-comp-01": {
+  "a": "C",
+  "conf": "high",
+  "flag": ""
+ },
+ "m18-tr-01": {
+  "a": "85,-1",
+  "conf": "high",
+  "flag": ""
+ },
+ "m13-air-01": {
+  "a": "A",
+  "conf": "high",
+  "flag": ""
+ },
+ "m14-ddk-01": {
+  "a": "D",
+  "conf": "high",
+  "flag": ""
+ },
+ "ba-maya-08": {
+  "a": "B",
+  "conf": "medium",
+  "flag": ""
+ },
+ "m2-ebp-04": {
+  "a": "False",
+  "conf": "high",
+  "flag": ""
+ },
+ "m7-band-07": {
+  "a": "True",
+  "conf": "high",
+  "flag": ""
+ },
+ "m11-s-02": {
+  "a": "6,3,5,1,2,4",
+  "conf": "high",
+  "flag": ""
+ },
+ "m8-ss-03": {
+  "a": "D",
+  "conf": "high",
+  "flag": ""
+ },
+ "xb-tf-16": {
+  "a": "True",
+  "conf": "high",
+  "flag": ""
+ },
+ "m8-six-05": {
+  "a": "True",
+  "conf": "high",
+  "flag": ""
+ },
+ "xa-tf-03": {
+  "a": "True",
+  "conf": "high",
+  "flag": ""
+ },
+ "m13-air-03": {
+  "a": "1A,2D,3B,4C",
+  "conf": "high",
+  "flag": ""
+ },
+ "m12-f-01": {
+  "a": "D",
+  "conf": "high",
+  "flag": ""
+ },
+ "ba-rep-07": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "m13-four-01": {
+  "a": "1C,2B,3D,4A",
+  "conf": "high",
+  "flag": ""
+ },
+ "m2-eth-02": {
+  "a": "True",
+  "conf": "high",
+  "flag": ""
+ },
+ "bb-adu-06": {
+  "a": "A,B,C,E",
+  "conf": "medium",
+  "flag": "Stem qualifier 'late in the session' is ambiguous: W4_deck slide 13 lists A,B,C,E all as intelligibility-reducing factors, but only E (fatigue), arguably B, is specifically time-of-session dependent; a key of E only or B,E is also defensible"
+ },
+ "m14-pa-01": {
+  "a": "A",
+  "conf": "high",
+  "flag": ""
+ },
+ "m9-hist-04": {
+  "a": "True",
+  "conf": "high",
+  "flag": ""
+ },
+ "m5-man-01": {
+  "a": "C",
+  "conf": "high",
+  "flag": ""
+ },
+ "m14-ddk-03": {
+  "a": "1A,2C,3D,4B",
+  "conf": "high",
+  "flag": ""
+ },
+ "m12-p-02": {
+  "a": "C",
+  "conf": "high",
+  "flag": ""
+ },
+ "bb-adu-01": {
+  "a": "C",
+  "conf": "high",
+  "flag": ""
+ },
+ "m2-int-01": {
+  "a": "C",
+  "conf": "high",
+  "flag": ""
+ },
+ "m7-ae-02": {
+  "a": "A",
+  "conf": "high",
+  "flag": ""
+ },
+ "bb-eth-07": {
+  "a": "True",
+  "conf": "high",
+  "flag": ""
+ },
+ "m3-eba-01": {
+  "a": "D",
+  "conf": "high",
+  "flag": ""
+ },
+ "m1-reas-02": {
+  "a": "False",
+  "conf": "high",
+  "flag": ""
+ },
+ "m7-band-04": {
+  "a": "E",
+  "conf": "high",
+  "flag": ""
+ },
+ "m5-acc-06": {
+  "a": "C",
+  "conf": "high",
+  "flag": ""
+ },
+ "m5-nc-02": {
+  "a": "False",
+  "conf": "high",
+  "flag": ""
+ },
+ "m7-ci-02": {
+  "a": "False",
+  "conf": "high",
+  "flag": ""
+ },
+ "xa-mc-20": {
+  "a": "C",
+  "conf": "high",
+  "flag": ""
+ },
+ "xb-mc-12": {
+  "a": "D",
+  "conf": "high",
+  "flag": ""
+ },
+ "xb-tf-06": {
+  "a": "True",
+  "conf": "high",
+  "flag": ""
+ },
+ "xb-tf-12": {
+  "a": "True",
+  "conf": "high",
+  "flag": ""
+ },
+ "m10-out-03": {
+  "a": "A,C,D",
+  "conf": "high",
+  "flag": ""
+ },
+ "xb-mc-08": {
+  "a": "A",
+  "conf": "high",
+  "flag": ""
+ },
+ "ba-maya-02": {
+  "a": "A,B,D,E",
+  "conf": "medium",
+  "flag": "MOCKP_parent_handout_OCR.txt (Group B/Maya handout) is empty (0 bytes) and no Maya examiner handout exists in srcpack; answer inferred from Ethan examiner handout (MOCKX) section structure, not verifiable against the cited Group B handout"
+ },
+ "xa-mc-04": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "bb-sel-04": {
+  "a": "D",
+  "conf": "high",
+  "flag": ""
+ },
+ "m13-rest-03": {
+  "a": "True",
+  "conf": "high",
+  "flag": ""
+ },
+ "m16-t-02": {
+  "a": "1A,2A,3B,4B,5C,6C",
+  "conf": "high",
+  "flag": ""
+ },
+ "m16-d-02": {
+  "a": "3,2,1",
+  "conf": "high",
+  "flag": ""
+ },
+ "m9-q-03": {
+  "a": "A",
+  "conf": "high",
+  "flag": ""
+ },
+ "m15-in-02": {
+  "a": "True",
+  "conf": "high",
+  "flag": ""
+ },
+ "m3-acc-01": {
+  "a": "D",
+  "conf": "high",
+  "flag": ""
+ },
+ "bb-adu-02": {
+  "a": "True",
+  "conf": "high",
+  "flag": ""
+ },
+ "m4-cld-04": {
+  "a": "A",
+  "conf": "high",
+  "flag": ""
+ },
+ "m1-conf-03": {
+  "a": "D",
+  "conf": "medium",
+  "flag": ""
+ },
+ "m15-ph-01": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "xb-tf-08": {
+  "a": "True",
+  "conf": "high",
+  "flag": ""
+ },
+ "xa-mc-05": {
+  "a": "D",
+  "conf": "high",
+  "flag": ""
+ },
+ "xb-tf-04": {
+  "a": "True",
+  "conf": "high",
+  "flag": ""
+ },
+ "ba-rep-08": {
+  "a": "D",
+  "conf": "high",
+  "flag": ""
+ },
+ "m3-acc-04": {
+  "a": "A",
+  "conf": "high",
+  "flag": ""
+ },
+ "m7-pr-03": {
+  "a": "True",
+  "conf": "high",
+  "flag": ""
+ },
+ "xb-mc-18": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "m8-bias-01": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "m6-ca-05": {
+  "a": "5,5,16",
+  "conf": "high",
+  "flag": ""
+ },
+ "m15-ph-02": {
+  "a": "A,C,D",
+  "conf": "high",
+  "flag": ""
+ },
+ "m4-asked-02": {
+  "a": "False",
+  "conf": "high",
+  "flag": ""
+ },
+ "m9-int-02": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "xa-tf-05": {
+  "a": "True",
+  "conf": "high",
+  "flag": ""
+ },
+ "xa-mc-01": {
+  "a": "A",
+  "conf": "high",
+  "flag": ""
+ },
+ "m13-pos-01": {
+  "a": "C",
+  "conf": "high",
+  "flag": ""
+ },
+ "m13-why-02": {
+  "a": "A",
+  "conf": "high",
+  "flag": ""
+ },
+ "m1-proc-02": {
+  "a": "D",
+  "conf": "high",
+  "flag": ""
+ },
+ "xb-mc-02": {
+  "a": "C",
+  "conf": "high",
+  "flag": ""
+ },
+ "m18-ca-01": {
+  "a": "7,4,17",
+  "conf": "high",
+  "flag": ""
+ },
+ "xb-mc-05": {
+  "a": "C",
+  "conf": "high",
+  "flag": ""
+ },
+ "m3-prob-04": {
+  "a": "True",
+  "conf": "high",
+  "flag": ""
+ },
+ "xa-mc-18": {
+  "a": "B",
+  "conf": "medium",
+  "flag": "Stability (A) also defensible: OPE_transcript [6:40] lists 'jaw movement during tongue-driven tasks' as a stability sign and [35:33] lists jaw 'sliding forward or laterally to assist articulation' as jaw instability; dissociation (B) supported by [7:34] 'Can the tongue move without the jaw following?'"
+ },
+ "xb-tf-13": {
+  "a": "False",
+  "conf": "high",
+  "flag": ""
+ },
+ "m14-pa-02": {
+  "a": "D",
+  "conf": "high",
+  "flag": ""
+ },
+ "m18-bd-05": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "m7-sc-05": {
+  "a": "-2,4",
+  "conf": "high",
+  "flag": ""
+ },
+ "m4-role-01": {
+  "a": "True",
+  "conf": "high",
+  "flag": ""
+ },
+ "xa-tf-10": {
+  "a": "False",
+  "conf": "high",
+  "flag": ""
+ },
+ "m13-rest-02": {
+  "a": "False",
+  "conf": "high",
+  "flag": ""
+ },
+ "m3-case-02": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "m4-role-02": {
+  "a": "D",
+  "conf": "high",
+  "flag": ""
+ },
+ "m10-sh-02": {
+  "a": "D",
+  "conf": "high",
+  "flag": ""
+ },
+ "m12-t-03": {
+  "a": "D",
+  "conf": "high",
+  "flag": ""
+ },
+ "m14-doc-02": {
+  "a": "False",
+  "conf": "high",
+  "flag": ""
+ },
+ "m12-t-01": {
+  "a": "D",
+  "conf": "high",
+  "flag": ""
+ },
+ "m10-sh-01": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "ba-cld-03": {
+  "a": "D",
+  "conf": "high",
+  "flag": ""
+ },
+ "m7-band-03": {
+  "a": "E",
+  "conf": "medium",
+  "flag": "Boundary score: course convention treats 85-115 as Average (inclusive), but W2_deck slide 18 bell-curve bands have a line at 115 and 'Above Average' labeled 115-130, so D (Above average) is also defensible on the picture alone"
+ }
+}

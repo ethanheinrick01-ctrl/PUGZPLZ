@@ -1,0 +1,632 @@
+[
+ {
+  "check": "home renders",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "nav \u2192 guide",
+  "pass": true,
+  "detail": "Guide"
+ },
+ {
+  "check": "nav \u2192 practice",
+  "pass": true,
+  "detail": "Practice"
+ },
+ {
+  "check": "nav \u2192 exams",
+  "pass": true,
+  "detail": "Exams"
+ },
+ {
+  "check": "nav \u2192 review",
+  "pass": true,
+  "detail": "Review & repair"
+ },
+ {
+  "check": "nav \u2192 tools",
+  "pass": true,
+  "detail": "Tools"
+ },
+ {
+  "check": "nav \u2192 sources",
+  "pass": true,
+  "detail": "Sources & conventions"
+ },
+ {
+  "check": "nav \u2192 progress",
+  "pass": true,
+  "detail": "Progress"
+ },
+ {
+  "check": "18 modules listed",
+  "pass": true,
+  "detail": "18"
+ },
+ {
+  "check": "module m01 renders sections",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "module m02 renders sections",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "module m03 renders sections",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "module m04 renders sections",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "module m05 renders sections",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "module m06 renders sections",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "module m07 renders sections",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "module m08 renders sections",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "module m09 renders sections",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "module m10 renders sections",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "module m11 renders sections",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "module m12 renders sections",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "module m13 renders sections",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "module m14 renders sections",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "module m15 renders sections",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "module m16 renders sections",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "module m17 renders sections",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "module m18 renders sections",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "all 17 section visuals render",
+  "pass": true,
+  "detail": "(17, 17)"
+ },
+ {
+  "check": "unknown module falls back to guide list",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "Check disabled before answer + confidence",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "practice correct \u2192 'Correct' verdict",
+  "pass": true,
+  "detail": "Correct"
+ },
+ {
+  "check": "explanation + source shown after check",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "practice wrong \u2192 'Not quite' + requeue notice",
+  "pass": true,
+  "detail": "Not quite \u00b7 this question returns after 2 others \u00b7 flagged as a misconception (wrong at high confidence)"
+ },
+ {
+  "check": "high-confidence miss flags misconception",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "attempt logged",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "missed item re-inserted after exactly 2 others",
+  "pass": true,
+  "detail": "['m7-ci-05', 'm7-ae-01', 'm7-band-02', 'm7-ci-05']"
+ },
+ {
+  "check": "practice session reaches summary",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "concepts mastered after 2+ distinct correct answers",
+  "pass": true,
+  "detail": "['m7-scales', 'm7-ci', 'm7-ae', 'm7-bands', 'm7-percentile', 'm7-norms']"
+ },
+ {
+  "check": "misconception cleared by re-mastery",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "mastery persists after reload",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "UI grading matches key for every answered item",
+  "pass": true,
+  "detail": "[]"
+ },
+ {
+  "check": "grading exercised for all 8 graded types",
+  "pass": true,
+  "detail": "{'hotspot': 18, 'num': 13, 'mc': 47, 'tf': 42, 'order': 5, 'multi': 3, 'match': 2, 'sort': 6}"
+ },
+ {
+  "check": "hotspot selectable by keyboard",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "hint locks confidence to Low",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "mock starts with 20 T/F then 20 MC",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "no feedback leaks during exam (q1)",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "no feedback leaks during exam (q2)",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "no feedback leaks during exam (q3)",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "exam resumes at same question after reload",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "answers survive reload",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "navigator jumps",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "timer counts down while visible",
+  "pass": true,
+  "detail": "('50:00 left', '49:58 left')"
+ },
+ {
+  "check": "submit asks for confirmation (in-page)",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "mock score equals independent computation",
+  "pass": true,
+  "detail": "('70/100', 70)"
+ },
+ {
+  "check": "results show why for the chosen and correct options",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "repair-by-concept table present",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "exam answers counted toward concept history",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "blank answers not logged as attempts",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "flagged filter shows flagged item",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "remediation drill starts from results",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "retake: perfect run scores 100/100",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "retake stored as second attempt",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "boss shows case vignette",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "boss accuracy matches",
+  "pass": true,
+  "detail": "('80%', 20)"
+ },
+ {
+  "check": "discard clears active attempt without scoring",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "review lists concepts by status",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "score explorer boundaries 69/70/71/84/85/115/116/129/130/131",
+  "pass": true,
+  "detail": "[]"
+ },
+ {
+  "check": "scaled 4 = SS 70 edge",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "CA tool shows both conventions",
+  "pass": true,
+  "detail": "30-day borrowing: 6;6.15 (6 y 6 m 15 d)\n\nCalendar borrowing: 6;6.13 (6 y 6 m 13 d)\n\nThe conventions disagree here. Say which one you used.\n\nSteps: borrow a month: +30 days, month -1; borrow a year: +12 months, year -1"
+ },
+ {
+  "check": "wpm tool",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "TRMR tool",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "export file has v2 schema + state",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "reset clears progress",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "import restores concepts and exam attempts",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "pre-import snapshot kept",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "invalid backup rejected with message",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "v1 backup import \u2192 provisional concepts",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "v1 quiz history displayed",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "no console errors in main session",
+  "pass": true,
+  "detail": "[]"
+ },
+ {
+  "check": "no network requests leave file://",
+  "pass": true,
+  "detail": "[]"
+ },
+ {
+  "check": "v1 keys detected on first load",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "v1 mastered \u2192 provisional v2 concepts",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "v1 records left untouched",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "v1 history shown on Progress",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "export includes raw v1 keys",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "provisional concept confirmed by one correct medium answer",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "no console errors (migration context)",
+  "pass": true,
+  "detail": "[]"
+ },
+ {
+  "check": "no horizontal overflow 390px #home",
+  "pass": true,
+  "detail": "0"
+ },
+ {
+  "check": "no horizontal overflow 390px #guide/m07",
+  "pass": true,
+  "detail": "0"
+ },
+ {
+  "check": "no horizontal overflow 390px #guide/m14",
+  "pass": true,
+  "detail": "0"
+ },
+ {
+  "check": "no horizontal overflow 390px #practice",
+  "pass": true,
+  "detail": "0"
+ },
+ {
+  "check": "no horizontal overflow 390px #exams",
+  "pass": true,
+  "detail": "0"
+ },
+ {
+  "check": "no horizontal overflow 390px #tools",
+  "pass": true,
+  "detail": "0"
+ },
+ {
+  "check": "no horizontal overflow 390px #sources",
+  "pass": true,
+  "detail": "0"
+ },
+ {
+  "check": "no horizontal overflow 390px #progress",
+  "pass": true,
+  "detail": "0"
+ },
+ {
+  "check": "exam view fits 390px",
+  "pass": true,
+  "detail": "0"
+ },
+ {
+  "check": "practice feedback fits 390px",
+  "pass": true,
+  "detail": "0"
+ },
+ {
+  "check": "light theme persists across reload",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "no console errors at 390px",
+  "pass": true,
+  "detail": "[]"
+ },
+ {
+  "check": "no external requests at 390px",
+  "pass": true,
+  "detail": "[]"
+ },
+ {
+  "check": "no horizontal overflow 768px #home",
+  "pass": true,
+  "detail": "0"
+ },
+ {
+  "check": "no horizontal overflow 768px #guide/m07",
+  "pass": true,
+  "detail": "0"
+ },
+ {
+  "check": "no horizontal overflow 768px #guide/m14",
+  "pass": true,
+  "detail": "0"
+ },
+ {
+  "check": "no horizontal overflow 768px #practice",
+  "pass": true,
+  "detail": "0"
+ },
+ {
+  "check": "no horizontal overflow 768px #exams",
+  "pass": true,
+  "detail": "0"
+ },
+ {
+  "check": "no horizontal overflow 768px #tools",
+  "pass": true,
+  "detail": "0"
+ },
+ {
+  "check": "no horizontal overflow 768px #sources",
+  "pass": true,
+  "detail": "0"
+ },
+ {
+  "check": "no horizontal overflow 768px #progress",
+  "pass": true,
+  "detail": "0"
+ },
+ {
+  "check": "exam view fits 768px",
+  "pass": true,
+  "detail": "0"
+ },
+ {
+  "check": "practice feedback fits 768px",
+  "pass": true,
+  "detail": "0"
+ },
+ {
+  "check": "no console errors at 768px",
+  "pass": true,
+  "detail": "[]"
+ },
+ {
+  "check": "no external requests at 768px",
+  "pass": true,
+  "detail": "[]"
+ },
+ {
+  "check": "no horizontal overflow 1440px #home",
+  "pass": true,
+  "detail": "0"
+ },
+ {
+  "check": "no horizontal overflow 1440px #guide/m07",
+  "pass": true,
+  "detail": "0"
+ },
+ {
+  "check": "no horizontal overflow 1440px #guide/m14",
+  "pass": true,
+  "detail": "0"
+ },
+ {
+  "check": "no horizontal overflow 1440px #practice",
+  "pass": true,
+  "detail": "0"
+ },
+ {
+  "check": "no horizontal overflow 1440px #exams",
+  "pass": true,
+  "detail": "0"
+ },
+ {
+  "check": "no horizontal overflow 1440px #tools",
+  "pass": true,
+  "detail": "0"
+ },
+ {
+  "check": "no horizontal overflow 1440px #sources",
+  "pass": true,
+  "detail": "0"
+ },
+ {
+  "check": "no horizontal overflow 1440px #progress",
+  "pass": true,
+  "detail": "0"
+ },
+ {
+  "check": "exam view fits 1440px",
+  "pass": true,
+  "detail": "0"
+ },
+ {
+  "check": "practice feedback fits 1440px",
+  "pass": true,
+  "detail": "0"
+ },
+ {
+  "check": "no console errors at 1440px",
+  "pass": true,
+  "detail": "[]"
+ },
+ {
+  "check": "no external requests at 1440px",
+  "pass": true,
+  "detail": "[]"
+ },
+ {
+  "check": "app still runs with storage blocked + warns",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "no uncaught errors with storage blocked",
+  "pass": true,
+  "detail": "[]"
+ }
+]

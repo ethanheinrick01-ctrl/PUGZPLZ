@@ -1,0 +1,552 @@
+{
+ "m4-std-01": {
+  "a": "C",
+  "conf": "high",
+  "flag": ""
+ },
+ "m5-meth-04": {
+  "a": "True",
+  "conf": "high",
+  "flag": ""
+ },
+ "xa-tf-12": {
+  "a": "True",
+  "conf": "high",
+  "flag": ""
+ },
+ "m2-int-05": {
+  "a": "1C,2D,3B,4A",
+  "conf": "high",
+  "flag": ""
+ },
+ "m13-rest-01": {
+  "a": "A",
+  "conf": "high",
+  "flag": ""
+ },
+ "m5-acc-01": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "m9-fi-04": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "ba-rep-06": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "m18-tr-04": {
+  "a": "C",
+  "conf": "high",
+  "flag": ""
+ },
+ "m2-int-04": {
+  "a": "False",
+  "conf": "high",
+  "flag": ""
+ },
+ "ba-cld-05": {
+  "a": "B,C,D",
+  "conf": "high",
+  "flag": ""
+ },
+ "m18-tr-02": {
+  "a": "122.5",
+  "conf": "medium",
+  "flag": "Exact value is 122.5 (non-integer); key should specify whether 122.5, 122 or 123 is accepted (no rounding convention in W2 slide 17)"
+ },
+ "m17-s-02": {
+  "a": "D",
+  "conf": "high",
+  "flag": ""
+ },
+ "m1-proc-01": {
+  "a": "1,2,6,3,7,4,5",
+  "conf": "high",
+  "flag": ""
+ },
+ "m10-rep-01": {
+  "a": "A",
+  "conf": "high",
+  "flag": ""
+ },
+ "m18-ca-02": {
+  "a": "5,7,26",
+  "conf": "high",
+  "flag": ""
+ },
+ "xa-tf-06": {
+  "a": "False",
+  "conf": "high",
+  "flag": ""
+ },
+ "m7-ci-04": {
+  "a": "True",
+  "conf": "high",
+  "flag": "Literal slide wording (W2 slide 19; also LECTURE_09022026 l.21) says CIs 'increase the reliability of the test', which is psychometrically inaccurate (TB1 p51-52 frames CI as range for true score/measurement error); keyable as True only on her wording"
+ },
+ "xa-mc-19": {
+  "a": "C",
+  "conf": "high",
+  "flag": ""
+ },
+ "m8-bias-02": {
+  "a": "True",
+  "conf": "high",
+  "flag": ""
+ },
+ "xb-tf-14": {
+  "a": "True",
+  "conf": "high",
+  "flag": ""
+ },
+ "m9-fi-03": {
+  "a": "False",
+  "conf": "high",
+  "flag": ""
+ },
+ "m15-sa-02": {
+  "a": "A,B,D,E",
+  "conf": "high",
+  "flag": ""
+ },
+ "ba-rep-05": {
+  "a": "False",
+  "conf": "high",
+  "flag": ""
+ },
+ "m4-diff-02": {
+  "a": "A",
+  "conf": "high",
+  "flag": ""
+ },
+ "m13-four-04": {
+  "a": "True",
+  "conf": "high",
+  "flag": ""
+ },
+ "m12-t-02": {
+  "a": "True",
+  "conf": "high",
+  "flag": ""
+ },
+ "m6-bc-05": {
+  "a": "A",
+  "conf": "medium",
+  "flag": "Only source is student PPVT_submission.txt (basal 3 correct / ceiling 6 incorrect); not verifiable from course materials, and the published PPVT-5 actually uses 12-item set rules, so the 'finding' may be factually wrong"
+ },
+ "bb-adu-03": {
+  "a": "B",
+  "conf": "medium",
+  "flag": "No source states the tongue-deviation laterality rule; W4 slide 5 only lists 'deviation of tongue or uvula'; OPE (jaw section, ~[33:38]) says deviation toward one side reflects weakness on that side, supporting B by analogy only"
+ },
+ "m16-d-03": {
+  "a": "True",
+  "conf": "high",
+  "flag": ""
+ },
+ "ba-cld-04": {
+  "a": "D",
+  "conf": "high",
+  "flag": ""
+ },
+ "ba-cld-07": {
+  "a": "C",
+  "conf": "high",
+  "flag": ""
+ },
+ "xa-tf-17": {
+  "a": "False",
+  "conf": "high",
+  "flag": ""
+ },
+ "m15-ra-01": {
+  "a": "132",
+  "conf": "high",
+  "flag": ""
+ },
+ "m13-why-01": {
+  "a": "True",
+  "conf": "high",
+  "flag": ""
+ },
+ "m9-int-03": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "m2-cul-02": {
+  "a": "False",
+  "conf": "high",
+  "flag": ""
+ },
+ "m4-int-01": {
+  "a": "D",
+  "conf": "high",
+  "flag": ""
+ },
+ "m17-l-02": {
+  "a": "C",
+  "conf": "high",
+  "flag": ""
+ },
+ "m6-raw-01": {
+  "a": "D",
+  "conf": "high",
+  "flag": ""
+ },
+ "m5-meth-01": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "m14-smc-03": {
+  "a": "A",
+  "conf": "high",
+  "flag": ""
+ },
+ "xa-tf-01": {
+  "a": "True",
+  "conf": "high",
+  "flag": ""
+ },
+ "m9-hist-03": {
+  "a": "True",
+  "conf": "high",
+  "flag": ""
+ },
+ "m9-dir-01": {
+  "a": "True",
+  "conf": "high",
+  "flag": ""
+ },
+ "m14-ddk-02": {
+  "a": "True",
+  "conf": "high",
+  "flag": ""
+ },
+ "m9-comp-03": {
+  "a": "A,B,C,D",
+  "conf": "high",
+  "flag": ""
+ },
+ "m10-rep-02": {
+  "a": "1B,2C,3D,4A",
+  "conf": "high",
+  "flag": ""
+ },
+ "m5-acc-05": {
+  "a": "1A,2A,3A,4B,5B,6B",
+  "conf": "high",
+  "flag": ""
+ },
+ "xa-tf-18": {
+  "a": "True",
+  "conf": "high",
+  "flag": ""
+ },
+ "xb-tf-05": {
+  "a": "False",
+  "conf": "high",
+  "flag": ""
+ },
+ "m9-q-02": {
+  "a": "A",
+  "conf": "high",
+  "flag": ""
+ },
+ "m14-dia-01": {
+  "a": "F",
+  "conf": "high",
+  "flag": ""
+ },
+ "m2-hip-02": {
+  "a": "C",
+  "conf": "high",
+  "flag": ""
+ },
+ "xb-tf-09": {
+  "a": "False",
+  "conf": "high",
+  "flag": ""
+ },
+ "m15-ra-05": {
+  "a": "3,4,1,2",
+  "conf": "high",
+  "flag": ""
+ },
+ "bb-sel-01": {
+  "a": "C",
+  "conf": "high",
+  "flag": ""
+ },
+ "bb-eth-06": {
+  "a": "C",
+  "conf": "high",
+  "flag": "Minor stem wording: calls options 'recommendation statements' though slide 14 (W3A) is about functional-impact statements in reports; C still clearly best"
+ },
+ "m13-jl-01": {
+  "a": "C",
+  "conf": "high",
+  "flag": ""
+ },
+ "xb-mc-15": {
+  "a": "A",
+  "conf": "high",
+  "flag": ""
+ },
+ "m16-i-03": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "m11-s-01": {
+  "a": "A",
+  "conf": "high",
+  "flag": ""
+ },
+ "m11-k-03": {
+  "a": "True",
+  "conf": "medium",
+  "flag": "Lecture transcript is garbled: LECTURE_09142026 l.121-122 'focusing on the speaker... eye contact... so they know you're listening', 'affirming' at l.122 and LECTURE_09092026 l.86; supportable but from noisy ASR"
+ },
+ "m14-te-02": {
+  "a": "False",
+  "conf": "high",
+  "flag": ""
+ },
+ "xb-tf-20": {
+  "a": "False",
+  "conf": "high",
+  "flag": ""
+ },
+ "m14-dia-02": {
+  "a": "G",
+  "conf": "high",
+  "flag": ""
+ },
+ "xb-mc-03": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "m18-bd-02": {
+  "a": "E",
+  "conf": "medium",
+  "flag": "Sources conflict: slide bell curve (W2 slide 18) puts 70-85 as Below Average, but TB1 p51 says -1.5 to -2 SD (77.5-70) is 'usually considered significantly below average'; key E only under slide convention"
+ },
+ "m5-nc-01": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "m2-ebp-01": {
+  "a": "A",
+  "conf": "high",
+  "flag": ""
+ },
+ "bb-adu-08": {
+  "a": "False",
+  "conf": "high",
+  "flag": ""
+ },
+ "xb-mc-14": {
+  "a": "D",
+  "conf": "high",
+  "flag": ""
+ },
+ "xb-tf-17": {
+  "a": "False",
+  "conf": "low",
+  "flag": "Maya/Group B parent handout (MOCKP_parent_handout_OCR.txt) is EMPTY (0 bytes); no source states whether Maya's hearing was checked; answer is a guess"
+ },
+ "m8-ss-02": {
+  "a": "True",
+  "conf": "high",
+  "flag": ""
+ },
+ "m14-doc-01": {
+  "a": "C",
+  "conf": "high",
+  "flag": ""
+ },
+ "m9-inf-01": {
+  "a": "1A,2A,3A,4B,5B,6B",
+  "conf": "high",
+  "flag": ""
+ },
+ "m6-adj-02": {
+  "a": "D",
+  "conf": "high",
+  "flag": ""
+ },
+ "m6-ca-02": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "m3-case-01": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "m15-na-02": {
+  "a": "C",
+  "conf": "high",
+  "flag": ""
+ },
+ "m7-sc-06": {
+  "a": "130,2",
+  "conf": "high",
+  "flag": ""
+ },
+ "m9-set-01": {
+  "a": "D",
+  "conf": "high",
+  "flag": ""
+ },
+ "m1-conf-01": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "m9-q-01": {
+  "a": "True",
+  "conf": "high",
+  "flag": ""
+ },
+ "m3-case-03": {
+  "a": "False",
+  "conf": "high",
+  "flag": ""
+ },
+ "m8-type-01": {
+  "a": "D",
+  "conf": "high",
+  "flag": ""
+ },
+ "m1-conf-02": {
+  "a": "True",
+  "conf": "medium",
+  "flag": "Supported only by garbled lecture ASR: LECTURE_09092026 l.66-69 ('informal and observation just as clinically relevant...justify that I'm recommending therapy')"
+ },
+ "m3-prob-01": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "ba-rep-03": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "m9-inf-02": {
+  "a": "False",
+  "conf": "high",
+  "flag": ""
+ },
+ "m10-an-02": {
+  "a": "2,1,3,4",
+  "conf": "high",
+  "flag": ""
+ },
+ "m18-bd-03": {
+  "a": "C",
+  "conf": "high",
+  "flag": ""
+ },
+ "m6-adj-01": {
+  "a": "6",
+  "conf": "high",
+  "flag": ""
+ },
+ "m11-c-03": {
+  "a": "A",
+  "conf": "low",
+  "flag": "Parent handout (MOCKP_parent_handout_OCR.txt) is EMPTY; answer inferred from 'facts are only revealed if you ask' in ba-maya stems and LECTURE_09142026 ('make your partner work for it'); cannot verify handout text"
+ },
+ "m15-dd-02": {
+  "a": "False",
+  "conf": "high",
+  "flag": ""
+ },
+ "xa-mc-09": {
+  "a": "A",
+  "conf": "high",
+  "flag": ""
+ },
+ "xb-tf-15": {
+  "a": "False",
+  "conf": "high",
+  "flag": ""
+ },
+ "m15-in-01": {
+  "a": "A",
+  "conf": "high",
+  "flag": ""
+ },
+ "m11-c-02": {
+  "a": "True",
+  "conf": "low",
+  "flag": "Maya/Group B mock materials not in srcpack (MOCKP empty); only Group A examiner handout (Ethan, 5;2) available; claim about toddler 'not talking' unverifiable"
+ },
+ "m17-v-02": {
+  "a": "False",
+  "conf": "high",
+  "flag": ""
+ },
+ "xa-tf-04": {
+  "a": "False",
+  "conf": "high",
+  "flag": ""
+ },
+ "xa-mc-11": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "m15-sa-01": {
+  "a": "A",
+  "conf": "high",
+  "flag": ""
+ },
+ "m14-tr-02": {
+  "a": "D",
+  "conf": "high",
+  "flag": ""
+ },
+ "xa-mc-03": {
+  "a": "C",
+  "conf": "high",
+  "flag": ""
+ },
+ "ba-maya-07": {
+  "a": "3,2,5,1,4",
+  "conf": "medium",
+  "flag": "Order taken from Group A examiner handout (MOCKX, Ethan case) 'Summarize & Close' list; the Group B (Maya) handout is not in srcpack, so assumes identical list"
+ },
+ "m7-band-02": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "m14-smc-01": {
+  "a": "A,C,D",
+  "conf": "high",
+  "flag": ""
+ },
+ "ba-maya-06": {
+  "a": "D",
+  "conf": "high",
+  "flag": ""
+ },
+ "m2-eth-01": {
+  "a": "A",
+  "conf": "high",
+  "flag": ""
+ }
+}

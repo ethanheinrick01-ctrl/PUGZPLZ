@@ -1,0 +1,47 @@
+[
+ {
+  "check": "localhost: pages render without console errors",
+  "pass": true,
+  "detail": "[]"
+ },
+ {
+  "check": "localhost: no requests leave the local server",
+  "pass": true,
+  "detail": "[]"
+ },
+ {
+  "check": "keyboard: Check enabled after answer + confidence",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "keyboard-only answer graded correct",
+  "pass": true,
+  "detail": "Correct"
+ },
+ {
+  "check": "focus moves to the verdict after checking",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "diagram enlarges in a dialog",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "Escape closes the dialog",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "every guide visual has a what-to-notice caption",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "check": "print view hides navigation and buttons",
+  "pass": true,
+  "detail": ""
+ }
+]

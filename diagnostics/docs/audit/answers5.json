@@ -1,0 +1,357 @@
+{
+ "m14-tr-03": {
+  "a": "C",
+  "conf": "high",
+  "flag": ""
+ },
+ "bb-eth-03": {
+  "a": "A",
+  "conf": "high",
+  "flag": ""
+ },
+ "m3-acc-01": {
+  "a": "C",
+  "conf": "high",
+  "flag": ""
+ },
+ "m4-role-02": {
+  "a": "A",
+  "conf": "high",
+  "flag": ""
+ },
+ "m13-jl-03": {
+  "a": "C",
+  "conf": "high",
+  "flag": ""
+ },
+ "m7-ci-03": {
+  "a": "A",
+  "conf": "high",
+  "flag": ""
+ },
+ "m9-q-02": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "m16-i-01": {
+  "a": "C",
+  "conf": "high",
+  "flag": ""
+ },
+ "m14-smc-03": {
+  "a": "A",
+  "conf": "high",
+  "flag": ""
+ },
+ "m3-case-02": {
+  "a": "C",
+  "conf": "high",
+  "flag": ""
+ },
+ "m5-meth-01": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "m14-pa-01": {
+  "a": "C",
+  "conf": "high",
+  "flag": ""
+ },
+ "xa-mc-16": {
+  "a": "A",
+  "conf": "high",
+  "flag": ""
+ },
+ "ba-cld-08": {
+  "a": "A",
+  "conf": "high",
+  "flag": ""
+ },
+ "m15-sa-01": {
+  "a": "D",
+  "conf": "high",
+  "flag": ""
+ },
+ "m13-air-02": {
+  "a": "A",
+  "conf": "high",
+  "flag": ""
+ },
+ "m7-norm-01": {
+  "a": "A",
+  "conf": "high",
+  "flag": ""
+ },
+ "m6-ca-07": {
+  "a": "A",
+  "conf": "high",
+  "flag": ""
+ },
+ "m4-da-01": {
+  "a": "D",
+  "conf": "high",
+  "flag": ""
+ },
+ "ba-cld-04": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "m10-an-01": {
+  "a": "A",
+  "conf": "high",
+  "flag": ""
+ },
+ "m15-dd-01": {
+  "a": "A",
+  "conf": "high",
+  "flag": "Slide text (W4 deck slide 6) puts 'More common' on its own line after Method 2, so it's ambiguous on the slide alone; TB6 p.~181 says 'the latter [method 2] is the more common method'"
+ },
+ "bb-eth-05": {
+  "a": "D",
+  "conf": "high",
+  "flag": ""
+ },
+ "bb-sel-02": {
+  "a": "C",
+  "conf": "high",
+  "flag": ""
+ },
+ "xa-mc-20": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "bb-eth-06": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "m14-doc-01": {
+  "a": "C",
+  "conf": "high",
+  "flag": ""
+ },
+ "m4-diff-02": {
+  "a": "A",
+  "conf": "high",
+  "flag": ""
+ },
+ "bb-sel-03": {
+  "a": "D",
+  "conf": "high",
+  "flag": ""
+ },
+ "m10-sh-01": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "xa-mc-18": {
+  "a": "A",
+  "conf": "high",
+  "flag": ""
+ },
+ "m16-o-01": {
+  "a": "D",
+  "conf": "high",
+  "flag": ""
+ },
+ "xb-mc-16": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "bb-eth-04": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "m14-te-01": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "xb-mc-15": {
+  "a": "A",
+  "conf": "high",
+  "flag": ""
+ },
+ "ba-cld-01": {
+  "a": "D",
+  "conf": "high",
+  "flag": ""
+ },
+ "xa-mc-06": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "xa-mc-07": {
+  "a": "C",
+  "conf": "high",
+  "flag": ""
+ },
+ "m7-pr-01": {
+  "a": "A",
+  "conf": "high",
+  "flag": ""
+ },
+ "xb-mc-14": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "bb-adu-06": {
+  "a": "B,C,D,E",
+  "conf": "high",
+  "flag": "Distractor A reverses the slide's factor: W4 deck slide 13 lists 'Lack of paralinguistic cues'. Using gestures/cues doesn't reduce intelligibility, but because A repeats the slide's phrase 'paralinguistic cues', a student could argue for it"
+ },
+ "m5-man-01": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "bb-adu-04": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "m6-ca-02": {
+  "a": "C",
+  "conf": "high",
+  "flag": ""
+ },
+ "m12-p-02": {
+  "a": "A",
+  "conf": "high",
+  "flag": ""
+ },
+ "xa-mc-12": {
+  "a": "C",
+  "conf": "high",
+  "flag": ""
+ },
+ "bb-adu-09": {
+  "a": "C",
+  "conf": "high",
+  "flag": ""
+ },
+ "bb-sel-09": {
+  "a": "A",
+  "conf": "high",
+  "flag": ""
+ },
+ "m15-na-02": {
+  "a": "C",
+  "conf": "high",
+  "flag": ""
+ },
+ "m13-rest-04": {
+  "a": "A",
+  "conf": "high",
+  "flag": ""
+ },
+ "bb-sel-08": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "m13-pos-04": {
+  "a": "D",
+  "conf": "high",
+  "flag": ""
+ },
+ "bb-eth-02": {
+  "a": "D",
+  "conf": "high",
+  "flag": ""
+ },
+ "m13-four-02": {
+  "a": "C",
+  "conf": "high",
+  "flag": ""
+ },
+ "m5-nc-01": {
+  "a": "D",
+  "conf": "high",
+  "flag": ""
+ },
+ "m7-band-08": {
+  "a": "A",
+  "conf": "high",
+  "flag": ""
+ },
+ "xa-mc-03": {
+  "a": "C",
+  "conf": "high",
+  "flag": ""
+ },
+ "m9-fi-02": {
+  "a": "D",
+  "conf": "high",
+  "flag": ""
+ },
+ "m3-acc-02": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "m11-s-01": {
+  "a": "D",
+  "conf": "high",
+  "flag": ""
+ },
+ "m17-n-01": {
+  "a": "D",
+  "conf": "high",
+  "flag": ""
+ },
+ "m12-f-03": {
+  "a": "D",
+  "conf": "high",
+  "flag": ""
+ },
+ "m4-std-01": {
+  "a": "D",
+  "conf": "high",
+  "flag": ""
+ },
+ "ba-cld-07": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "ba-maya-06": {
+  "a": "C",
+  "conf": "high",
+  "flag": ""
+ },
+ "m2-eth-01": {
+  "a": "B",
+  "conf": "high",
+  "flag": ""
+ },
+ "xa-mc-13": {
+  "a": "C",
+  "conf": "high",
+  "flag": ""
+ },
+ "m15-na-01": {
+  "a": "A",
+  "conf": "high",
+  "flag": ""
+ },
+ "bb-adu-01": {
+  "a": "C",
+  "conf": "high",
+  "flag": ""
+ },
+ "m9-set-01": {
+  "a": "A",
+  "conf": "high",
+  "flag": ""
+ }
+}

@@ -1,0 +1,43 @@
+### m6-adj-03  [tf]
+Using adjusted age for a premature infant makes the infant more likely to be identified with a delay.
+ANSWER FORMAT: True or False
+
+### m15-ra-04  [tf]
+To determine speech rate, her slide says to record a connected-speech sample of 50-100 utterances.
+ANSWER FORMAT: True or False
+
+### m3-prob-04  [tf]
+The video reports that 80.6% of SLPs use psychometrics such as validity, reliability, sensitivity and specificity when selecting an assessment.
+ANSWER FORMAT: True or False
+
+### m10-rep-03  [tf]
+The results-by-domain section should include quantitative data only; qualitative descriptions belong elsewhere in the report.
+ANSWER FORMAT: True or False
+
+### m8-bias-02  [tf]
+Her slide defines an unbiased test as one that produces consistent results across administrations.
+ANSWER FORMAT: True or False
+
+### m13-pos-02  [tf]
+Asymmetry that appears or worsens with movement raises concern for neuromuscular weakness or cranial nerve involvement, especially cranial nerve XII.
+ANSWER FORMAT: True or False
+
+### m3-eba-02  [tf]
+The video reports that clinicians tend to apply evidence-based thinking to assessment decisions but not to treatment decisions.
+ANSWER FORMAT: True or False
+
+### m8-ss-02  [tf]
+A test with low sensitivity is more likely to falsely indicate the presence of a disorder.
+ANSWER FORMAT: True or False
+
+### m7-sc-03  [tf]
+A scaled score of 12 is 1 SD above average and a scaled score of 8 is 1 SD below average.
+ANSWER FORMAT: True or False
+
+### m13-four-04  [tf]
+In the video, overshooting, undershooting or all-or-nothing movements are red flags for poor dissociation.
+ANSWER FORMAT: True or False
+
+### m4-diff-04  [tf]
+Her slide says a speech-language difficulty needs to appear in only one of a client's languages to warrant intervention.
+ANSWER FORMAT: True or False
