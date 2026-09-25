@@ -419,11 +419,11 @@
   G.crossCheck = function (seed) {
     var r = U.rng(seed);
     var rows = [
-      ['Elevated AC and BC thresholds', 'Normal (Type A)', null, 'Consider a sensorineural component', 'Elevated AC & BC with normal tymp -> "Consider SN component" (guest slide 13).'],
-      ['Elevated AC, BC normal', 'Abnormal (Type B, normal volume)', null, 'Consider a conductive component', 'Elevated AC with abnormal tymp -> "Consider conductive component".'],
-      ['Normal thresholds', null, 'Present', 'Generally consistent', 'Normal audiogram + present OAEs -> generally consistent.'],
-      ['Normal thresholds', null, 'Absent', 'Investigate middle-ear status, noise, cochlear status, test conditions', 'Normal audiogram + absent OAEs -> investigate ME status, noise exposure, cochlear status, test conditions.'],
-      ['Elevated thresholds, normal tymp', null, 'Absent', 'May be consistent with cochlear involvement', 'Elevated + absent OAEs -> may be consistent with cochlear involvement.']
+      ['Elevated AC and BC thresholds without a significant gap', 'Normal (Type A)', null, 'Raised AC and BC suggest a sensorineural component', 'Elevated AC & BC with normal tymp -> consider an SN component (guest slide 13).'],
+      ['Elevated AC, BC normal', 'Abnormal (Type B, normal volume)', null, 'Raised AC with normal BC suggests a conductive component', 'Elevated AC with abnormal tymp -> consider a conductive component.'],
+      ['Normal thresholds', null, 'Present', 'Normal thresholds and present OAEs are generally consistent', 'Normal audiogram + present OAEs -> generally consistent.'],
+      ['Normal thresholds', null, 'Absent', 'Normal thresholds with absent OAEs need further investigation', 'Normal audiogram + absent OAEs -> investigate ME status, noise exposure, cochlear status, test conditions.'],
+      ['Elevated AC and BC thresholds without a significant gap', 'Normal (Type A)', 'Absent', 'Elevated thresholds with absent OAEs suggest cochlear involvement', 'Elevated thresholds + absent OAEs -> may be consistent with cochlear involvement.']
     ];
     var row = U.pick(r, rows);
     var answers = rows.map(function (x) { return x[3]; });

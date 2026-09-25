@@ -5,7 +5,7 @@ const {loadLab} = require('./load.cjs');
 const {L} = loadLab();
 const items = L.engine.itemsFor(() => true).filter(i => i.t === 'mc' && i.o.length >= 3);
 
-for (const item of items) {
+function check(item) {
   const correct = item.o.findIndex(o => o.ok);
   assert.ok(correct >= 0, `${item.id}: missing key`);
   const answer = item.o[correct].t;
@@ -18,8 +18,19 @@ for (const item of items) {
   assert.equal(new Set(item.o.map(o => o.t.toLowerCase().trim())).size, item.o.length,
     `${item.id}: repeated answer choice`);
 }
+items.forEach(check);
+
+let generated = 0;
+for (const name of L.gen.list) {
+  for (let seed = 1; seed <= 300; seed++) {
+    const item = L.engine.resolve({gen:name, seed:seed*7919});
+    if (item.t !== 'mc' || item.o.length < 3) continue;
+    check(item);
+    generated++;
+  }
+}
 
 for (const id of ['s4.anox2', 's4.hem1']) {
   assert.ok(items.some(i => i.id === id), `${id}: screenshot question missing from quality review`);
 }
-console.log(`${items.length} authored multiple-choice questions passed answer-cue checks`);
+console.log(`${items.length} authored and ${generated} generated multiple-choice questions passed answer-cue checks`);
