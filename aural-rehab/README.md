@@ -5,6 +5,8 @@ No accounts or paid APIs. The downloaded lab works offline; the hosted edition l
 
 September 24 update: open **Exam 1 · Sept 24** for twelve focused chapters, three reproducible mock forms plus further generated forms, audiograms, short answers and a miss queue. The original 352 questions and images remain; 61 new source-linked questions bring the bank to 413.
 
+September 25 question-style repair: the full 284-item multiple-choice bank was checked for answer-length and punctuation clues. Implausible distractors were replaced with adjacent course concepts while question IDs, correct answer positions and saved progress remain stable. See `docs/QUESTION_STYLE_AUDIT_2026-09-25.md`.
+
 **Every question gives immediate feedback.** MC/T/F checks when you select an answer. Graph parts check as you select them. Numeric/multiple-response tasks have a per-question check action. Written work reveals its rubric when you click **Check this answer now**, then you honestly rate your own response. Your first answer stays scored; no full-exam submission is needed to see corrections.
 
 ## Open it

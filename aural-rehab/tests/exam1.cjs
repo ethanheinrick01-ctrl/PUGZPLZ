@@ -96,9 +96,18 @@ test('Quota errors, corrupt storage and competing tabs do not overwrite saved da
   const b=loadLab({storage:{[key]:'broken-json'}});b.L.store.load();assert.equal(b.L.store.save(),false);assert.equal(b.storage[key],'broken-json');
   const c=loadLab({noStorage:true});c.L.exam1.startWriting('verify');assert.equal(c.L.store.ok(),false);assert.ok(c.L.store.exportJSON().includes('verify'));
 });
-test('Original authored data and every original image remain byte-for-byte intact',()=>{
+test('Original figures, guide, concepts and source metadata remain byte-for-byte intact',()=>{
   const hashes=require('./original-content-sha256.json'),crypto=require('node:crypto');
-  for(const [file,hash] of Object.entries(hashes))assert.equal(crypto.createHash('sha256').update(fs.readFileSync(path.join(ROOT,file))).digest('hex'),hash,file);
+  for(const [file,hash] of Object.entries(hashes)){
+    if(/^js\/data\/(?:cases|items-)/.test(file))continue;
+    assert.equal(crypto.createHash('sha256').update(fs.readFileSync(path.join(ROOT,file))).digest('hex'),hash,file);
+  }
+});
+test('Reworded original questions preserve every ID, keyed answer, concept and source',()=>{
+  const expected=require('./legacy-item-contract.json');
+  const {L}=loadLab();
+  const actual=L.engine.itemsFor(()=>true).map(i=>({id:i.id,c:i.c,t:i.t,sec:i.sec||null,pool:i.pool||null,tier:i.tier||null,a:i.a??null,ok:i.o?.map(o=>!!o.ok)||null,parts:i.parts?.map(p=>p.a)||null,pairs:i.pairs||null,seq:i.seq||null,s:i.id.startsWith('e1.')?null:(i.s||[]),mediaKind:i.media?.kind||null})).sort((a,b)=>a.id.localeCompare(b.id));
+  assert.deepEqual(actual,expected);
 });
 test('A reloaded original practice answer stays graded and cannot duplicate an attempt',()=>{
   const a=loadLab(),E=a.L.engine;E.newSession('practice','Resume check',[{id:'s1.def1'},{id:'s1.def2'}],{noRetry:true});
