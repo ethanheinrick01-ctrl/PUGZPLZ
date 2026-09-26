@@ -97,7 +97,31 @@ t('high-confidence miss = misconception until two correct follow', () => {
   answer('s4.rh2', true, 'm'); assert.strictEqual(E2.conceptStats().rh.status, 'misconception');
   answer('s4.rh1', true, 'm'); assert.strictEqual(E2.conceptStats().rh.status, 'mastered');
 });
-t('any miss resets mastery', () => { answer('s4.cmv4', false, 'm'); assert.strictEqual(E2.conceptStats().cmv.status, 'shaky'); });
+t('a later miss stays in review without revoking earned mastery', () => {
+  answer('s4.cmv4', false, 'm');
+  const st = E2.conceptStats().cmv;
+  assert.strictEqual(st.status, 'mastered');
+  assert.strictEqual(st.rawStatus, 'shaky');
+  assert.strictEqual(E2.reviewPlan().find(r => r.c === 'cmv').why, 'shaky');
+  assert.strictEqual(S2.load().masteryCredits.cmv, 'earned');
+});
+t('only old unanswerable reflex seeds are neutral for mastery', () => {
+  const b = loadLab(), e = b.L.engine, s = b.L.store;
+  const answerReflex = (seed, response, confidence) => {
+    const ref = { gen: 'reflex', seed };
+    return e.record(e.resolve(ref), ref, response, confidence, 'practice');
+  };
+  const first = e.resolve({ gen: 'reflex', seed: 1 });
+  const second = e.resolve({ gen: 'reflex', seed: 2 });
+  answerReflex(1, first.parts.map(p => p.a), 'm');
+  answerReflex(2, second.parts.map(p => p.a), 'h');
+  assert.strictEqual(e.conceptStats()['reflex-sl'].status, 'mastered');
+  const old = answerReflex(4, ['65 dB SL', 'Reduced SL (<60 dB SL), consistent with cochlear loss'], 'h');
+  assert.strictEqual(old.sc, 0.5, 'historic first-response score remains unchanged');
+  assert.strictEqual(s.load().attempts.length, 3, 'all original responses are still saved');
+  assert.strictEqual(e.conceptStats()['reflex-sl'].att, 2, 'the impossible item is excluded only from mastery/accuracy');
+  assert.strictEqual(e.conceptStats()['reflex-sl'].rawStatus, 'mastered');
+});
 t('hint-assisted correct answers do not master', () => { E2.record(R2['s5.crou1'], { id: 's5.crou1' }, R2['s5.crou1'].o.findIndex(o => o.ok), 'h', 'practice', true); const k = R2['s5.apert1'].o.findIndex(o => o.ok); E2.record(R2['s5.apert1'], { id: 's5.apert1' }, k, 'h'); answer('s5.apert2', true, 'h'); assert.strictEqual(E2.conceptStats().apert.status, 'mastered'); E2.record(R2['s5.crou1'], { id: 's5.crou1' }, R2['s5.crou1'].o.findIndex(o => o.ok), 'h', 'practice', true); assert.notStrictEqual(E2.conceptStats().crouzon.status, 'mastered'); });
 t('teach-back never counts', () => { const before = S2.load().attempts.length; E2.record(R2['s1.tb1'], { id: 's1.tb1' }, { self: 'got' }, null); assert.strictEqual(S2.load().attempts.length, before); });
 t('historical mock evidence remains mastery-neutral but flags review', () => {

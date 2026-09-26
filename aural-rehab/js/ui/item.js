@@ -213,6 +213,7 @@
     if (it.t === 'match') h.push('<table class="t small"><tr><th>Item</th><th>Your match</th><th>Correct</th></tr>' + it.pairs.map(function (p, i) { var r = resp && resp[i]; return '<tr><td>' + esc(p[0]) + '</td><td>' + (r === p[1] ? '&#10003; ' : '&#10007; ') + esc(r || '-') + '</td><td>' + esc(p[1]) + '</td></tr>'; }).join('') + '</table>');
     if (it.t === 'order') h.push('<p>Correct order:</p><ol>' + it.seq.map(function (s, i) { return '<li>' + (resp && resp[i] === s ? '&#10003; ' : '&#10007; ') + esc(s) + '</li>'; }).join('') + '</ol>');
     if (it.t === 'parts') h.push('<table class="t small"><tr><th>Part</th><th>You</th><th>Key</th><th>Why</th></tr>' + it.parts.map(function (p, i) { var r = resp && resp[i]; return '<tr><td>' + esc(p.label) + '</td><td>' + (r === p.a ? '&#10003; ' : '&#10007; ') + esc(r || '-') + '</td><td>' + esc(p.a) + '</td><td>' + esc(p.why || '') + '</td></tr>'; }).join('') + '</table>');
+    if (it.reflexUnclassified) h.push('<p><b>Question correction:</b> 60–69 dB SL was not classified by the source. Earlier versions offered no correct interpretation for this item. The original response stays in your history, but this question does not count against concept mastery.</p>');
     if (it.x) h.push('<p>' + it.x + '</p>');
     h.push('<div>' + srcChips(it.s) + ' ' + tierBadge(it.tier) + '</div></div>');
     fbEl.innerHTML = h.join('');

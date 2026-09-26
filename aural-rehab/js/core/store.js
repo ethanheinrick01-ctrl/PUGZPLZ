@@ -4,15 +4,29 @@
   var L = root.L = root.L || {};
   var KEY = 'comd4590-lab-v2';
   var LEGACY_KEYS = ['comd4590-study-lab-progress-v1', 'comd4590-guided-progress-v1', 'comd4590-lecture2-drill-v1'];
-  var mem = null, storageOK = true, lastRaw = null, problem = '', corrupt = false;
+  var mem = null, storageOK = true, lastRaw = null, problem = '', corrupt = false, readOK = true, backupAttempted = false;
 
   function blank() {
     return { app: 'comd4590-lab', schema: 2, created: Date.now(), updated: Date.now(), attempts: [], mocks: [], mockActive: null, session: null,
-      boss: {}, seenX: {}, guideRead: {}, teach: {}, legacy: null, settings: { includeHeld: false }, exam1: { runs: [], chapterRead: {}, lastRoute: 'exam1' } };
+      boss: {}, seenX: {}, guideRead: {}, teach: {}, legacy: null, settings: { includeHeld: false },
+      masteryCredits: {}, masterySeeded: false, exam1: { runs: [], chapterRead: {}, lastRoute: 'exam1' } };
   }
-  function lsGet(k) { try { return root.localStorage ? root.localStorage.getItem(k) : null; } catch (e) { storageOK = false; return null; } }
-  function lsSet(k, v) { try { root.localStorage.setItem(k, v); return true; } catch (e) { storageOK = false; problem = 'Browser storage is unavailable or full. Export your progress before closing.'; return false; } }
-  function lsDel(k) { try { root.localStorage.removeItem(k); } catch (e) { storageOK = false; } }
+  function storageProblem(action, e) {
+    if (e && (e.name === 'QuotaExceededError' || e.code === 22 || e.code === 1014)) return 'Browser storage is full, so this tab cannot save new progress.';
+    if (e && e.name === 'SecurityError') return 'This browser is blocking storage for this page, so this tab cannot save new progress.';
+    return 'This browser could not ' + action + ' saved progress.';
+  }
+  function lsGet(k) {
+    try {
+      if (!root.localStorage) throw new Error('Storage unavailable');
+      var v = root.localStorage.getItem(k); readOK = true; return v;
+    } catch (e) { readOK = false; storageOK = false; problem = storageProblem('read', e); return null; }
+  }
+  function lsSet(k, v) {
+    try { root.localStorage.setItem(k, v); return true; }
+    catch (e) { storageOK = false; problem = storageProblem('write', e); return false; }
+  }
+  function lsDel(k) { try { root.localStorage.removeItem(k); } catch (e) { storageOK = false; problem = storageProblem('delete', e); } }
 
   function normalize(s) {
     var b = blank();
@@ -21,6 +35,8 @@
     if (!Array.isArray(s.attempts)) s.attempts = [];
     if (!Array.isArray(s.mocks)) s.mocks = [];
     if (!s.settings || typeof s.settings !== 'object') s.settings = b.settings;
+    if (!s.masteryCredits || typeof s.masteryCredits !== 'object' || Array.isArray(s.masteryCredits)) s.masteryCredits = {};
+    s.masterySeeded = s.masterySeeded === true;
     if (!s.exam1 || typeof s.exam1 !== 'object') s.exam1 = b.exam1;
     if (!Array.isArray(s.exam1.runs)) s.exam1.runs = [];
     if (!s.exam1.chapterRead) s.exam1.chapterRead = {};
@@ -45,10 +61,17 @@
   function save() {
     if (!mem) return false;
     if (corrupt) return false;
-    if (lsGet(KEY) !== lastRaw) { storageOK = false; problem = 'Another tab changed this lab’s progress. Export this tab before reloading so neither set of work is lost.'; return false; }
+    var currentRaw = lsGet(KEY);
+    if (!readOK) return false;
+    if (currentRaw !== lastRaw) { storageOK = false; problem = 'Another tab changed this lab’s progress. Export this tab before reloading so neither set of work is lost.'; return false; }
     // Preserve the pre-extension record automatically before the first write by this release.
-    if (lastRaw && !lsGet(KEY + '-before-exam1')) {
-      if (!lsSet(KEY + '-before-exam1', lastRaw)) return false;
+    if (lastRaw && !backupAttempted) {
+      backupAttempted = true;
+      var before = lsGet(KEY + '-before-exam1');
+      if (!readOK) return false;
+      // A full duplicate can exceed the browser quota. The unchanged original
+      // remains in KEY, so a failed backup must not block the live save.
+      if (!before) lsSet(KEY + '-before-exam1', lastRaw);
     }
     mem.updated = Date.now();
     var raw = JSON.stringify(mem), ok = lsSet(KEY, raw);
@@ -107,6 +130,12 @@
   }
   function exportBefore() { var raw=lsGet(KEY+'-before-exam1'); if(!raw)return null;try{return JSON.stringify({app:'comd4590-lab',schema:2,exported:new Date().toISOString(),state:JSON.parse(raw)},null,1);}catch(e){return null;} }
   function mergeV2(into, from) {
+    // Mastery is earned once. A backup/import must never revoke existing credit.
+    Object.keys(from.masteryCredits || {}).forEach(function (c) {
+      if (!L.CONCEPTS || !L.CONCEPTS[c]) return;
+      if (from.masteryCredits[c] === 'earned' || !into.masteryCredits[c]) into.masteryCredits[c] = from.masteryCredits[c];
+    });
+    into.masterySeeded = into.masterySeeded || from.masterySeeded;
     var seen = {};
     into.attempts.forEach(function (a) { seen[a.i + '|' + a.t] = 1; });
     (from.attempts || []).forEach(function (a) { if (!seen[a.i + '|' + a.t]) { into.attempts.push(a); seen[a.i + '|' + a.t] = 1; } });
@@ -138,7 +167,13 @@
     try { d = JSON.parse(text); } catch (e) { return { ok: false, message: 'That file is not valid JSON.' }; }
     var s = load();
     if (d && d.app === 'comd4590-lab' && d.schema === 2 && d.state) {
-      var before = s.attempts.length; mergeV2(s, normalize(d.state)); var saved = save();
+      // Freeze each side's already-earned mastery before histories are joined.
+      if (L.engine && L.engine.seedMasteryCredits) L.engine.seedMasteryCredits(s);
+      var incoming = normalize(d.state);
+      if (L.engine && L.engine.seedMasteryCredits) L.engine.seedMasteryCredits(incoming);
+      var before = s.attempts.length; mergeV2(s, incoming);
+      if (L.engine && L.engine.captureMasteryCredits) L.engine.captureMasteryCredits(s);
+      var saved = save();
       return { ok: saved, kind: 'v2', message: saved ? 'Merged progress: ' + (s.attempts.length - before) + ' new attempts, ' + s.exam1.runs.length + ' Exam 1 runs, and ' + s.mocks.length + ' original mock records. Unfinished work is included.' : problem };
     }
     if (d && d.schema === 'comd4590-progress-backup-v1' && d.storage) {

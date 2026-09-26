@@ -11,7 +11,7 @@
   function setNav(route) { document.querySelectorAll('nav.main a').forEach(function (a) { a.classList.toggle('on', a.getAttribute('data-r') === route); }); }
   function secById(id) { return L.SECTIONS.filter(function (s) { return s.id === id; })[0]; }
   function daysToExam() { return U.daysBetween(U.todayKey(), EXAM_DATE); }
-  function storageBanner() { return S.ok() ? '' : '<div class="warnbox"><b>Browser storage is blocked.</b> You can study, but progress will not survive a reload. Use Data &gt; Export before closing.</div>'; }
+  function storageBanner() { return S.ok() ? '' : '<div class="warnbox"><b>Progress is not saving.</b> ' + esc(S.problem() || 'This browser could not save progress.') + ' This tab\'s newest work may disappear on reload. Use Data &gt; Download progress file before closing or reloading.</div>'; }
 
   // ---------------- Router ----------------
   function route() {
@@ -30,7 +30,7 @@
   function pHome() {
     var st = E.conceptStats(), s = S.load(), ids = Object.keys(st).filter(E.hasPracticeContent);
     var mastered = ids.filter(function (c) { return st[c].status === 'mastered'; }).length;
-    var mis = ids.filter(function (c) { return st[c].status === 'misconception'; }).length;
+    var mis = ids.filter(function (c) { return st[c].rawStatus === 'misconception'; }).length;
     var plan = E.reviewPlan(), due = plan.filter(function (p) { return p.why !== 'new'; }).length;
     var lastMock = s.mocks[s.mocks.length - 1], sess = s.session, d = daysToExam();
     var h = [storageBanner()];
@@ -38,7 +38,7 @@
     h.push('<div class="lich">Apprentice. Ninety decibels is severe. Not profound. Say it until your bones hum it back. Everything else in here is built on that and on her slides, nothing I dreamed up about what she will ask.</div>');
     h.push('<div class="card"><h2>Exam 1 · September 24 update</h2><p>Twelve focused chapters, completed Lecture 3, and 52 objective + two audiogram + two written learning mocks. Immediate feedback on every question, autosave and a dedicated miss queue.</p><a class="btn pri" href="#exam1">Enter Exam 1</a></div>');
     h.push('<div class="grid g4">');
-    h.push('<div class="tile"><b>' + mastered + '/' + ids.length + '</b><span>concepts mastered (honest rule)</span></div>');
+    h.push('<div class="tile"><b>' + mastered + '/' + ids.length + '</b><span>concepts mastered</span></div>');
     h.push('<div class="tile"><b>' + due + '</b><span>concepts queued for review</span></div>');
     h.push('<div class="tile"><b>' + mis + '</b><span>high-confidence misses open</span></div>');
     h.push('<div class="tile"><b>' + (lastMock ? U.pct(lastMock.score, lastMock.total) + '%' : '-') + '</b><span>' + (lastMock ? 'last mock (' + lastMock.total + ' items)' : 'no mock yet') + '</span></div>');
@@ -47,7 +47,7 @@
     if (sess) h.push('<a class="btn good" href="#session">Resume: ' + esc(sess.title) + ' (' + Math.min(sess.idx + 1, sess.queue.length) + '/' + sess.queue.length + ')</a>');
     if (s.mockActive) h.push('<a class="btn warn" href="#mock/take">Resume mock in progress</a>');
     h.push('<button class="btn pri" id="goReview">Smart review (' + Math.min(15, plan.length) + ')</button><a class="btn" href="#mock">Mock exam</a><a class="btn" href="#boss">Boss drills</a><a class="btn" href="#guide/s2">Degree scale</a></div>');
-    h.push('<h2>Sections</h2><p class="small muted">Each fraction counts mastered concepts, not completed practice runs. A concept needs two correct, unhinted answers on different questions; the latest must be medium or high confidence. A miss can lower the count. See Progress for each concept\'s status.</p><div class="grid g3">');
+    h.push('<h2>Sections</h2><p class="small muted">Each fraction counts concepts mastered, not completed practice runs. Earn mastery with two correct, unhinted answers on different questions and medium or high confidence on the second. Once earned, mastery stays; recent misses still enter review. See Progress for each concept\'s status.</p><div class="grid g3">');
     L.SECTIONS.forEach(function (sec) {
       var cs = Object.keys(L.CONCEPTS).filter(function (c) { return L.CONCEPTS[c].sec === sec.id && E.hasPracticeContent(c); });
       var m = cs.filter(function (c) { return st[c].status === 'mastered'; }).length;
@@ -320,7 +320,7 @@
   // ---------------- Progress ----------------
   function pProgress() {
     var st = E.conceptStats(), s = S.load();
-    var h = ['<h1>Progress</h1><p class="muted">Mastered = your last two graded answers on the concept were correct, on two different questions, and the latest was locked at medium or high confidence. Any miss resets it. New checked mock answers and self-scored Exam 1 writing count; older mock records remain mastery-neutral to preserve prior progress. Reading and unscored teach-backs do not count.</p>'];
+    var h = ['<h1>Progress</h1><p class="muted">Mastery is earned after two correct, unhinted graded answers on different questions, with medium or high confidence on the second. Once earned, it stays. A later miss is still saved and placed in review. New checked mock answers and self-scored Exam 1 writing count; older mock records remain mastery-neutral. Reading and unscored teach-backs do not count. Self-marked mastery is labeled separately.</p>'];
     // calibration
     var cal = { l: [0, 0], m: [0, 0], h: [0, 0] };
     s.attempts.forEach(function (a) { if (a.m !== 'mock' && !a.self && cal[a.cf]) { cal[a.cf][1]++; if (a.ok) cal[a.cf][0]++; } });
@@ -328,7 +328,7 @@
     L.SECTIONS.forEach(function (sec) {
       var cs = Object.keys(L.CONCEPTS).filter(function (c) { return L.CONCEPTS[c].sec === sec.id && E.hasPracticeContent(c); });
       h.push('<h2>' + sec.n + '. ' + esc(sec.title) + '</h2><table class="stat"><tr><th>Concept</th><th>Status</th><th>Accuracy</th><th>Next review</th></tr>');
-      cs.forEach(function (c) { var x = st[c]; h.push('<tr><td>' + esc(L.CONCEPTS[c].name) + (x.prior ? ' <span class="badge" title="Old lab: ' + x.prior.miss + ' misses in ' + x.prior.att + ' attempts">old-lab miss</span>' : '') + (x.mockMiss ? ' <span class="badge st-shaky">mock miss</span>' : '') + '</td><td><span class="badge st-' + x.status + '">' + STATUS_LABEL[x.status] + '</span></td><td>' + (x.att ? x.ok + '/' + x.att : '-') + '</td><td class="small">' + (x.att ? x.due : '-') + '</td></tr>'); });
+      cs.forEach(function (c) { var x = st[c]; h.push('<tr><td>' + esc(L.CONCEPTS[c].name) + (x.prior ? ' <span class="badge" title="Old lab: ' + x.prior.miss + ' misses in ' + x.prior.att + ' attempts">old-lab miss</span>' : '') + (x.mockMiss ? ' <span class="badge st-shaky">mock miss</span>' : '') + '</td><td><span class="badge st-' + x.status + '">' + STATUS_LABEL[x.status] + '</span>' + (x.masterySource === 'self' ? ' <span class="badge">self-marked</span>' : '') + ((x.rawStatus === 'shaky' || x.rawStatus === 'misconception') && x.status === 'mastered' ? ' <span class="badge st-shaky">recent miss: review</span>' : '') + '</td><td>' + (x.att ? x.ok + '/' + x.att : '-') + '</td><td class="small">' + (x.att ? x.due : '-') + '</td></tr>'); });
       h.push('</table>');
     });
     var bk = Object.keys(s.boss);
@@ -376,6 +376,9 @@
     main = $('#main');
     E.build();
     S.load();
+    // Capture the learner's current mastered set before any new response can
+    // change it. This migration only adds a small credit map to the same key.
+    if (E.seedMasteryCredits()) S.save();
     if (!location.hash && S.load().exam1 && S.load().exam1.lastRoute) root.history.replaceState(null, '', '#' + S.load().exam1.lastRoute);
     window.addEventListener('hashchange', route);
     route();

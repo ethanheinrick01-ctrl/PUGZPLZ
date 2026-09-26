@@ -143,6 +143,36 @@ test('Export/import transfers complete runs, drafts, flags, position and active 
   const b=loadLab();assert.equal(b.L.store.importText(backup).ok,true);assert.equal(b.L.exam1.get(r.id).cur,54);assert.equal(b.L.exam1.get(r.id).tasks[54].flag,true);assert.match(b.L.exam1.get(r.id).tasks[54].response,/incomplete/);assert.equal(b.L.store.load().session.idx,2);
   const n=b.L.store.load().attempts.length;assert.equal(b.L.store.importText(backup).ok,true);assert.equal(b.L.store.load().attempts.length,n);assert.equal(b.L.exam1.state().runs.length,1);
 });
+test('A blank hosted profile imports old earned mastery and a private audiogram credit without changing other concepts',()=>{
+  const source=loadLab(), original=source.L.store.load();
+  original.attempts.push({i:'s4.cmv1',c:'cmv',ok:true,sc:1,cf:'m',m:'practice',t:100});
+  original.attempts.push({i:'s4.cmv3',c:'cmv',ok:true,sc:1,cf:'h',m:'practice',t:101});
+  const s2=['degree-scale','pta-degree','loss-type','configuration','audiogram-description','symbols','speech-audiometry','reflex-sl'];
+  const exported=JSON.parse(source.L.store.exportJSON());
+  // Simulate the user's pre-upgrade export, plus a private self-attestation.
+  delete exported.state.masterySeeded;
+  exported.state.masteryCredits=Object.fromEntries(s2.map(c=>[c,'self']));
+  const hosted=loadLab();
+  hosted.L.engine.seedMasteryCredits();hosted.L.store.save();
+  assert.equal(hosted.L.store.load().masterySeeded,true,'the host already initialized its empty profile');
+  assert.equal(hosted.L.store.importText(JSON.stringify(exported)).ok,true);
+  const got=hosted.L.engine.conceptStats();
+  assert.equal(got.cmv.status,'mastered','old history earns mastery on import');
+  assert.equal(hosted.L.store.load().masteryCredits.cmv,'earned');
+  assert.ok(s2.every(c=>got[c].status==='mastered'&&got[c].masterySource==='self'));
+  assert.equal(hosted.L.exam1.readiness('audiograms').mastered,hosted.L.exam1.readiness('audiograms').total);
+  assert.equal(got.anoxia.status,'new','unrelated topics stay untouched');
+  const wrong=hosted.L.engine.REG()['s4.cmv4'];
+  const bad=wrong.o.findIndex(o=>!o.ok);
+  hosted.L.engine.record(wrong,{id:wrong.id},bad,'h','practice');
+  assert.equal(hosted.L.engine.conceptStats().cmv.status,'mastered');
+  assert.equal(hosted.L.engine.reviewPlan().find(r=>r.c==='cmv').why,'misconception');
+  const backup=hosted.L.store.exportJSON();
+  const reloaded=loadLab();
+  assert.equal(reloaded.L.store.importText(backup).ok,true);
+  assert.equal(reloaded.L.engine.conceptStats().cmv.status,'mastered');
+  assert.ok(s2.every(c=>reloaded.L.engine.conceptStats()[c].masterySource==='self'));
+});
 test('Graph part attempts and first responses merge once across repeated imports',()=>{
   const a=loadLab(),r=a.L.exam1.startGraphs(),value=r.tasks[0].item.parts[0].a;
   assert.equal(a.L.exam1.answerPart(r,0,0,value),true);

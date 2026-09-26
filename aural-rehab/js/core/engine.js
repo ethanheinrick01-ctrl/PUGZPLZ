@@ -42,6 +42,16 @@
   var GEN_FOR = { 'degree-scale': ['degreeValue'], 'pta-degree': ['ptaDegree', 'ptaNumeric'], 'loss-type': ['typeAud'], configuration: ['configAud'],
     'audiogram-description': ['describe'], 'speech-audiometry': ['slCalc', 'ptaSrt', 'wrs'], 'reflex-sl': ['reflex'], tympanometry: ['tymp'], snr: ['snr'],
     'count-dots': ['dots'], 'sii-to-speech': ['dotsBand'], 'cross-check': ['crossCheck'] };
+  function freshGeneratedRef(name, opt) {
+    for (var n = 0; n < 100; n++) {
+      var ref = { gen: name, seed: U.newSeed() };
+      if (opt !== undefined) ref.opt = opt;
+      // Stored refs remain reproducible, but new reflex questions skip the
+      // 60-69 dB SL gap that the source notes do not classify.
+      if (name !== 'reflex' || !L.gen.build(name, ref.seed, opt).reflexUnclassified) return ref;
+    }
+    throw new Error('Could not generate a classified reflex SL question');
+  }
 
   function resolve(ref) { // ref: {id} or {gen, seed, opt}
     if (!ref) return null;
@@ -77,24 +87,37 @@
   // ---------- Recording + mastery ----------
   function record(it, ref, r, conf, mode, assisted) {
     var s = L.store.load(), g = grade(it, r);
+    seedMasteryCredits(s);
     if (it.t === 'teach') { s.teach[it.id] = { ts: Date.now(), self: r && r.self }; L.store.save(); return g; }
     var a = { i: ref ? refKey(ref) : it.id, c: it.c, ok: !!g.ok, sc: Math.round((g.sc || 0) * 100) / 100, cf: conf || 'm', m: mode || 'practice', t: Date.now() };
     if (assisted) a.h = 1;
     if (it.generated || (ref && ref.gen)) a.g = (ref && ref.gen) || (it.gen && it.gen.name);
     s.attempts.push(a);
     (it.also || []).forEach(function (c) { if (c !== it.c) s.attempts.push(Object.assign({}, a, { c: c, t: a.t + 1, dup: 1 })); });
+    captureMasteryCredits(s);
     L.store.save();
     return g;
   }
-  function conceptStats(state) {
+  function invalidReflexAttempt(a) {
+    if (a.c !== 'reflex-sl' || a.g !== 'reflex') return false;
+    var m = /^g:reflex:(\d+)$/.exec(a.i || '');
+    if (!m) return false;
+    var item = resolve({ gen: 'reflex', seed: Number(m[1]) });
+    return !!(item && item.reflexUnclassified);
+  }
+  function conceptStats(state, ignoreCredits) {
     state = state || L.store.load();
     var out = {};
-    Object.keys(L.CONCEPTS).forEach(function (c) { out[c] = { id: c, att: 0, ok: 0, hist: [], box: 0, last: 0, status: 'new', mockMiss: false, prior: null }; });
+    Object.keys(L.CONCEPTS).forEach(function (c) { out[c] = { id: c, att: 0, ok: 0, hist: [], box: 0, last: 0, status: 'new', rawStatus: 'new', mockMiss: false, prior: null }; });
     state.attempts.forEach(function (a) {
       var st = out[a.c]; if (!st) return;
       // Keep pre-update mocks out of mastery: their saved rows include blanks and
       // assumed confidence. New, individually checked learning-mock rows count.
       if (a.m === 'mock') { return; }
+      // A handful of old reflex seeds produced 60-69 dB SL without any keyed
+      // interpretation. Keep the saved response, but do not let an impossible
+      // item change mastery or accuracy.
+      if (invalidReflexAttempt(a)) return;
       st.att++; if (a.ok) st.ok++;
       st.hist.push(a); st.last = a.t;
       if (a.ok) st.box = (a.cf === 'l' || a.h) ? Math.max(st.box, 1) : Math.min(st.box + 1, 4); else st.box = 0;
@@ -110,22 +133,48 @@
         var sg = state.legacy.signal[c];
         if (sg.miss > 0 && (!st.last || st.last < state.legacy.imported)) st.prior = sg;
       }
-      if (!h.length) { st.status = 'new'; st.due = today; return; }
-      var last = h[h.length - 1], prev = h[h.length - 2];
-      var mastered = last.ok && prev && prev.ok && !last.h && !prev.h && refRoot(last.i) !== refRoot(prev.i) && (last.cf === 'm' || last.cf === 'h');
-      if (!last.ok && last.cf === 'h') st.status = 'misconception';
-      else if (!last.ok) st.status = 'shaky';
-      else if (mastered) st.status = 'mastered';
-      else st.status = 'learning';
-      // a high-confidence miss stays flagged until two correct answers follow it
-      if (st.status !== 'misconception') {
-        for (var i = h.length - 1, correctRun = 0; i >= 0; i--) {
-          if (h[i].ok) correctRun++; else { if (h[i].cf === 'h' && correctRun < 2) st.status = 'misconception'; break; }
+      if (!h.length) { st.status = 'new'; st.due = today; }
+      else {
+        var last = h[h.length - 1], prev = h[h.length - 2];
+        var mastered = last.ok && prev && prev.ok && !last.h && !prev.h && refRoot(last.i) !== refRoot(prev.i) && (last.cf === 'm' || last.cf === 'h');
+        if (!last.ok && last.cf === 'h') st.status = 'misconception';
+        else if (!last.ok) st.status = 'shaky';
+        else if (mastered) st.status = 'mastered';
+        else st.status = 'learning';
+        // A high-confidence miss stays flagged for review until two correct
+        // answers follow it; earned mastery itself is never revoked.
+        if (st.status !== 'misconception') {
+          for (var i = h.length - 1, correctRun = 0; i >= 0; i--) {
+            if (h[i].ok) correctRun++; else { if (h[i].cf === 'h' && correctRun < 2) st.status = 'misconception'; break; }
+          }
         }
+        st.due = U.addDays(U.todayKey(new Date(st.last)), BOXES[st.box]);
       }
-      st.due = U.addDays(U.todayKey(new Date(st.last)), BOXES[st.box]);
+      st.rawStatus = st.status;
+      if (!ignoreCredits && state.masteryCredits && state.masteryCredits[c]) {
+        st.status = 'mastered'; st.masterySource = state.masteryCredits[c];
+      }
     });
     return out;
+  }
+  function seedMasteryCredits(state) {
+    state = state || L.store.load();
+    if (state.masterySeeded) return false;
+    state.masteryCredits = state.masteryCredits || {};
+    var current = conceptStats(state, true);
+    Object.keys(current).forEach(function (c) {
+      if (current[c].rawStatus === 'mastered' && !state.masteryCredits[c]) state.masteryCredits[c] = 'earned';
+    });
+    state.masterySeeded = true;
+    return true;
+  }
+  function captureMasteryCredits(state) {
+    state = state || L.store.load();
+    seedMasteryCredits(state);
+    var current = conceptStats(state, true);
+    Object.keys(current).forEach(function (c) {
+      if (current[c].rawStatus === 'mastered') state.masteryCredits[c] = 'earned';
+    });
   }
   function refRoot(key) { return key; } // generated items differ by seed => distinct instances; hand items by id
 
@@ -136,11 +185,11 @@
     Object.keys(st).forEach(function (c) {
       var s = st[c], why = null;
       if (!hasPracticeContent(c)) return;
-      if (s.status === 'misconception') why = 'misconception';
+      if (s.rawStatus === 'misconception') why = 'misconception';
       else if (s.mockMiss) why = 'mock';
-      else if (s.status === 'shaky') why = 'shaky';
+      else if (s.rawStatus === 'shaky') why = 'shaky';
       else if (s.att && s.due <= today && s.status !== 'mastered') why = 'due';
-      else if (s.status === 'mastered' && s.due <= today) why = 'due';
+      else if (s.status === 'mastered' && s.att && s.due <= today) why = 'due';
       else if (s.prior) why = 'prior';
       else if (!s.att) why = 'new';
       if (why) rows.push({ c: c, why: why, s: s });
@@ -170,7 +219,7 @@
     var ids = (BY_CONCEPT[c] || []).filter(function (id) { return practiceEligible(id) && !exclude[id] && !CASE_OF[id]; });
     var gens = GEN_FOR[c] || [];
     var cands = ids.map(function (id) { return { ref: { id: id }, score: (lastSeen[id] ? (lastOk[id] ? 3 : 1) : 0) * 1e13 + (lastSeen[id] || 0) + Math.random() * 1e6 }; });
-    gens.forEach(function (g) { cands.push({ ref: { gen: g, seed: U.newSeed() }, score: 1.5e13 + Math.random() * 1e12 }); });
+    gens.forEach(function (g) { cands.push({ ref: freshGeneratedRef(g), score: 1.5e13 + Math.random() * 1e12 }); });
     if (!cands.length) { var caseIds = (BY_CONCEPT[c] || []).filter(function (id) { return !exclude[id] && CASE_OF[id]; }); if (caseIds.length) return { id: U.pick(Math.random, caseIds) }; return null; }
     cands.sort(function (a, b) { return a.score - b.score; });
     return cands[0].ref;
@@ -197,7 +246,7 @@
     // adaptive retry: wrong -> after 2 intervening; low-confidence correct -> after 4
     if (!sess.noRetry && it.t !== 'teach' && (!g.ok || conf === 'l' || assisted)) {
       var gap = g.ok ? 4 : 2, again;
-      if (q.ref.gen) again = { gen: q.ref.gen, seed: U.newSeed(), opt: q.ref.opt };
+      if (q.ref.gen) again = freshGeneratedRef(q.ref.gen, q.ref.opt);
       else { var alt = pickFor(it.c, (function () { var e = {}; e[it.id] = 1; return e; })()); again = alt && !alt.gen && alt.id !== it.id ? alt : (alt && alt.gen ? alt : { id: it.id }); }
       var retriesOfThis = sess.queue.filter(function (x) { return x.retry && x.c === it.c; }).length;
       if (retriesOfThis < 2) { sess.queue.splice(Math.min(sess.idx + 1 + gap, sess.queue.length), 0, { ref: again, retry: true, c: it.c }); sess.retries++; }
@@ -234,7 +283,7 @@
       var ids = (BY_CONCEPT[c] || []).filter(function (id) { return !CASE_OF[id] && REG[id].t !== 'teach'; });
       U.shuffle(ids).slice(0, 2).forEach(function (id) { if (!refs.some(function (r) { return r.id === id; })) refs.push({ id: id }); });
     });
-    (b.gens || []).forEach(function (g) { for (var i = 0; i < g[1]; i++) refs.push({ gen: g[0], seed: U.newSeed(), opt: g[2] }); });
+    (b.gens || []).forEach(function (g) { for (var i = 0; i < g[1]; i++) refs.push(freshGeneratedRef(g[0], g[2])); });
     if (bossId === 'b4') {
       itemsFor(function (it) { return it.c === 'degree-scale' && !it.caseId && it.t !== 'teach'; }).forEach(function (it) { refs.push({ id: it.id }); });
     }
@@ -322,7 +371,8 @@
     return rec;
   }
 
-  L.engine = { build: build, resolve: resolve, refKey: refKey, grade: grade, record: record, conceptStats: conceptStats, reviewPlan: reviewPlan,
+  L.engine = { build: build, resolve: resolve, refKey: refKey, grade: grade, record: record, conceptStats: conceptStats,
+    seedMasteryCredits: seedMasteryCredits, captureMasteryCredits: captureMasteryCredits, reviewPlan: reviewPlan,
     pickFor: pickFor, newSession: newSession, currentSession: currentSession, endSession: endSession, answerInSession: answerInSession, advance: advance,
     practiceRefs: practiceRefs, reviewRefs: reviewRefs, caseRefs: caseRefs, bossRefs: bossRefs, finishBoss: finishBoss, bossResult: bossResult, bestOf: bestOf, buildMock: buildMock, submitMock: submitMock,
     itemsFor: itemsFor, REG: function () { return REG; }, BY_CONCEPT: function () { return BY_CONCEPT; }, GEN_FOR: GEN_FOR, hasPracticeContent: hasPracticeContent, CASE_OF: function () { return CASE_OF; } };

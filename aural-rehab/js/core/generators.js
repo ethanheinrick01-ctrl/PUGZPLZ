@@ -306,14 +306,21 @@
     var ac = U.step(r, 0, 60), cat = U.pick(r, ['normal', 'reduced', 'elevated']);
     var sl = cat === 'normal' ? U.step(r, 70, 100) : cat === 'reduced' ? U.step(r, 30, 55) : U.step(r, 105, 110);
     var hl = ac + sl;
-    if (hl > 125) { hl = 125; sl = hl - ac; cat = C.reflexCategory(sl); }
+    if (hl > 125) { hl = 125; sl = hl - ac; }
+    // Existing sessions store only the generator seed. Preserve their numeric stem on reload;
+    // a capped 125 - 60 = 65 seed needs an explicit answer, not a silent new question.
     var labs = { normal: 'Normal (70-100 dB SL)', reduced: 'Reduced SL (<60 dB SL), consistent with cochlear loss', elevated: 'Elevated (>100 dB SL)', absent: 'Absent' };
+    var category = C.reflexCategory(sl), unclassified = !category;
+    var gapLabel = 'Unclassified (60-69 dB SL)';
+    var options = [labs.normal, labs.reduced, labs.elevated, labs.absent];
+    if (unclassified) options.push(gapLabel);
     return {
       id: 'g:reflex:' + seed, gen: { name: 'reflex', seed: seed }, t: 'parts', sec: 's2', c: 'reflex-sl', dom: 'dx', found: true, mockExclude: true,
+      reflexUnclassified: unclassified,
       q: 'Right ipsilateral reflex at 1000 Hz is obtained at <b>' + hl + ' dB HL</b>. Right AC threshold at 1000 Hz is <b>' + ac + ' dB HL</b>.',
       parts: [
         { label: 'Reflex SL', options: U.uniq([sl, hl, sl + 10, Math.abs(sl - 10)]).map(function (v) { return v + ' dB SL'; }), a: sl + ' dB SL', why: 'Reflex SL = reflex HL - AC threshold at the same frequency in the stimulated ear: ' + hl + ' - ' + ac + ' = ' + sl + '.' },
-        { label: 'Interpretation', options: ['Normal (70-100 dB SL)', 'Reduced SL (<60 dB SL), consistent with cochlear loss', 'Elevated (>100 dB SL)', 'Absent'], a: labs[C.reflexCategory(sl)], why: 'COMD 4190 Ch 6 notes: 70-100 SL normal; <60 reduced (cochlear); >100 elevated.' }
+        { label: 'Interpretation', options: options, a: unclassified ? gapLabel : labs[category], why: unclassified ? 'COMD 4190 Ch 6 defines normal as 70-100 dB SL and reduced as below 60. It does not classify 60-69, so 65 cannot be called either normal or reduced.' : 'COMD 4190 Ch 6 notes: 70-100 SL normal; <60 reduced (cochlear); >100 elevated.' }
       ],
       x: 'Use the AC threshold at that frequency in the stimulus ear, not the PTA (the PTA shortcut was explicitly superseded in the 4190 records). Foundations refresher from COMD 4190; not part of this course\'s lecture slides.',
       s: ['PT-CH6'], tier: 3

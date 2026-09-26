@@ -65,7 +65,7 @@ async function currentDX(p){return p.evaluate(()=>__DX.ITEMS[document.querySelec
  await go(p,'diagnostics/#/progress');const dxDownload=await Promise.all([p.waitForEvent('download'),p.locator('[data-act="export"]').click()]);const dxText=fs.readFileSync(await dxDownload[0].path(),'utf8');
  check('Diagnostics export includes practice and active exams',!!JSON.parse(dxText).state.practice&&!!JSON.parse(dxText).state.exams['mock-a'].active);
  const browser=await chromium.launch({channel:'chrome',headless:true});const separate=await browser.newContext({acceptDownloads:true});const other=await separate.newPage();
- await go(other,'aural-rehab/');equal('A different browser profile starts with independent Aural progress',(await arstate(other)).exam1.runs.length,0);
+ await go(other,'aural-rehab/');await other.waitForFunction(()=>window.L?.app&&localStorage.getItem('comd4590-lab-v2'));equal('A different browser profile starts with independent Aural progress',(await arstate(other)).exam1.runs.length,0);
  await go(other,'aural-rehab/#data');await other.locator('#file').setInputFiles({name:'aural.json',mimeType:'application/json',buffer:Buffer.from(arText)});
  await other.locator('#impMsg').filter({hasText:'Merged progress'}).waitFor();equal('Aural import restores unfinished runs exactly',(await arstate(other)).exam1.runs,JSON.parse(arText).state.exam1.runs);
  await go(other,'diagnostics/');equal('A different browser profile starts with independent Diagnostics progress',Object.keys((await dxstate(other)).items).length,0);

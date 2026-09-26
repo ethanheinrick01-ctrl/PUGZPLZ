@@ -101,8 +101,10 @@
   function recordGraphPart(run,t,part,value,when){
     var concept=graphPartConcept(part), p=t.item.parts[part];
     if(!L.CONCEPTS[concept])return;
-    S.load().attempts.push({i:t.item.id+':part'+part,c:concept,ok:value===p.a,sc:value===p.a?1:0,
+    var s=S.load();E.seedMasteryCredits(s);
+    s.attempts.push({i:t.item.id+':part'+part,c:concept,ok:value===p.a,sc:value===p.a?1:0,
       cf:t.confidence||'m',m:run.kind==='mock'?'learning-mock':'practice',t:when,graphPart:part});
+    E.captureMasteryCredits(s);
     save();
   }
   function answer(run,index,response,conf){
@@ -129,7 +131,11 @@
     if(t.ratings.every(function(v){return v!==null;})){
       var sc=t.ratings.reduce(function(a,b){return a+b;},0)/3;
       t.grade={ok:sc===1,sc:sc,self:true};t.checked=true;t.checkedAt=Date.now();
-      if(!t.recorded){t.recorded=true;S.load().attempts.push({i:'e1.short.'+t.item.id,c:t.item.c,ok:t.grade.ok,sc:sc,cf:'m',m:'self-score',self:true,t:t.checkedAt});}
+      if(!t.recorded){
+        var s=S.load();E.seedMasteryCredits(s);
+        t.recorded=true;s.attempts.push({i:'e1.short.'+t.item.id,c:t.item.c,ok:t.grade.ok,sc:sc,cf:'m',m:'self-score',self:true,t:t.checkedAt});
+        E.captureMasteryCredits(s);
+      }
     }
     touch(run);return true;
   }
@@ -171,8 +177,7 @@
   function readiness(ch){
     var st=E.conceptStats(), cs=U.uniq(pool(ch).map(function(it){return it.c;}));
     if(ch==='audiograms')cs=U.uniq(cs.concat(['audiogram-description','pta-degree','loss-type','configuration']));
-    var open=misses().map(function(m){return m.c;});
-    return {mastered:cs.filter(function(c){return st[c]&&st[c].status==='mastered'&&open.indexOf(c)<0;}).length,total:cs.length,concepts:cs};
+    return {mastered:cs.filter(function(c){return st[c]&&st[c].status==='mastered';}).length,total:cs.length,concepts:cs};
   }
   L.exam1={state:state,save:save,chapter:chapter,pool:pool,graph:graph,form:form,get:get,startMock:startMock,practice:practice,startGraphs:startGraphs,startWriting:startWriting,
     answer:answer,answerPart:answerPart,draft:draft,reveal:reveal,rate:rate,score:score,finish:finish,touch:touch,misses:misses,retry:retry,readiness:readiness};
