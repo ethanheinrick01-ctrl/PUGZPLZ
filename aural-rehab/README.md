@@ -7,6 +7,8 @@ September 24 update: open **Exam 1 · Sept 24** for twelve focused chapters, thr
 
 September 25 question-style repair: the full 284-item multiple-choice bank was checked for answer-length and punctuation clues. Implausible distractors were replaced with adjacent course concepts while question IDs, correct answer positions and saved progress remain stable. See `docs/QUESTION_STYLE_AUDIT_2026-09-25.md`.
 
+September 26 progress repair: a finished Exam 1 run opens its results instead of appearing unfinished. Review misses shows both open mistakes and recent mistakes resolved by later correct work; the original first-response score stays in My history. Newly checked graded answers in mocks and drills, individual audiogram parts, and self-rated Exam 1 writing update the shared concept record. Completing a run alone does not grant mastery: a concept still needs two correct, unhinted answers on different questions, with medium or high confidence on the latest. Older mock records remain saved but mastery-neutral, so the update does not retroactively change anyone's progress.
+
 **Every question gives immediate feedback.** MC/T/F checks when you select an answer. Graph parts check as you select them. Numeric/multiple-response tasks have a per-question check action. Written work reveals its rubric when you click **Check this answer now**, then you honestly rate your own response. Your first answer stays scored; no full-exam submission is needed to see corrections.
 
 ## Open it
@@ -26,7 +28,7 @@ September 25 question-style repair: the full 284-item multiple-choice bank was c
 | Cases | 9 linked case blocks (history + audiogram/tymp/ABR + questions in reading order) |
 | Boss | 4 integration drills of 32-36 questions |
 | Mock | Original 70/35-question mixed sets, immediate feedback, flag/navigate/resume, domain results, remediation |
-| Progress | Concept status, calibration, boss history |
+| Progress | Shared concept mastery from newly graded practice and mock work, calibration, boss history |
 | Sutherland | Evidence about her testing, sorted into direct statements / Ethan's reports / 4190 history / lab design choices |
 | Sources | Every source code, file and how many items cite it |
 | Data | Export, import (v2 and old-lab files), reset |
@@ -40,6 +42,8 @@ Adopted degree scale (8/27 announcement; TEST 1 study guide p.30): 0-25 WNL | 30
 Keep using the same address and browser profile to resume automatically. Answers, drafts, flags, question position and histories save as you work. Each classmate has an independent record. A hosted URL, another device, or another browser has separate storage: use **Data → Download progress file**, then import it at the new location. Clearing browser data removes that browser's copy; exported JSON is the recovery/transfer copy. No cloud synchronization is implied.
 
 The update keeps the exact `comd4590-lab-v2` key. Before its first write over existing data it retains an exact raw recovery copy under `comd4590-lab-v2-before-exam1`; Data can download that copy. Storage failures are reported, and another tab's changes are not silently overwritten by this release.
+
+This repair keeps the existing personal `index.html` path and the hosted `PUGZPLZ/aural-rehab/` address. It does not reset or move browser storage. Local-file and GitHub Pages progress remain separate because they are different browser origins; each classmate's browser profile also keeps its own record.
 
 Data > Import accepts the old full backup (`comd4590-progress-backup-v1`) and the Lecture 2 drill file (`pathology-progress-backup-2026-09-21.json`). Old results become review priorities only; v2 mastery must be earned in v2. Details: `docs/CHANGES.md`.
 

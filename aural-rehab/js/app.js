@@ -234,7 +234,7 @@
     if (args[0] === 'take' && s.mockActive) return mockTake();
     if (args[0] === 'result') return mockResult(args[1]);
     var h = ['<h1>Mock exam</h1>'];
-    h.push('<div class="card"><p><b>For the September 24 announced format, use <a href="#exam1/mocks">Exam 1 full learning mocks</a>.</b> These older 35/70-question sets remain available. Feedback now appears on each question: a single-choice selection checks immediately; multi-part/numeric answers have a Check now button. First checked responses lock. Unanswered questions count as wrong; mocks do not grant mastery.</p>');
+    h.push('<div class="card"><p><b>For the September 24 announced format, use <a href="#exam1/mocks">Exam 1 full learning mocks</a>.</b> These older 35/70-question sets remain available. Feedback appears on each question: a single-choice selection checks immediately; multi-part/numeric answers have a Check now button. First checked responses lock. Unanswered questions count as wrong in the mock score, but do not count as mastery attempts. New checked answers update mastery; older saved mock records stay unchanged.</p>');
     h.push('<p class="small muted">Design choices (not predictions): lengths of 70 and 35 mirror the 4190 final count and a half-length drill. Domain mix follows syllabus class days: overview ~15%, etiology ~25%, diagnostic interpretation ~30%, hearing aids/HAT ~30%. Items held back from practice appear here first; about a third of diagnostic items are freshly generated audiograms and tymps; one linked case block is included. Prior-course (4190) refresher items are excluded.</p>');
     if (s.mockActive) h.push('<div class="row"><a class="btn warn" href="#mock/take">Resume mock in progress (' + Object.keys(s.mockActive.answers).length + '/' + s.mockActive.refs.length + ' answered)</a><button class="btn bad" id="abandon">Abandon it</button></div>');
     else h.push('<div class="row"><button class="btn pri" data-size="70">Start 70-question mock</button><button class="btn" data-size="35">Start 35-question mock</button></div>');
@@ -253,20 +253,35 @@
   }
   function mockTake() {
     var s = S.load(), m = s.mockActive;
+    if (m.masteryVersion !== 1) {
+      // Preserve already checked answers from an older in-progress mock as
+      // mastery-neutral; never retroactively regrade their assumed confidence.
+      m.recorded = m.recorded || {};
+      Object.keys(m.immediateChecked || {}).forEach(function (k) { m.recorded[k] = 'legacy'; });
+      m.masteryVersion = 1; S.save();
+    }
+    m.recorded = m.recorded || {}; m.confidences = m.confidences || {};
     var i = m.cur, ref = m.refs[i], it = E.resolve(ref);
     if (!m.orders[i]) { m.orders[i] = IU.makeOrder(it); S.save(); }
     var answered = Object.keys(m.answers).length;
     var h = ['<div class="item"><div class="spread"><b>Mock exam (' + m.refs.length + ')</b><span class="small muted">' + answered + ' answered; ' + Object.keys(m.flags).filter(function (k) { return m.flags[k]; }).length + ' flagged; started ' + new Date(m.started).toLocaleTimeString() + '</span></div>'];
-    h.push('<div class="navgrid" id="ng"></div></div><div id="host"></div>');
+    h.push('<div class="navgrid" id="ng"></div></div><label class="row">Confidence before answering <select id="mockConfidence"' + (m.immediateChecked && m.immediateChecked[i] ? ' disabled' : '') + '><option value="l"' + (m.confidences[i] === 'l' ? ' selected' : '') + '>Low / guessing</option><option value="m"' + (!m.confidences[i] || m.confidences[i] === 'm' ? ' selected' : '') + '>Medium</option><option value="h"' + (m.confidences[i] === 'h' ? ' selected' : '') + '>High</option></select></label><div id="host"></div>');
     h.push('<div class="item spread" style="margin-top:10px"><div class="row"><button class="btn" id="prev">&#8592; Prev</button><button class="btn" id="next">Next &#8594;</button><button class="btn warn" id="flag">' + (m.flags[i] ? 'Unflag' : 'Flag') + '</button><button class="btn ghost" id="clear">Clear answer</button></div><button class="btn good" id="submit">Submit exam</button></div>');
     main.innerHTML = h.join('');
+    $('#mockConfidence').onchange = function () { m.confidences[i] = this.value; S.save(); };
     var ng = $('#ng');
     m.refs.forEach(function (_, k) {
       var b = U.el('button', { type: 'button', class: (m.answers[k] !== undefined ? 'ans ' : '') + (k === i ? 'cur ' : '') + (m.flags[k] ? 'flag' : ''), 'aria-label': 'Question ' + (k + 1) }, String(k + 1));
       b.onclick = function () { m.cur = k; S.save(); mockTake(); }; ng.appendChild(b);
     });
     m.immediateChecked = m.immediateChecked || {};
-    function checkNow() { if (m.immediateChecked[i] || m.answers[i] === undefined) return; m.immediateChecked[i] = E.grade(it, m.answers[i]); S.save(); mockTake(); }
+    function checkNow() {
+      if (m.immediateChecked[i] || m.answers[i] === undefined) return;
+      m.immediateChecked[i] = E.grade(it, m.answers[i]);
+      m.recorded[i] = true;
+      E.record(it, ref, m.answers[i], m.confidences[i] || 'm', 'learning-mock', false);
+      mockTake();
+    }
     IU.render($('#host'), it, { mode: 'mock', order: m.orders[i], header: 'Question ' + (i + 1) + ' of ' + m.refs.length, response: m.answers[i], locked: !!m.immediateChecked[i], graded: m.immediateChecked[i],
       onChange: function (r) { var empty = r === undefined || r === '' || (Array.isArray(r) && (!r.length || (it.t !== 'order' && r.every(function (x) { return x === ''; })))); if (empty) delete m.answers[i]; else m.answers[i] = r; S.save(); var nb = ng.children[i]; if (nb) nb.classList.toggle('ans', !empty); if (!empty && (it.t === 'mc' || it.t === 'tf')) checkNow(); } });
     if (!m.immediateChecked[i] && (it.t !== 'mc' && it.t !== 'tf' || m.answers[i] !== undefined)) { var check = U.el('button', {class:'btn pri'}, 'Check this answer now'); check.onclick = checkNow; $('#host').appendChild(check); }
@@ -305,10 +320,10 @@
   // ---------------- Progress ----------------
   function pProgress() {
     var st = E.conceptStats(), s = S.load();
-    var h = ['<h1>Progress</h1><p class="muted">Mastered = your last two graded answers on the concept were correct, on two different questions, and the latest was locked at medium or high confidence. Any miss resets it. Teach-backs and mock answers never count toward mastery.</p>'];
+    var h = ['<h1>Progress</h1><p class="muted">Mastered = your last two graded answers on the concept were correct, on two different questions, and the latest was locked at medium or high confidence. Any miss resets it. New checked mock answers and self-scored Exam 1 writing count; older mock records remain mastery-neutral to preserve prior progress. Reading and unscored teach-backs do not count.</p>'];
     // calibration
     var cal = { l: [0, 0], m: [0, 0], h: [0, 0] };
-    s.attempts.forEach(function (a) { if (a.m !== 'mock' && cal[a.cf]) { cal[a.cf][1]++; if (a.ok) cal[a.cf][0]++; } });
+    s.attempts.forEach(function (a) { if (a.m !== 'mock' && !a.self && cal[a.cf]) { cal[a.cf][1]++; if (a.ok) cal[a.cf][0]++; } });
     h.push('<div class="card"><h3>Confidence calibration</h3><div class="bars">' + [['l', 'Low'], ['m', 'Medium'], ['h', 'High']].map(function (x) { var c = cal[x[0]]; return '<div class="barrow"><span>' + x[1] + ' confidence</span><div class="b"><i style="width:' + U.pct(c[0], c[1]) + '%"></i></div><span>' + (c[1] ? U.pct(c[0], c[1]) + '% (' + c[1] + ')' : '-') + '</span></div>'; }).join('') + '</div><p class="small muted">Well calibrated = high-confidence accuracy near 100%. A high-confidence miss is a misconception: dangerous on an exam because you will not second-guess it.</p></div>');
     L.SECTIONS.forEach(function (sec) {
       var cs = Object.keys(L.CONCEPTS).filter(function (c) { return L.CONCEPTS[c].sec === sec.id && E.hasPracticeContent(c); });

@@ -41,9 +41,9 @@ Every question in the quiz bank and modules was dumped and solved independently.
 | Guide | 60 cards with tier badges, tempting-mistake boxes, conflict boxes, source chips; audiogram, BTE and count-the-dots figures |
 | Visual ID | 22 syndrome photos + FAS diagram with no clue text in the prompt; pedigree images cropped so the title no longer gives the answer |
 | Practice | Confidence locked before feedback; hint button (assisted answers never count toward mastery); wrong -> retry after 2, low-confidence correct -> after 4, with a fresh variant or a different question on the same concept |
-| Mastery | Last two answers correct, on two different questions, latest medium/high, no hint. High-confidence miss = misconception until two correct follow. Teach-back and mock answers never count. |
-| Review | Smart queue: misconceptions > mock misses > last-time misses > spaced review (1/2/4/7 days) > old-lab misses > untouched |
-| Mock | 70 or 35, feedback withheld until submit, navigator/flag/change/clear, resume after reload, domain breakdown, per-question review with rationales, one-click remediation; held-out items and generated items keep it fresh |
+| Mastery | Last two graded answers correct, on two different questions, latest medium/high, no hint. High-confidence miss = misconception until two correct follow. Unscored teach-back and historical mock rows remain mastery-neutral; new checked mock answers count. |
+| Review | Smart queue: misconceptions > mock misses > last-time misses > spaced review (1/2/4/7 days) > old-lab misses > untouched; Exam 1 also shows recently resolved mistakes without changing their original scores |
+| Mock | 70 or 35, immediate feedback on each checked response, navigator/flag/resume after reload, domain breakdown, per-question review with rationales, remediation; held-out and generated items keep it fresh |
 | Boss | 4 integration drills (32-36 questions each): etiology->audiogram->management; cross-check battery; devices & classroom; numbers gauntlet (all boundaries). No hints; scored out of the full run; only completed runs set a best score |
 | Data | Single guarded key `comd4590-lab-v2`; export/import (merge, de-duplicated); legacy import; double-confirmed reset |
 | UI | Dark theme, keyboard (1-9 choose, Enter next), responsive to 390 px, offline, no external requests |
@@ -55,3 +55,11 @@ Every question in the quiz bank and modules was dumped and solved independently.
 - Otherwise import through **Data > Import**: v1 full backup (`comd4590-progress-backup-v1`), the Lecture 2 drill export (`{records, concepts}`, e.g. `pathology-progress-backup-2026-09-21.json`), or v1 guided progress.
 - **Limitation (deliberate):** old results never become v2 mastery. v1 recorded confidence after feedback, some v1 keys were wrong, and v1 item ids do not map one-to-one to v2 questions. Old misses push those concepts up the review queue ("Old-lab miss"); old "mastered" flags are kept for reference only.
 - Browsers keep storage per origin (and some browsers per folder for local files): a copy opened through a local server or another browser has separate storage. Use Export/Import to move progress.
+
+## September 26 progress wiring repair
+
+- Completed Exam 1 runs open the saved results screen instead of showing a stale Resume action. A new audiogram set starts separately; the finished run and its first-response points remain in My history.
+- An Exam 1 miss enters the open queue when checked. Later correct work can resolve it; Review misses also displays recently resolved mistakes and links back to their original feedback. Resolution does not rewrite the earlier score.
+- Newly checked graded answers in Exam 1 drills and full learning mocks, the older 35/70-question mock interface, each audiogram type/degree/configuration part, and self-rated Exam 1 writing feed the same concept progress used throughout the dashboard. The right and left ear response fields have distinct question roots for mastery. Merely finishing a run or reading a chapter does not grant mastery.
+- Existing mock attempt rows stay in history but do not suddenly count toward mastery. Their older checked answers and assumed-confidence records were not collected under the new per-question grading rule; only newly checked responses count. Saved scores, drafts, flags, positions, IDs and prior mastery are retained.
+- The storage key remains `comd4590-lab-v2`, and the existing personal file and `PUGZPLZ/aural-rehab/` addresses remain unchanged. Each browser profile retains its own local progress; a local file and the GitHub Pages URL do not synchronize automatically.

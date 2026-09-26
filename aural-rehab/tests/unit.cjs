@@ -100,9 +100,12 @@ t('high-confidence miss = misconception until two correct follow', () => {
 t('any miss resets mastery', () => { answer('s4.cmv4', false, 'm'); assert.strictEqual(E2.conceptStats().cmv.status, 'shaky'); });
 t('hint-assisted correct answers do not master', () => { E2.record(R2['s5.crou1'], { id: 's5.crou1' }, R2['s5.crou1'].o.findIndex(o => o.ok), 'h', 'practice', true); const k = R2['s5.apert1'].o.findIndex(o => o.ok); E2.record(R2['s5.apert1'], { id: 's5.apert1' }, k, 'h'); answer('s5.apert2', true, 'h'); assert.strictEqual(E2.conceptStats().apert.status, 'mastered'); E2.record(R2['s5.crou1'], { id: 's5.crou1' }, R2['s5.crou1'].o.findIndex(o => o.ok), 'h', 'practice', true); assert.notStrictEqual(E2.conceptStats().crouzon.status, 'mastered'); });
 t('teach-back never counts', () => { const before = S2.load().attempts.length; E2.record(R2['s1.tb1'], { id: 's1.tb1' }, { self: 'got' }, null); assert.strictEqual(S2.load().attempts.length, before); });
-t('mock answers do not change mastery but flag review', () => {
+t('historical mock evidence remains mastery-neutral but flags review', () => {
   answer('s4.anox1', true, 'm'); answer('s4.anox2', true, 'm');
   assert.strictEqual(E2.conceptStats().anoxia.status, 'mastered');
+  const before=E2.conceptStats().anoxia.att;
+  answer('s4.anox1',false,'h','mock');
+  assert.strictEqual(E2.conceptStats().anoxia.att,before,'old mock mode never rewrites earned mastery');
   const s = S2.load(); s.mocks.push({ id: 'Mx', ts: Date.now() + 5, items: [{ id: 's4.anox1', c: 'anoxia', ok: false }], byDom: {}, byCon: {} });
   const st = E2.conceptStats(); assert.strictEqual(st.anoxia.status, 'mastered'); assert.strictEqual(st.anoxia.mockMiss, true);
   assert.strictEqual(E2.reviewPlan().find(r => r.c === 'anoxia').why, 'mock');
@@ -148,13 +151,29 @@ t('70-item mock: size, domain mix, one case block, no refresher items', () => {
   assert.ok(!items.some(it => !it.caseId && (it.tier === 3 || it.t === 'teach' || it.mockExclude)), 'no 4190/teach items outside the case block');
   const cs = L.CASES.find(c => c.id === m.caseId); const ids = m.refs.map(r => r.id); const pos = cs.items.map(it => ids.indexOf(it.id)); pos.forEach((p, i) => assert.ok(p >= 0 && (i === 0 || p === pos[i - 1] + 1)));
 });
-t('original mock finalizes aggregate on submit; blanks count wrong; held items unlock', () => {
+t('original mock records answered work once; blanks score wrong without mastery attempts', () => {
   const s = S2.load(), m = s.mockActive; const before = s.attempts.length;
   m.refs.forEach((ref, i) => { if (i % 2 === 0) { const it = E2.resolve(ref); m.answers[i] = it.t === 'ms' ? it.o.map((o, j) => o.ok ? j : -1).filter(j => j >= 0) : it.o ? it.o.findIndex(o => o.ok) : it.t === 'num' ? it.a : it.t === 'match' ? it.pairs.map(p => p[1]) : it.t === 'order' ? it.seq : it.t === 'parts' ? it.parts.map(p => p.a) : null; } });
   assert.strictEqual(S2.load().attempts.length, before, 'no attempts recorded before submit');
   const rec = E2.submitMock(); assert.strictEqual(rec.total, 70); assert.strictEqual(rec.score, 35);
   assert.ok(rec.items.filter(x => x.blank).every(x => !x.ok)); assert.strictEqual(S2.load().mockActive, null);
+  const added=S2.load().attempts.slice(before),answered=new Set(m.refs.filter((_,i)=>i%2===0).map(E2.refKey));
+  assert.strictEqual(new Set(added.map(a=>a.i)).size,35,'only 35 answered question roots become attempts');
+  assert.ok(added.every(a=>answered.has(a.i)&&a.m!=='mock'),'new checked answers feed mastery');
+  assert.ok(added.every(a=>!a.dup||R2[a.i]&&R2[a.i].also&&R2[a.i].also.includes(a.c)),'extra concept rows come only from authored also mappings');
+  assert.strictEqual(E2.submitMock(),null,'submitting again has no active exam');
+  assert.strictEqual(S2.load().attempts.length,before+added.length,'second submit cannot duplicate attempts');
   const heldInMock = rec.items.filter(x => x.ref.id && R2[x.ref.id] && R2[x.ref.id].pool === 'x'); heldInMock.forEach(x => assert.ok(S2.load().seenX[x.ref.id]));
+});
+t('original mock submit does not repeat an answer already checked immediately', () => {
+  const b=loadLab(),e=b.L.engine,s=b.L.store,m=e.buildMock(35),ref=m.refs[0],it=e.resolve(ref),response=rightAnswer(it),key=e.refKey(ref);
+  m.answers[0]=response;m.immediateChecked={0:e.grade(it,response)};m.recorded[0]=true;
+  e.record(it,ref,response,'h','learning-mock',false);
+  const before=s.load().attempts.filter(a=>a.i===key&&a.c===it.c).length;
+  assert.strictEqual(before,1);
+  const rec=e.submitMock();assert.strictEqual(rec.total,35);assert.strictEqual(rec.items.filter(x=>x.blank).length,34);
+  assert.strictEqual(s.load().attempts.filter(a=>a.i===key&&a.c===it.c).length,before,'checked answer recorded only once');
+  assert.ok(s.load().attempts.every(a=>a.i===key),'unanswered positions do not create mastery attempts');
 });
 t('35-item mock domain mix', () => { const m = E2.buildMock(35); const dom = {}; m.refs.map(E2.resolve).forEach(it => { dom[it.dom] = (dom[it.dom] || 0) + 1; }); assert.deepStrictEqual(dom, { ov: 5, et: 9, dx: 11, ha: 10 }); S2.load().mockActive = null; });
 t('second mock favors unseen held items', () => { const s = S2.load(); const m1 = s.mocks[0]; const m = E2.buildMock(70); const overlap = m.refs.filter(r => r.id && m1.items.some(x => x.id === r.id)).length; assert.ok(overlap < 45, 'overlap ' + overlap); s.mockActive = null; });

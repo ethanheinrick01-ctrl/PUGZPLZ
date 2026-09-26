@@ -94,8 +94,16 @@
   function record(run,t){
     if(t.recorded || t.kind==='short')return;
     t.recorded=true;
-    // Mock feedback is immediate, but a mock does not grant mastery.
-    E.record(t.item,{id:t.item.id},t.response,t.confidence,run.kind==='mock'?'mock':'practice',false);
+    // Historical mock attempts remain unchanged; newly checked answers can earn mastery.
+    E.record(t.item,{id:t.item.id},t.response,t.confidence,run.kind==='mock'?'learning-mock':'practice',false);
+  }
+  function graphPartConcept(part){return ['loss-type','pta-degree','configuration'][part%3];}
+  function recordGraphPart(run,t,part,value,when){
+    var concept=graphPartConcept(part), p=t.item.parts[part];
+    if(!L.CONCEPTS[concept])return;
+    S.load().attempts.push({i:t.item.id+':part'+part,c:concept,ok:value===p.a,sc:value===p.a?1:0,
+      cf:t.confidence||'m',m:run.kind==='mock'?'learning-mock':'practice',t:when,graphPart:part});
+    save();
   }
   function answer(run,index,response,conf){
     var t=run.tasks[index];if(!t||t.checked||t.kind==='short'||t.item.t==='parts')return false;
@@ -106,6 +114,10 @@
     t.response=t.response||t.item.parts.map(function(){return '';});
     if(t.response[part])return false;
     t.response[part]=value;
+    // Each ear's type, PTA degree and shape updates its own concept at selection time.
+    // Right and left are distinct response fields, each with its own stable root.
+    t.partTimes=t.partTimes||[];t.partTimes[part]=Date.now();
+    recordGraphPart(run,t,part,value,t.partTimes[part]);
     if(t.response.every(Boolean)){t.grade=E.grade(t.item,t.response);t.checked=true;t.checkedAt=Date.now();record(run,t);}
     touch(run);return true;
   }
@@ -114,7 +126,11 @@
   function rate(run,index,part,value){
     var t=run.tasks[index];if(t.kind!=='short'||!t.rubricOpen||t.checked||[0,1].indexOf(value)<0)return false;
     t.ratings[part]=value;
-    if(t.ratings.every(function(v){return v!==null;})){var sc=t.ratings.reduce(function(a,b){return a+b;},0)/3;t.grade={ok:sc===1,sc:sc,self:true};t.checked=true;t.checkedAt=Date.now();}
+    if(t.ratings.every(function(v){return v!==null;})){
+      var sc=t.ratings.reduce(function(a,b){return a+b;},0)/3;
+      t.grade={ok:sc===1,sc:sc,self:true};t.checked=true;t.checkedAt=Date.now();
+      if(!t.recorded){t.recorded=true;S.load().attempts.push({i:'e1.short.'+t.item.id,c:t.item.c,ok:t.grade.ok,sc:sc,cf:'m',m:'self-score',self:true,t:t.checkedAt});}
+    }
     touch(run);return true;
   }
   function score(run){
@@ -125,12 +141,22 @@
   function finish(run){run.ended=Date.now();touch(run);return score(run);}
   function misses(){
     var st=E.conceptStats(), found={};
+    function corrected(c,when){
+      if(!st[c])return false;
+      var after=st[c].hist.filter(function(a){return a.t>when;}).slice(-2);
+      return after.length===2&&after.every(function(a){return a.ok&&!a.h;})&&after[0].i!==after[1].i&&['m','h'].indexOf(after[1].cf)>=0;
+    }
     state().runs.forEach(function(run){run.tasks.forEach(function(t){
+      if(t.kind==='graph'&&t.partTimes&&t.response)t.response.forEach(function(value,i){
+        if(!value||value===t.item.parts[i].a||!t.partTimes[i])return;
+        var c=graphPartConcept(i),when=t.partTimes[i];if(corrected(c,when))return;
+        var key=c;if(!found[key]||found[key].time<when)found[key]={key:key,c:c,chapter:t.chapter,time:when,run:run.id,index:run.tasks.indexOf(t),kind:'graph',item:t.item};
+      });
       var wrong=t.checked&&!t.grade.ok;
       if(t.kind==='graph'&&t.response)wrong=wrong||t.response.some(function(v,i){return v&&v!==t.item.parts[i].a;});
       if(!wrong)return;
       var when=t.checkedAt||run.updated,c=t.item.c, key=t.kind==='short'?'writing:'+t.item.id:c;
-      if(t.kind!=='short' && st[c]){var after=st[c].hist.filter(function(a){return a.t>when;}).slice(-2);if(after.length===2&&after.every(function(a){return a.ok&&!a.h;})&&after[0].i!==after[1].i&&['m','h'].indexOf(after[1].cf)>=0)return;}
+      if(t.kind!=='short'&&corrected(c,when))return;
       if(!found[key]||found[key].time<when)found[key]={key:key,c:c,chapter:t.chapter,time:when,run:run.id,index:run.tasks.indexOf(t),kind:t.kind,item:t.item};
     });});
     // A fresh successful writing exercise clears older writing misses for that prompt.

@@ -92,6 +92,8 @@
     Object.keys(L.CONCEPTS).forEach(function (c) { out[c] = { id: c, att: 0, ok: 0, hist: [], box: 0, last: 0, status: 'new', mockMiss: false, prior: null }; });
     state.attempts.forEach(function (a) {
       var st = out[a.c]; if (!st) return;
+      // Keep pre-update mocks out of mastery: their saved rows include blanks and
+      // assumed confidence. New, individually checked learning-mock rows count.
       if (a.m === 'mock') { return; }
       st.att++; if (a.ok) st.ok++;
       st.hist.push(a); st.last = a.t;
@@ -291,7 +293,8 @@
     refs = U.shuffle(refs).map(function (x) { return x.ref; });
     var at = Math.floor(refs.length * 0.6);
     refs = refs.slice(0, at).concat(caseItems).concat(refs.slice(at));
-    var m = { id: 'M' + Date.now(), size: size, started: Date.now(), refs: refs, answers: {}, flags: {}, cur: 0, orders: {}, caseId: cs.id };
+    var m = { id: 'M' + Date.now(), size: size, started: Date.now(), refs: refs, answers: {}, flags: {}, cur: 0, orders: {}, caseId: cs.id,
+      masteryVersion: 1, recorded: {}, confidences: {} };
     s.mockActive = m; L.store.save();
     return m;
   }
@@ -305,7 +308,14 @@
       var d = byDom[it.dom] || (byDom[it.dom] = { ok: 0, n: 0 }); d.n++; if (g.ok) d.ok++;
       var c = byCon[it.c] || (byCon[it.c] = { ok: 0, n: 0 }); c.n++; if (g.ok) c.ok++;
       if (ref.id && REG[ref.id] && REG[ref.id].pool === 'x') s.seenX[ref.id] = Date.now();
-      s.attempts.push({ i: refKey(ref), c: it.c, ok: !!g.ok, sc: g.sc || 0, cf: 'm', m: 'mock', t: Date.now() + i });
+      if (m.recorded && m.recorded[i] === true) return;
+      if (m.masteryVersion === 1 && r !== undefined && !(m.recorded && m.recorded[i])) {
+        m.recorded[i] = true;
+        record(it, ref, r, (m.confidences || {})[i] || 'm', 'learning-mock', false);
+      } else if (m.masteryVersion !== 1 || (m.recorded && m.recorded[i] === 'legacy')) {
+        // Old in-progress checks retain their original, mastery-neutral record.
+        s.attempts.push({ i: refKey(ref), c: it.c, ok: !!g.ok, sc: g.sc || 0, cf: 'm', m: 'mock', t: Date.now() + i });
+      }
     });
     var rec = { id: m.id, ts: Date.now(), started: m.started, size: m.size, score: score, total: m.refs.length, byDom: byDom, byCon: byCon, items: items, orders: m.orders, flags: m.flags, caseId: m.caseId };
     s.mocks.push(rec); s.mockActive = null; L.store.save();
