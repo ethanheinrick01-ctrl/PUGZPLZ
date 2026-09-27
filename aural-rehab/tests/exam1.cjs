@@ -8,7 +8,7 @@ function correct(t){return t.item.o.findIndex(o=>o.ok);}
 function correctItem(it){return it.o.findIndex(o=>o.ok);}
 test('Every form has the announced structure, quota, unique objectives and honest 70-point rubric',()=>{
   const {L}=loadLab();
-  for(let seed=1;seed<=300;seed++){
+  for(const {seed} of L.EXAM1_DATA.forms){
     const ts=L.exam1.form(seed),objs=ts.filter(t=>t.kind==='objective');
     assert.equal(objs.length,52);assert.equal(new Set(objs.map(t=>t.item.id)).size,52);
     assert.ok(objs.every(t=>['mc','tf'].includes(t.item.t)));
@@ -16,8 +16,9 @@ test('Every form has the announced structure, quota, unique objectives and hones
     assert.equal(ts.filter(t=>t.kind==='graph').length,2);assert.equal(ts.filter(t=>t.kind==='short').length,2);
     assert.equal(ts.reduce((s,t)=>s+t.weight,0),70);
   }
-  assert.deepEqual(L.exam1.form(123),L.exam1.form(123));
-  assert.notDeepEqual(L.exam1.form(123),L.exam1.form(124));
+  assert.deepEqual(L.exam1.form(927101),L.exam1.form(927101));
+  assert.notDeepEqual(L.exam1.form(927101),L.exam1.form(927102));
+  assert.throws(()=>L.exam1.form(123),/Choose one/);
 });
 test('Exam scope excludes case lecture, syndrome statistics/inheritance and superseded questions',()=>{
   const {L}=loadLab();

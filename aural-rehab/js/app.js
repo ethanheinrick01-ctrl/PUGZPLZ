@@ -233,11 +233,11 @@
     var s = S.load();
     if (args[0] === 'take' && s.mockActive) return mockTake();
     if (args[0] === 'result') return mockResult(args[1]);
+    if (args[0] !== 'archive') return L.exam1UI.render(main,['mocks']);
     var h = ['<h1>Mock exam</h1>'];
-    h.push('<div class="card"><p><b>For the September 24 announced format, use <a href="#exam1/mocks">Exam 1 full learning mocks</a>.</b> These older 35/70-question sets remain available. Feedback appears on each question: a single-choice selection checks immediately; multi-part/numeric answers have a Check now button. First checked responses lock. Unanswered questions count as wrong in the mock score, but do not count as mastery attempts. New checked answers update mastery; older saved mock records stay unchanged.</p>');
-    h.push('<p class="small muted">Design choices (not predictions): lengths of 70 and 35 mirror the 4190 final count and a half-length drill. Domain mix follows syllabus class days: overview ~15%, etiology ~25%, diagnostic interpretation ~30%, hearing aids/HAT ~30%. Items held back from practice appear here first; about a third of diagnostic items are freshly generated audiograms and tymps; one linked case block is included. Prior-course (4190) refresher items are excluded.</p>');
+    h.push('<div class="card"><p>Your earlier mock records and unfinished work are retained here. New mock exams are available in <a href="#exam1/mocks">Original Forms A, B and C</a>.</p>');
     if (s.mockActive) h.push('<div class="row"><a class="btn warn" href="#mock/take">Resume mock in progress (' + Object.keys(s.mockActive.answers).length + '/' + s.mockActive.refs.length + ' answered)</a><button class="btn bad" id="abandon">Abandon it</button></div>');
-    else h.push('<div class="row"><button class="btn pri" data-size="70">Start 70-question mock</button><button class="btn" data-size="35">Start 35-question mock</button></div>');
+    else h.push('<p><a class="btn pri" href="#exam1/mocks">Open the three original Exam 1 forms</a></p>');
     h.push('</div>');
     if (s.mocks.length) {
       h.push('<h2>History</h2><table class="stat"><tr><th>Date</th><th>Score</th><th>Overview</th><th>Etiology</th><th>Diagnostic</th><th>HA/HAT</th><th></th></tr>');

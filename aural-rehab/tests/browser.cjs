@@ -89,8 +89,16 @@ async function answerCurrent(page, mode) {
   ok(!teachCounted, 'teach-back not recorded as a graded attempt');
   await page.evaluate(() => { const s = L.engine.currentSession(); if (s) L.engine.endSession(); });
 
-  // --- Original mock: immediate feedback, navigation, flag, reload, aggregate ---
-  await page.goto(URL + '#mock'); await page.locator('button[data-size="35"]').click();
+  // --- New mock entry point, plus retained legacy engine and archive coverage ---
+  await page.goto(URL + '#mock');
+  await page.waitForSelector('button[data-form="A"]');
+  ok((await page.locator('button[data-form]').evaluateAll(bs => bs.map(b => b.dataset.form))).join(',') === 'A,B,C', '#mock offers the three original forms');
+  ok(await page.locator('button[data-size]').count() === 0, '#mock no longer starts a recycled legacy form');
+  // Model an already-started legacy mock. New users cannot start one in the UI,
+  // but its existing answers, navigation and results must remain usable.
+  await page.evaluate(() => L.engine.buildMock(35));
+  await page.goto(URL + '#mock/archive');
+  await page.locator('a[href="#mock/take"]').click();
   await page.waitForSelector('#ng button');
   ok(await page.locator('#ng button').count() === 35, 'mock has 35 questions');
   for (let i = 0; i < 5; i++) { await answerCurrent(page, 'mock'); if (!await page.locator('.fb').count()) await page.getByRole('button', { name: 'Check this answer now' }).click(); ok(await page.locator('.fb').count() === 1, 'mock q' + (i + 1) + ': immediate feedback'); await page.locator('#next').click(); await page.waitForSelector('#host .item'); }

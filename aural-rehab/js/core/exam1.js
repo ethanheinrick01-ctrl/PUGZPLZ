@@ -25,14 +25,15 @@
       order:it.o?(it.fixedOrder?it.o.map(function(_,i){return i;}):U.shuffle(it.o.map(function(_,i){return i;}),r)):null,
       response:null,checked:false,confidence:'m',flag:false};
   }
-  function graph(seed){
+  function graph(seed,plan){
     var r=U.rng(seed), C=L.conv;
     var types=['conductive','sensorineural','mixed'], configs=['flat','sloping','rising','cookie'], spec={}, parts=[];
     ['right','left'].forEach(function(side){
-      var type=U.pick(r,types), config=U.pick(r,configs), degree=type==='mixed'?'modsev':U.pick(r,['mild','moderate']), ear;
+      var target=plan&&plan[side];
+      var type=target?target.type:U.pick(r,types), config=target?target.config:U.pick(r,configs), degree=target?target.degree:(type==='mixed'?'modsev':U.pick(r,['mild','moderate'])), ear;
       // Unambiguous plotted BC and clean PTA values; no hardware-limit inference needed.
       for(var n=0;n<8&&!ear;n++) ear=L.gen.buildEar(r,type,degree,config,false);
-      if(!ear) { config='flat'; ear=L.gen.buildEar(r,type,degree,config,false); }
+      if(!ear&&!target) { config='flat'; ear=L.gen.buildEar(r,type,degree,config,false); }
       if(!ear) throw new Error('Could not build an unambiguous audiogram');
       spec[side]={ac:ear.ac,bc:ear.bc,bcMasked:true};
       var label=side==='right'?'Right ear':'Left ear';
@@ -57,18 +58,23 @@
     return out;
   }
   function form(seed){
-    var r=U.rng(seed), used={}, objectives=[];
-    [['foundations',4],['audiograms',2],['heredity',6],['causes',6],['syndromes',8],['hearing-aids',5],['children',5],['verification',4],['classroom',4],['outcomes',2],['dots',2],['guest',4]].forEach(function(q){objectives=objectives.concat(pickTasks(q[0],q[1],r,used));});
-    objectives=U.shuffle(objectives,r);
-    var short=U.shuffle(D.shorts,r).slice(0,2).map(writing);
-    return objectives.concat([task(graph(U.int(r,1,2147483646)),'audiograms',r),task(graph(U.int(r,1,2147483646)),'audiograms',r)],short);
+    var def=(D.originalForms||[]).filter(function(f){return f.seed===seed||f.name===seed;})[0];
+    if(!def)throw new Error('Choose one of the three original forms: A, B or C.');
+    var r=U.rng(def.seed),objectives=def.objectives.map(function(raw){
+      var it=U.clone(raw);it.tier=1;it.pool='mock-only';
+      if(it.t==='tf'){it.o=[{t:'True',ok:it.a===true,w:''},{t:'False',ok:it.a===false,w:''}];it.fixedOrder=true;}
+      else it.o=it.o.map(function(text,i){return {t:text,ok:i===it.a,w:''};});
+      return task(it,it.chapter,r);
+    });
+    var graphs=def.graphs.map(function(g,i){var it=graph(g.seed,g);it.id='om1.'+def.name+'.graph'+(i+1);it.s=['OM-L1-16','OM-L1-17','OM-L1-18','ANN','E1'];return task(it,'audiograms',r);});
+    return U.shuffle(objectives,r).concat(graphs,def.shorts.map(writing));
   }
   function start(kind,title,tasks,seed){
     var now=Date.now(), run={id:'E1-'+now+'-'+U.newSeed(),kind:kind,title:title,seed:seed||null,version:D.version,started:now,updated:now,cur:0,ended:null,tasks:tasks};
     state().runs.push(run);state().activeId=run.id;save();return run;
   }
   function get(id){return state().runs.filter(function(r){return r.id===id;})[0]||null;}
-  function startMock(name,seed){return start('mock','Exam 1 · Form '+name,form(seed),seed);}
+  function startMock(name,seed){var def=(D.originalForms||[]).filter(function(f){return f.name===name;})[0];if(!def)throw new Error('Unknown original form');return start('mock','Exam 1 · Original Form '+def.name,form(def.seed),def.seed);}
   function practice(ch,n,concepts){
     var r=U.rng(U.newSeed()), seen={}, last={};
     S.load().attempts.forEach(function(a){last[a.i]=a.t;});
@@ -170,7 +176,7 @@
     return Object.keys(found).map(function(k){return found[k];}).sort(function(a,b){return b.time-a.time;});
   }
   function retry(miss){
-    if(miss.kind==='short')return startWriting(miss.item.id);
+    if(miss.kind==='short')return start('writing','Short-answer retry',[writing(miss.item)]);
     if(miss.kind==='graph')return startGraphs();
     return practice(miss.chapter,4,[miss.c]);
   }

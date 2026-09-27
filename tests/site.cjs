@@ -20,15 +20,21 @@ async function currentDX(p){return p.evaluate(()=>__DX.ITEMS[document.querySelec
  await p.getByRole('link',{name:'Aural Rehab Study Lab',exact:true}).click();await p.waitForFunction(()=>window.L?.app&&document.querySelector('.e1'));
  equal('Aural storage key is unchanged',await p.evaluate(()=>L.store.KEY),'comd4590-lab-v2');
  let before=process.env.AURAL_BASELINE?JSON.parse(fs.readFileSync(process.env.AURAL_BASELINE,'utf8')):null;
- if(before){const after=await arstate(p);equal('Existing Aural unfinished runs, answers, flags, drafts and position survive folder relocation',after.exam1.runs,before.exam1.runs);equal('Existing practice queue and position survive folder relocation',after.session,before.session);equal('Existing scored attempts survive folder relocation',after.attempts,before.attempts);}
- else await p.evaluate(()=>{L.exam1.startMock('Test',24680);L.engine.newSession('practice','Existing practice',[{id:'s1.def1'},{id:'s2.scale2'}]);L.store.save();});
- let arRun=await p.evaluate(()=>{const r=L.exam1.get(L.exam1.state().activeId);L.app.go('exam1/run/'+r.id);return r.id;});
+ if(before){const after=await arstate(p);equal('Existing Aural completed and unfinished runs, answers, flags, drafts and position survive folder relocation',after.exam1.runs,before.exam1.runs);equal('Existing practice queue and position survive folder relocation',after.session,before.session);equal('Existing scored attempts survive folder relocation',after.attempts,before.attempts);}
+ else await p.evaluate(()=>{L.engine.newSession('practice','Existing practice',[{id:'s1.def1'},{id:'s2.scale2'}]);L.store.save();});
+ await go(p,'aural-rehab/#mock');await p.locator('button[data-form="A"]').waitFor();
+ equal('Aural Mock entry point offers the three original forms',await p.locator('button[data-form]').evaluateAll(bs=>bs.map(b=>b.dataset.form)),['A','B','C']);
+ // Keep the real baseline untouched, including any completed active run. Exercise
+ // feedback in a fresh canonical form instead of reopening and editing that run.
+ let arRun=await p.evaluate(()=>{const r=L.exam1.startMock('A');const at=r.tasks.findIndex(t=>t.kind==='objective'&&t.item.t==='mc');if(at<0)throw new Error('Form A has no multiple-choice task');L.app.go('exam1/run/'+r.id+'/'+at);return r.id;});
+ equal('Original Form A contains the announced 56 tasks',await p.evaluate(id=>L.exam1.get(id).tasks.length,arRun),56);
  await p.locator('#e1item .opt').first().waitFor();
  const wrong=await p.evaluate(()=>{const r=L.exam1.get(L.exam1.state().activeId);return r.tasks[r.cur].item.o.findIndex(o=>!o.ok);});
  await p.locator('#e1item .opt[data-oi="'+wrong+'"]').click();
  check('Aural Exam 1 shows wrong-answer correction immediately',/Incorrect/.test(await p.locator('#e1item .verdict').innerText()));
  await p.locator('#flag').click();await p.locator('#next').click();
  const arSaved=await arstate(p);
+ if(before){equal('Starting and answering a new form preserves every baseline run snapshot',before.exam1.runs.map(r=>arSaved.exam1.runs.find(saved=>saved.id===r.id)),before.exam1.runs);equal('New mock leaves the existing practice session unchanged',arSaved.session,before.session);equal('New mock retains every prior scored attempt',arSaved.attempts.slice(0,before.attempts.length),before.attempts);}
  await go(p,'');await p.getByRole('link',{name:'Diagnostics Study Lab',exact:true}).click();await p.waitForFunction(()=>window.__DX);
  equal('Diagnostics keeps its separate storage key',await p.evaluate(()=>__DX.state.schema),'comd4756-lab-v2');
  equal('Opening Diagnostics leaves Aural progress unchanged',await arstate(p),arSaved);
@@ -58,10 +64,12 @@ async function currentDX(p){return p.evaluate(()=>__DX.ITEMS[document.querySelec
  equal('Diagnostics unfinished numerical answer survives browser close/reopen',dxAfter.exams['boss-b'],dxSaved.exams['boss-b']);
  equal('Diagnostics misses and mastery records survive browser close/reopen',dxAfter.concepts,dxSaved.concepts);
  await go(p,'aural-rehab/');let arAfter=await arstate(p);
- equal('Aural unfinished runs survive browser close/reopen',arAfter.exam1.runs,arSaved.exam1.runs);
- equal('Aural question position resumes on screen',await p.locator('.e1runhead b').innerText(),`Question ${arSaved.exam1.runs.find(r=>r.id===arRun).cur+1} of 56 · ${arSaved.exam1.runs.find(r=>r.id===arRun).tasks[arSaved.exam1.runs.find(r=>r.id===arRun).cur].item.t==='tf'?'True / false':'Objective'}`);
+ equal('All Aural completed and unfinished runs survive browser close/reopen',arAfter.exam1.runs,arSaved.exam1.runs);
+ const savedRun=arSaved.exam1.runs.find(r=>r.id===arRun),savedTask=savedRun.tasks[savedRun.cur];
+ equal('Aural question position resumes on screen',await p.locator('.e1runhead b').innerText(),`Question ${savedRun.cur+1} of ${savedRun.tasks.length} · ${savedTask.kind==='short'?'Short answer':savedTask.kind==='graph'?'Audiogram':savedTask.item.t==='tf'?'True / false':'Objective'}`);
  await go(p,'aural-rehab/#data');const arDownload=await Promise.all([p.waitForEvent('download'),p.locator('#exp').click()]);const arText=fs.readFileSync(await arDownload[0].path(),'utf8');
- check('Aural export includes unfinished runs and practice sessions',JSON.parse(arText).state.exam1.runs.length>0&&!!JSON.parse(arText).state.session);
+ equal('Aural export preserves every completed and unfinished run',JSON.parse(arText).state.exam1.runs,arSaved.exam1.runs);
+ equal('Aural export preserves the existing practice session or its absence',JSON.parse(arText).state.session,arSaved.session);
  await go(p,'diagnostics/#/progress');const dxDownload=await Promise.all([p.waitForEvent('download'),p.locator('[data-act="export"]').click()]);const dxText=fs.readFileSync(await dxDownload[0].path(),'utf8');
  check('Diagnostics export includes practice and active exams',!!JSON.parse(dxText).state.practice&&!!JSON.parse(dxText).state.exams['mock-a'].active);
  const browser=await chromium.launch({channel:'chrome',headless:true});const separate=await browser.newContext({acceptDownloads:true});const other=await separate.newPage();
