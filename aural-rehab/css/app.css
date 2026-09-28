@@ -82,6 +82,8 @@ select{min-width:220px}
 .fb{margin-top:14px;padding:12px 14px;border-radius:10px;border:1px solid var(--line);background:#12171f}
 .fb.ok{border-color:#2a6b45}.fb.no{border-color:#7a2e2e}
 .fb .verdict{font-weight:800;margin-bottom:4px}.fb.ok .verdict{color:var(--ok)}.fb.no .verdict{color:var(--bad)}
+.word-clue{margin:12px 0;padding:10px 12px;border-left:3px solid var(--acc);border-radius:6px;background:#172233}
+.word-clue p{margin:7px 0 0}
 .progress{height:6px;background:#1d232d;border-radius:99px;overflow:hidden;margin:6px 0 12px}.progress i{display:block;height:100%;background:linear-gradient(90deg,var(--acc),var(--acc2))}
 .navgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(38px,1fr));gap:5px;margin:10px 0}
 .navgrid button{min-height:36px;border-radius:8px;border:1px solid var(--line);background:#151a22;cursor:pointer;font-size:.8rem;padding:0}

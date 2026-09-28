@@ -11,6 +11,8 @@ September 26 progress repair: a finished Exam 1 run opens its results instead of
 
 **Every question gives immediate feedback.** MC/T/F checks when you select an answer. Graph parts check as you select them. Numeric/multiple-response tasks have a per-question check action. Written work reveals its rubric when you click **Check this answer now**, then you honestly rate your own response. Your first answer stays scored; no full-exam submission is needed to see corrections.
 
+September 28 word-clue addition: Guide sections 4 and 5 and the matching Exam 1 chapters now decode meaningful Greek/Latin medical roots for every taught infection, injury and syndrome. Relevant clues also appear after each practice or mock answer. Eponyms are labeled as names; the clue instead decodes a signature term such as micrognathia, syndactyly or retinitis pigmentosa. Stickler’s collagen formation problem and CHARGE’s reduced pinna cartilage are distinguished using the 9/08 recording and Lecture 2 slides. No question, answer key, ID or saved-progress schema changed.
+
 ## Open it
 1. Unzip the folder anywhere.
 2. Double-click `index.html` (Chrome or Edge recommended; tested in Chromium).

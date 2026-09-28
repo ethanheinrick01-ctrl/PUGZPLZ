@@ -42,6 +42,8 @@
       'Use general principles from the first lecture. Four objective questions belong to this material; the separate case-study lecture is excluded.',
       '<ul><li>An audiogram is the beginning of interpretation. Same PTA can conceal different configurations, access and functional needs.</li><li><b>Soundfield is not ear-specific.</b> A better ear may drive responses; unilateral loss still affects noise, localization and classroom listening.</li><li><b>Cross-check:</b> behavioral sensitivity, middle-ear status (tympanometry), OHC function (OAEs), neural response (ABR), speech testing and case history.</li><li>Present OAEs do not prove normal hearing; absent OAEs can reflect middle-ear/test conditions. Tympanometry is not a direct hearing test. ABR estimates sensitivity and assesses neural synchrony; it is not identical to a behavioral audiogram.</li><li>Treating a conductive component of mixed loss can improve thresholds without removing the underlying SN component.</li></ul>', ['G-3','G-5','G-7','G-9','G-10','G-12','G-14','G-15','G-16','G-28','E1']]
   ].map(function (x, i) { return { id:x[0], n:i+1, title:x[1], group:x[2], concepts:x[3], guides:x[4], focus:x[5], html:x[6], src:x[7] }; });
+  chapters[3].guides.push('s4-word-clues');
+  chapters[4].guides.push('s5-word-clues');
   var syndromeRows = [
     ['Apert','Craniosynostosis, prominent eyes, fused fingers/toes','Usually bilateral flat CHL; SNHL can occur'],
     ['BOR spectrum','Neck cysts/clefts, preauricular pits/tags, renal anomalies','CHL, SNHL or mixed: outer/middle and inner-ear malformations'],

@@ -19,3 +19,9 @@
 - Original Aural Exam 1 unit checks: 16 suites passed. Diagnostics engine checks: 13 groups passed.
 
 This is a deployment and behavior verification, not a new independent review of every academic answer. Diagnostics documents dated before this release describe the original offline version; their delayed-exam-feedback behavior is superseded here.
+
+## Aural Rehab word clues — 2026-09-28
+
+The Aural Rehab guide now has a word-clue table for all 16 taught syndromes and 12 infection/injury concepts. The same relevant clue renders only after grading in practice and original Exam 1 mocks. The content is additive: the existing storage key, stable question IDs, answer keys, attempts, score weights and guide source file are unchanged. Eponyms are explicitly identified as names. Roots follow [NLM MedlinePlus word parts](https://medlineplus.gov/appendixa.html); BOR and CHARGE expansions follow [BOR](https://medlineplus.gov/genetics/condition/branchiootorenal-branchiootic-syndrome/) and [CHARGE](https://medlineplus.gov/genetics/condition/charge-syndrome/). Course-specific associations follow the existing Lecture 2 slide citations and September 8 class transcript. The recorded class video identifies Stickler as a collagen-formation disorder; the CHARGE slide separately identifies reduced cartilage in the pinna. [MedlinePlus Stickler](https://medlineplus.gov/genetics/condition/stickler-syndrome/) and [COL2A1](https://medlineplus.gov/genetics/gene/col2a1/) corroborate the collagen/cartilage connection.
+
+Verification: 21 Exam 1 suites, five original-mock suites, content validation and storage diagnostics passed. A Chrome browser check confirmed the new tables in both guide sections and the Exam 1 chapter, immediate post-answer clues in practice and an original mock, persisted answers after reload, and zero page errors.
