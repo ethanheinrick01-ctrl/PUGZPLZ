@@ -11,6 +11,9 @@
   const EXAMS = {}; D.exams.forEach(x => { EXAMS[x.id] = x; });
   const CONC = D.concepts;
   const PRACTICE = D.items.filter(i => i.pool === "practice");
+  const Store = window.DXTopicStore;
+  const LEGACY_CONCEPTS = new Set(Object.keys(CONC).filter(id => /^m(?:[1-9]|1[0-8])-/.test(id)));
+  const LEGACY_ITEMS = new Set(D.items.filter(i => LEGACY_CONCEPTS.has(i.concept)).map(i => i.id));
   const KEY = "comd4756-lab-v2", BACKUP_SCHEMA = "comd4756-lab-v2-backup", V1_BACKUP = "comd4756-progress-backup-v1";
   const V1_LABELS = {
     "dx-week-1-drill": "Week 1 · Mixed retrieval", "dx-week-2-drill": "Week 2 · Mixed retrieval", "dx-week-3-drill": "Week 3 · Mixed retrieval",
@@ -36,21 +39,25 @@
   const seed = () => (Math.random() * 2 ** 31) | 0;
 
   /* ================= storage ================= */
-  let S, storageOK = true, flash = null;
+  let S, storageOK = true, flash = null, diskBase = null, primaryUnreadable = false;
   function fresh() {
     return { schema: KEY, version: 1, created: nowISO(), updated: nowISO(), dataRev: REV, items: {}, concepts: {}, modules: {},
-             exams: {}, practice: null, settings: { theme: "dark" }, legacy: null, log: [] };
+             topics: {}, exams: {}, practice: null, settings: { theme: "dark" }, legacy: null, log: [] };
   }
   function sanitize(o) {
     const f = fresh();
     if (!o || typeof o !== "object" || o.schema !== KEY) return f;
     const obj = x => (x && typeof x === "object" && !Array.isArray(x)) ? x : {};
+    Object.keys(o).forEach(k => { if (!(k in f)) f[k] = o[k]; });
+    f.topics = obj(o.topics);
+    f.updated = o.updated || f.updated;
     f.created = typeof o.created === "string" ? o.created : f.created;
     f.items = obj(o.items); f.modules = obj(o.modules); f.exams = obj(o.exams); f.settings = Object.assign(f.settings, obj(o.settings));
     f.concepts = {};
-    for (const [k, v] of Object.entries(obj(o.concepts))) if (CONC[k] && v && typeof v === "object") f.concepts[k] = Object.assign(E.emptyConcept(), v, { roots: Array.isArray(v.roots) ? v.roots : [] });
+    for (const [k, v] of Object.entries(obj(o.concepts))) if (v && typeof v === "object") f.concepts[k] = Object.assign(E.emptyConcept(), v, { roots: Array.isArray(v.roots) ? v.roots : [] });
     for (const [k, v] of Object.entries(f.exams)) {
-      if (!EXAMS[k] || !v || typeof v !== "object") { delete f.exams[k]; continue; }
+      if (!EXAMS[k]) continue; // Retain opaque history from another content revision.
+      if (!v || typeof v !== "object") { delete f.exams[k]; continue; }
       v.attempts = Array.isArray(v.attempts) ? v.attempts : [];
       if (v.active && (!Array.isArray(v.active.order) || !v.active.order.every(id => ITEMS[id]))) v.active = null;
     }
@@ -59,6 +66,99 @@
     f.log = Array.isArray(o.log) ? o.log.slice(-1500) : [];
     f.dataRev = o.dataRev || REV;
     return f;
+  }
+  const legacyLogKey = e => JSON.stringify([e.id, !!e.ok, e.conf || "medium", e.src || "", e.t || ""]);
+  function ensureBaseline(s) {
+    if (!s.exam1Baseline || typeof s.exam1Baseline !== "object") {
+      const concepts = {}, items = {};
+      Object.entries(s.concepts || {}).forEach(([k,v]) => { if (LEGACY_CONCEPTS.has(k)) concepts[k] = Store.clone(v); });
+      Object.entries(s.items || {}).forEach(([k,v]) => { if (LEGACY_ITEMS.has(k)) items[k] = Store.clone(v); });
+      s.exam1Baseline = { version: 1, capturedAt: nowISO(), concepts, items,
+        initialConcepts: Store.clone(concepts), initialItems: Store.clone(items), events: [],
+        originConcepts: Store.clone(concepts), originItems: Store.clone(items),
+        seenLegacyLog: (s.log || []).map(legacyLogKey), foldedEventKeys: [], checkpointAt: null };
+    }
+    const b = s.exam1Baseline;
+    b.concepts = b.concepts || {}; b.items = b.items || {};
+    b.initialConcepts = b.initialConcepts || Store.clone(b.concepts);
+    b.initialItems = b.initialItems || Store.clone(b.items);
+    b.originConcepts = b.originConcepts || Store.clone(b.initialConcepts);
+    b.originItems = b.originItems || Store.clone(b.initialItems);
+    b.itemConcepts = b.itemConcepts || Object.fromEntries([...LEGACY_ITEMS].map(id => [id, ITEMS[id].concept]));
+    b.events = Array.isArray(b.events) ? b.events : [];
+    b.seenLegacyLog = Array.isArray(b.seenLegacyLog) ? b.seenLegacyLog : (s.log || []).map(legacyLogKey);
+    b.foldedEventKeys = Array.isArray(b.foldedEventKeys) ? b.foldedEventKeys : [];
+    return b;
+  }
+  function rebuildBaseline(s) {
+    const b = ensureBaseline(s), folded = new Set(b.foldedEventKeys);
+    b.concepts = Store.clone(b.initialConcepts); b.items = Store.clone(b.initialItems);
+    const events = [...b.events].sort((a,c) => (Date.parse(a.t) || 0) - (Date.parse(c.t) || 0) || a.key.localeCompare(c.key));
+    for (const e of events) {
+      const it = ITEMS[e.id]; if (!it || !LEGACY_ITEMS.has(e.id) || folded.has(e.key) || it.type === "teach") continue;
+      const h = b.items[e.id] || { n: 0, ok: 0 };
+      h.n += 1; if (e.ok) h.ok += 1; h.lastOk = e.ok; h.lastConf = e.conf; h.at = e.t; b.items[e.id] = h;
+      const before = b.concepts[it.concept], next = E.applyAttempt(before, e.id, e.ok, e.conf, e.t);
+      if (e.assisted) { next.streak = 0; next.roots = []; next.needsReview = true; next.mastered = !!(before && before.mastered); next.masteredAt = before && before.masteredAt || null; next.v1 = !!(before && before.v1); }
+      if (before && before.mastered) { next.mastered = true; next.masteredAt = before.masteredAt; }
+      b.concepts[it.concept] = next;
+    }
+    return b;
+  }
+  function ingestLegacyLog(s) {
+    const b = ensureBaseline(s), seen = new Set(b.seenLegacyLog), events = new Set(b.events.map(e => e.key));
+    for (const e of s.log || []) {
+      const key = legacyLogKey(e); if (seen.has(key)) continue;
+      seen.add(key);
+      if (LEGACY_ITEMS.has(e.id) && !events.has(key)) {
+        b.events.push({ key, id: e.id, concept: ITEMS[e.id].concept, ok: !!e.ok, conf: e.conf || "medium", assisted: !!e.assisted, src: e.src || "", t: e.t });
+        events.add(key); b.updated = nowISO();
+      }
+    }
+    b.seenLegacyLog = [...seen]; rebuildBaseline(s);
+  }
+  function foldBaseline(s) {
+    const b = ensureBaseline(s);
+    // Imported cumulative counts become the next checkpoint. Retain every event
+    // but mark the events already included, so stale tabs cannot count them twice.
+    b.initialConcepts = Store.clone(b.concepts); b.initialItems = Store.clone(b.items);
+    b.foldedEventKeys = [...new Set([...b.foldedEventKeys, ...b.events.map(e => e.key)])];
+    b.seenLegacyLog = [...new Set([...b.seenLegacyLog, ...(s.log || []).map(legacyLogKey)])];
+    b.checkpointAt = nowISO(); b.updated = b.checkpointAt;
+  }
+  function readMirror() {
+    const raw = localStorage.getItem(Store.MIRROR_KEY);
+    if (!raw) return null;
+    try { const mirror = JSON.parse(raw); Store.validateMirror(mirror); return mirror; }
+    catch (e) {
+      try { localStorage.setItem(Store.MIRROR_KEY + "-unreadable-" + Date.now(), raw); } catch (_) { /* primary is still retained */ }
+      flash = flash || "An unreadable recovery copy was retained. The current progress record is still available.";
+      return null;
+    }
+  }
+  function deriveTopics() {
+    ingestLegacyLog(S);
+    if (window.DXTopic && typeof window.DXTopic.derive === "function") window.DXTopic.derive(S);
+  }
+  function syncWithDisk() {
+    const raw = localStorage.getItem(KEY);
+    let disk = null;
+    if (raw) {
+      try {
+        disk = JSON.parse(raw);
+        if (disk.schema !== KEY) throw Error("Unrecognized Diagnostics progress record.");
+        Store.validateTopics(disk.topics);
+      } catch (e) {
+        primaryUnreadable = true;
+        try { localStorage.setItem(KEY + "-unreadable-" + Date.now(), raw); } catch (_) { /* original stays untouched */ }
+        throw e;
+      }
+      disk = sanitize(disk);
+      disk = Store.recoverCourse(disk, readMirror());
+    }
+    S = Store.mergeCourse(diskBase, disk, S);
+    S = Store.recoverCourse(S, readMirror());
+    ensureBaseline(S); ingestLegacyLog(S);
   }
   function readV1Raw() {
     const raw = {};
@@ -70,24 +170,51 @@
     if (!summary.found) return false;
     const m = E.migrateV1(summary, S.concepts, CONC);
     S.concepts = m.concepts;
+    if (S.exam1Baseline) {
+      const b = ensureBaseline(S);
+      const migrated = E.migrateV1(summary, b.concepts, CONC);
+      Object.entries(migrated.concepts).forEach(([k,v]) => { if (LEGACY_CONCEPTS.has(k)) b.concepts[k] = Store.clone(v); });
+      foldBaseline(S);
+    }
     S.legacy = { checked: true, at: nowISO(), source, raw, summary, provisional: m.provisional };
     return true;
   }
   function load() {
+    let raw = null;
     try {
-      const raw = localStorage.getItem(KEY);
-      S = raw ? sanitize(JSON.parse(raw)) : fresh();
-    } catch (e) { storageOK = false; S = fresh(); }
+      raw = localStorage.getItem(KEY);
+      const parsed = raw ? JSON.parse(raw) : null;
+      if (parsed && parsed.schema !== KEY) throw Error("Unrecognized Diagnostics progress record.");
+      S = parsed ? sanitize(parsed) : fresh();
+      S = Store.recoverCourse(S, readMirror());
+      Store.validateTopics(S.topics);
+    } catch (e) {
+      storageOK = false; S = fresh(); primaryUnreadable = !!raw;
+      if (raw) {
+        try { localStorage.setItem(KEY + "-unreadable-" + Date.now(), raw); } catch (_) { /* original stays untouched */ }
+        flash = "The existing progress record could not be read. It was retained for recovery; export any new work before leaving.";
+      }
+      try { S = Store.recoverCourse(S, readMirror()); } catch (_) { /* never replace an unreadable primary */ }
+    }
     if (!S.legacy) {
       try { if (applyLegacy(readV1Raw(), "this browser")) flash = "Found progress from the original lab (v1). It was carried over as history and provisional mastery; the old records were left untouched."; else S.legacy = { checked: true, at: nowISO(), none: true }; }
       catch (e) { /* storage blocked */ }
-      save();
     }
+    ensureBaseline(S); deriveTopics(); save();
   }
-  function save() {
+  function save(options) {
+    if (!(options && options.skipDisk)) {
+      try { syncWithDisk(); }
+      catch (e) { /* retain current memory and the original disk bytes */ }
+    }
+    deriveTopics();
     S.updated = nowISO();
-    try { localStorage.setItem(KEY, JSON.stringify(S)); storageOK = true; }
-    catch (e) { storageOK = false; }
+    let mirrored = false;
+    try { localStorage.setItem(Store.MIRROR_KEY, JSON.stringify(Store.makeMirror(S, readMirror()))); mirrored = true; }
+    catch (e) { /* the primary still preserves the full record when mirror storage fails */ }
+    if (primaryUnreadable) { storageOK = false; return false; }
+    try { localStorage.setItem(KEY, JSON.stringify(S)); diskBase = Store.clone(S); storageOK = true; return true; }
+    catch (e) { storageOK = false; return mirrored; }
   }
 
   /* ================= progress recording ================= */
@@ -98,8 +225,9 @@
     h.n += 1; if (ok) h.ok += 1; h.lastOk = ok; h.lastConf = conf; h.at = t;
     S.items[itemId] = h;
     S.concepts[it.concept] = E.applyAttempt(S.concepts[it.concept], itemId, ok, conf, t);
-    S.log.push({ id: itemId, ok, conf, src, t });
+    S.log.push({ id: itemId, ok, conf, src, t, assisted: src === "practice" && !!(S.practice && S.practice.cur && S.practice.cur.hint) });
     if (S.log.length > 1500) S.log = S.log.slice(-1500);
+    ingestLegacyLog(S);
   }
   const cstat = cid => E.conceptStatus(S.concepts[cid]);
   function moduleMastery(m) { const n = m.concepts.length, k = m.concepts.filter(c => cstat(c) === "mastered").length; return { n, k }; }
@@ -110,13 +238,13 @@
   }
 
   /* ================= router ================= */
-  const NAV = [["", "Home"], ["guide", "Guide"], ["practice", "Practice"], ["exams", "Exams"], ["review", "Review"], ["tools", "Tools"], ["sources", "Sources"], ["progress", "Progress"]];
+  const NAV = [["topic/home", "Home"], ["topic/guide", "Guide"], ["topic/practice", "Practice"], ["topic/review", "Review"], ["topic/cases", "Cases"], ["topic/test", "Mocks"], ["topic/progress", "Progress"], ["topic/sources", "Sources"], ["topic/backup", "Backup"]];
   function route() {
-    const parts = (location.hash.replace(/^#\/?/, "") || "").split("/").filter(Boolean);
+    const parts = (location.hash.replace(/^#\/?/, "") || "topic/home").split("/").filter(Boolean);
     const top = parts[0] || "";
     stopTimer();
     document.querySelectorAll(".nav a").forEach(a => a.classList.toggle("on", a.dataset.r === top || (top === "exam" && a.dataset.r === "exams") || (top === "results" && a.dataset.r === "exams")));
-    const views = { "": vHome, guide: vGuide, practice: vPractice, exams: vExams, exam: vExam, results: vResults, review: vReview, tools: vTools, sources: vSources, progress: vProgress };
+    const views = { home: vHome, topic: p => window.DXTopic.render(topicAPI, p), "": vHome, guide: vGuide, practice: vPractice, exams: vExams, exam: vExam, results: vResults, review: vReview, tools: vTools, sources: vSources, progress: vProgress };
     (views[top] || vHome)(parts.slice(1));
     if (flash) { showToast(flash); flash = null; }
     if (!storageOK) showToast("This browser is blocking storage, so progress will not survive a reload. Use Export on the Progress page to keep it.", true);
@@ -191,6 +319,7 @@
     return `<div class="tablewrap"><table><thead><tr>${t.head.map(h => `<th>${md(h)}</th>`).join("")}</tr></thead><tbody>${t.rows.map(r => `<tr>${r.map((c, i) => `<td${i === 0 ? ' class="rh"' : ""}>${md(c)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
   }
   function vModule(m) {
+    if (m.specialTopic === "cas") return window.DXTopic.render(topicAPI, ["learn"]);
     const idx = D.modules.indexOf(m), next = D.modules[idx + 1], prev = D.modules[idx - 1];
     S.modules[m.id] = Object.assign({ opened: nowISO() }, S.modules[m.id] || {}, { lastOpened: nowISO() }); save();
     app.innerHTML = `<nav class="crumbs"><a href="#/guide">Guide</a> › Module ${m.number}</nav>
@@ -627,8 +756,8 @@
       <button class="btn small" data-act="rescan-v1">Re-scan this browser for v1 progress</button></div>
     <div class="card"><h2>Backup</h2><p>Progress lives in this browser only. Export regularly. Moving here from the offline lab or another browser? Export there, then import that backup here to restore your answers and unfinished sessions.</p>
       <div class="btnrow"><button class="btn primary" data-act="export">Export progress (.json)</button><button class="btn" data-act="import">Import progress…</button><input type="file" id="importf" accept="application/json,.json" hidden></div>
-      <p class="muted small">Imports accept v2 backups and the original lab's backup file (schema comd4756-progress-backup-v1). Your current progress is saved aside first and can be restored.</p>
-      ${hasPre() ? `<button class="btn small" data-act="undo-import">Restore progress from before the last import</button>` : ""}</div>
+      <p class="muted small">Imports merge v2 backups and the original lab's backup file (schema comd4756-progress-backup-v1). Current progress is saved aside first; existing answers are retained.</p>
+      ${hasPre() ? `<button class="btn small" data-act="undo-import">Merge the saved recovery backup</button>` : ""}</div>
     <div class="card danger"><h2>Reset</h2><p>Clears v2 progress in this browser. v1 records are not touched.</p><button class="btn" data-act="reset">Reset v2 progress…</button></div>
     <p class="muted small">Content revision ${esc(REV)} · ${D.items.length} questions · ${Object.keys(CONC).length} concepts · storage ${storageOK ? "working" : "blocked"}</p>`;
   }
@@ -648,6 +777,7 @@
       let next;
       if (data && data.schema === BACKUP_SCHEMA) {
         if (!data.state || data.state.schema !== KEY) throw new Error("The backup's progress record is missing or invalid.");
+        Store.validateTopics(data.state.topics);
         next = sanitize(data.state);
         if (data.v1Raw && !next.legacy) { const cur = S; S = next; applyLegacy(data.v1Raw, "imported backup"); next = S; S = cur; }
       } else if (data && data.schema === V1_BACKUP) {
@@ -657,10 +787,9 @@
         next = sanitize(JSON.parse(JSON.stringify(S)));
         const cur = S; S = next; applyLegacy(data.storage, "imported v1 backup"); next = S; S = cur;
       } else throw new Error("Choose a progress backup exported from this lab (v2) or the original lab (v1).");
-      const ch = await modal(`<h2 id="mtitle">Replace current progress?</h2><p>The import replaces this browser's v2 progress. Your current progress is kept aside and can be restored from this page.</p>`, [{ label: "Import", cls: "primary" }, { label: "Cancel" }]);
+      const ch = await modal(`<h2 id="mtitle">Merge Diagnostics progress?</h2><p>Existing answers, unfinished activities and accumulated progress are retained. A recovery backup is saved before the merge.</p>`, [{ label: "Import", cls: "primary" }, { label: "Cancel" }]);
       if (ch !== 0) return;
-      try { localStorage.setItem(KEY + "-preimport", JSON.stringify(S)); } catch (e) { /* ignore */ }
-      S = next; save(); showToast("Progress imported."); route();
+      topicAPI.importMerge(next); showToast("Progress merged. Existing records retained."); route();
     } catch (err) { showToast(err instanceof SyntaxError ? "That file is not valid JSON." : err.message, true); }
   }
 
@@ -750,9 +879,9 @@
       case "rfilter": app.dataset.rfilter = b.dataset.f; rerender(); break;
       case "export": exportProgress(); break;
       case "import": { const f = document.getElementById("importf"); f.value = ""; f.onchange = () => { if (f.files[0]) importProgress(f.files[0]); }; f.click(); break; }
-      case "undo-import": { try { const pre = localStorage.getItem(KEY + "-preimport"); if (pre) { S = sanitize(JSON.parse(pre)); localStorage.removeItem(KEY + "-preimport"); save(); showToast("Restored."); route(); } } catch (err) { showToast("Could not restore.", true); } break; }
+      case "undo-import": { try { const pre = localStorage.getItem(KEY + "-preimport"); if (pre) { topicAPI.importMerge(JSON.parse(pre)); localStorage.removeItem(KEY + "-preimport"); showToast("Recovery backup merged; newer records retained."); route(); } } catch (err) { showToast("Could not merge the recovery backup.", true); } break; }
       case "rescan-v1": { const raw = readV1Raw(); if (applyLegacy(raw, "this browser")) { save(); showToast("v1 progress read again."); } else showToast("No v1 progress in this browser."); route(); break; }
-      case "reset": { const ch = await modal(`<h2 id="mtitle">Reset all v2 progress?</h2><p>Mastery, practice history and exam attempts in this browser are erased. Export first if you might want them.</p>`, [{ label: "Erase v2 progress", cls: "danger" }, { label: "Cancel" }]); if (ch === 0) { const theme = S.settings.theme; S = fresh(); S.legacy = { checked: true, at: nowISO(), none: true, resetAt: nowISO() }; S.settings.theme = theme; save(); showToast("v2 progress reset."); route(); } break; }
+      case "reset": { const ch = await modal(`<h2 id="mtitle">Reset all v2 progress?</h2><p>Mastery, practice history and exam attempts in this browser are erased. Export first if you might want them.</p>`, [{ label: "Erase v2 progress", cls: "danger" }, { label: "Cancel" }]); if (ch === 0) { const theme = S.settings.theme; S = fresh(); S.legacy = { checked: true, at: nowISO(), none: true, resetAt: nowISO() }; S.settings.theme = theme; diskBase = null; primaryUnreadable = false; try { localStorage.removeItem(KEY); localStorage.removeItem(Store.MIRROR_KEY); } catch (_) { /* explicit reset can still be kept in memory */ } ensureBaseline(S); save({ skipDisk: true }); showToast("v2 progress reset."); route(); } break; }
       case "zoom": { await modal(`<h2 id="mtitle" class="sr">Enlarged diagram</h2><div class="zoomview">${V.render(b.dataset.viz, { mode: "guide", zoom: false })}</div>`, [{ label: "Close", cls: "primary" }]); break; }
       case "theme": S.settings.theme = S.settings.theme === "light" ? "dark" : "light"; applyTheme(); save(); break;
     }
@@ -761,8 +890,30 @@
   window.addEventListener("pagehide", save);
   function applyTheme() { document.documentElement.dataset.theme = S.settings.theme === "light" ? "light" : "dark"; const t = document.getElementById("themebtn"); if (t) t.textContent = S.settings.theme === "light" ? "Dark" : "Light"; }
 
+  const topicAPI = {
+    app, get state() { return S; }, get storageOK() { return storageOK; }, exportProgress, ensureBaseline,
+    mutate(fn) {
+      try { syncWithDisk(); } catch(e) { /* keep local memory */ }
+      fn(S); save();
+    },
+    importMerge(incoming) {
+      if (!incoming || incoming.schema !== KEY) throw Error("Wrong-course backup.");
+      Store.validateTopics(incoming.topics);
+      const valid = sanitize(Store.clone(incoming)); ensureBaseline(valid);
+      try { syncWithDisk(); } catch(e) { /* valid imported data can recover an unreadable primary */ }
+      try { localStorage.setItem(KEY + "-preimport", JSON.stringify(S)); } catch(e) { /* still preserve memory */ }
+      S = Store.mergeBackup(S, valid); foldBaseline(S); diskBase = null; primaryUnreadable = false;
+      save({ skipDisk: true });
+    }
+  };
+  window.addEventListener("storage", e => {
+    if (![KEY, Store.MIRROR_KEY].includes(e.key) || !e.newValue) return;
+    try { syncWithDisk(); deriveTopics(); } catch(e) { showToast("Another tab wrote unreadable progress. Existing records are retained.", true); }
+  });
+
   /* ================= boot ================= */
   load();
+  diskBase = window.DXTopicStore.clone(S);
   const nav = document.querySelector(".nav");
   nav.innerHTML = NAV.map(([r, l]) => `<a href="#/${r}" data-r="${r}">${l}</a>`).join("") + `<button id="themebtn" class="btn ghost small" data-act2="theme">Light</button>`;
   document.getElementById("themebtn").addEventListener("click", () => { S.settings.theme = S.settings.theme === "light" ? "dark" : "light"; applyTheme(); save(); });

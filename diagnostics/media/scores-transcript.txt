@@ -1,0 +1,15 @@
+Standardized testing, scores & psychometrics
+Sources: Week 2 slides 5–24; PPVT assessment activity; relevant textbook Chapter 1
+Original study narration · AI Voice Generator Clear
+
+Preserve the comparison
+Read the manual before administering a standardized test. An accommodation changes access while preserving the construct and procedures. Extra cues forbidden by the manual, translated items, or altered response requirements can be modifications; the original standard score may no longer be comparable. Norm referenced means comparison with peers. Criterion referenced means comparison with an expected performance level.
+
+Age, basal and raw score
+Chronological age selects the correct age norms. Adjusted age subtracts prematurity for the developmental comparison specified by the source. A basal establishes credit for easier items; a ceiling stops testing as harder items are likely to be missed. Their exact rules belong to the particular manual. The raw score is the points earned under those rules. An incorrect age or raw score can contaminate every derived score.
+
+Keep the score scales distinct
+The course table gives standard scores a mean of one hundred and standard deviation fifteen. Scaled scores use ten and three. A z score uses zero and one. Stanines use five and two. Standard score one hundred fifteen and scaled score thirteen are both one standard deviation above their means. Percentile rank describes the norm group at or below the score. It is not percent correct. An age equivalent is descriptive, not an eligibility or severity rule.
+
+Trust requires several properties
+A wider confidence interval accompanies a higher confidence level; it expresses measurement uncertainty. Validity asks whether the intended construct is measured. Reliability asks whether results are consistent. Standardization asks whether procedures are uniform. Freedom from bias asks about fairness. Sensitivity detects a disorder among people who have it. Specificity correctly clears people who do not. State the convention for boundary scores and age borrowing.
