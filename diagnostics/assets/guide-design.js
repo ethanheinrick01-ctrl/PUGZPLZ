@@ -23,40 +23,22 @@
     m18:['Convert through z','Distance from the mean, in SD units','Use z to move between scales while retaining the same relative position.'],
     m20:['Record what was produced','Substitution · omission · distortion · NR','Combine error recording with history, hearing, oral evidence and connected speech.']
   };
-  const gold={
-    'm01:0':['clinical reasoning','multiple sources','interpret it critically'],
-    'm01:2':['clinical judgment','further testing is warranted','required for qualification'],
-    'm02:0':['Thorough','Uses a variety of assessment methods','Evidence based','Tailored to the individual client'],
-    'm03:0':[],
-    'm06:0':['correct age-based normative group','if the age is wrong, every age-based score derived from the test may also be wrong'],
-    'm07:2':['Below average','Significantly below average'],
-    'm12:1':['INFORMAL','informal'],
-    'm16:1':['walks in','observation']
-  };
-  const phrases={
-    m01:['recognize limitations','Analysis','Observation'],m02:['clinical expertise','external and internal','client/patient/caregiver perspectives','within their competence','electronic PHI'],
-    m03:['sensitivity','specificity','availability','familiarity','converging evidence'],m04:['Brief','Interact','Debrief','both languages','test-teach-retest','ASKED'],
-    m05:['accommodation','modification','norm-referenced','criterion-referenced'],m06:['basal established','ceiling established','TEST-SPECIFIC','raw score','due date'],
-    m07:['at or below','not percent correct','measurement error','WIDER','age equivalents'],m08:['false negatives','false positives','under-identification','over-identification','HAVE','do NOT have'],
-    m09:['hearing screening','formal and informal','case history'],m10:['Clinical Impressions','Recommendations','prognosis'],m11:['open-ended','nonjudgmental','specific examples'],
-    m12:['function','standard precautions'],m13:['stability','mobility','dissociation','grading'],m14:['AMR','SMR','elevation','function'],
-    m15:['50-100','20 repetitions','10 repetitions','words per minute','intelligibility'],m16:['teaching phase','mediated learning experience','transfer'],m17:['macrostructure','microstructure','inferencing'],m18:['z =','standard deviation'],m20:['stimulability','IPA','omission','distortion','NR']
-  };
-  function rich(value,module,index){
-    const emphasized=gold[module+':'+index]||[],keys=[...emphasized,...(phrases[module]||[])].sort((a,b)=>b.length-a.length);
-    const pattern=keys.length?new RegExp('(?<![a-z0-9])('+keys.map(s=>s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|')+')(?![a-z0-9])','gi'):null;
-    let budget=4;
-    return String(value).split(/(\*\*.*?\*\*)/g).map(piece=>{
-      const bold=piece.startsWith('**')&&piece.endsWith('**'),clean=bold?piece.slice(2,-2):piece;
-      const parts=pattern?clean.split(pattern):[clean];
-      const html=parts.map((s,i)=>{
-        if(i%2&&budget-->0){const isGold=emphasized.some(k=>k.toLowerCase()===s.toLowerCase());return `<mark class="study-${isGold?'emphasis':'term'}">${escape(s)}</mark>`;}
-        return escape(s);
-      }).join('');
-      return bold?`<strong class="study-key">${html}</strong>`:html;
+  function rich(value,module,index,state={used:new Set()},noteIndex=null,field=null){
+    const plan=window.DX_GUIDE_EMPHASIS[module+':'+index]||{};
+    const gold=noteIndex===null?(plan.gold||[]):(plan.noteGold?.[noteIndex]||[]);
+    const terms=noteIndex===null?[...(plan.terms||[]),...(plan.fields?.[field]||[])]: (plan.notes?.[noteIndex]||[]);
+    const keys=[...new Set([...gold,...terms])].filter(k=>!state.used.has(k.toLowerCase())).sort((a,b)=>b.length-a.length);
+    const clean=String(value).replace(/\*\*/g,'');
+    if(!keys.length)return escape(clean);
+    const pattern=new RegExp('(?<![a-z0-9])('+keys.map(k=>k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|')+')(?![a-z0-9])','gi');
+    return clean.split(pattern).map((part,i)=>{
+      const key=part.toLowerCase();
+      if(!(i%2)||state.used.has(key))return escape(part);
+      state.used.add(key);
+      return `<mark class="study-${gold.some(k=>k.toLowerCase()===key)?'emphasis':'term'}">${escape(part)}</mark>`;
     }).join('');
   }
-  function legend(){return '<div class="reading-key" aria-label="Reading color key"><span><i class="key-dot gold"></i>Gold: documented emphasis</span><span><i class="key-dot cyan"></i>Cyan: key terms & distinctions</span><span>Color guides review; it does not predict exam questions.</span></div>';}
+  function legend(){return '<div class="reading-key" aria-label="Reading color key"><span><i class="key-dot gold"></i>Gold: documented emphasis</span><span><i class="key-dot cyan"></i>Cyan: the key relationship or distinction</span><span>Color guides review; it does not predict exam questions.</span></div>';}
   function route(chapter,modules){return `<nav class="reading-route" aria-label="In this chapter"><p class="eyebrow">Your path through this chapter</p>${modules.map((m,i)=>`<button type="button" class="reading-stop" data-guide-jump="guide-${m.id}"><span>${String(i+1).padStart(2,'0')}</span>${escape(targets[m.id]?.[0]||m.title)}</button>`).join('')}</nav>`;}
   function moduleHead(m,n){const t=targets[m.id];return `<header class="guide-module-head" id="guide-${m.id}" tabindex="-1"><span class="module-count">${String(n+1).padStart(2,'0')}</span><div><p class="eyebrow">${escape(m.week||'Course guide')}</p><h2>${escape(m.title)}</h2></div></header>${t?`<div class="study-target"><span>Keep this distinction</span><p>${escape(t[1])}</p><small>${escape(t[2])}</small></div>`:''}`;}
   function badge(m,i,s){
@@ -69,8 +51,8 @@
   function integrity(){const names=['Thorough','Varied methods','Evidence based','Tailored'],details=['Gather as much relevant information as possible.','Combine interview, history, observation, and formal and informal measures.','Use valid and reliable assessment approaches.','Fit the client’s age, skill level and ethnocultural background.'];return `<section class="integrity-map" aria-label="Four foundational integrity features"><div class="integrity-hub"><span>4</span><p>Features of a<br><strong>good assessment</strong></p></div><div class="integrity-spokes">${names.map((name,i)=>`<div class="integrity-spoke"><span>${String(i+1).padStart(2,'0')}</span><div><strong>${name}</strong><p>${details[i]}</p></div></div>`).join('')}</div><p class="small integrity-credit">Week 1, slide 7 · Original teaching diagram. Each feature answers a different quality question.</p></section>`;}
   function section(m,s,i){
     const special=m.id==='m01'&&i===2?conflict():m.id==='m02'&&i===0?integrity():'';
-    const flag=badge(m.id,i,s);
-    return `<article class="card study-card ${flag?'has-emphasis':''}">${flag}<h3>${escape(s.h)}</h3>${special}<div class="study-prose">${(s.body||[]).map(p=>`<p>${rich(p,m.id,i)}</p>`).join('')}${s.bullets?`<ul>${s.bullets.map(p=>`<li>${rich(p,m.id,i)}</li>`).join('')}</ul>`:''}</div>${s.visual?window.DXV.render(s.visual,{mode:'guide',zoom:false}):''}${s.table?`<div class="tablewrap" tabindex="0"><table class="topic-table study-table"><thead><tr>${s.table.head.map(p=>`<th>${escape(p)}</th>`).join('')}</tr></thead><tbody>${s.table.rows.map(row=>`<tr>${row.map(p=>`<td>${rich(p,m.id,i)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`:''}${(s.callouts||[]).filter(c=>c.k!=='gonsoulin').map(c=>`<aside class="study-note note-${escape(c.k)}"><span>${({flag:'Your exam flag',lecture:'From the lecture',trap:'Keep these apart',numbers:'Numbers to retain',conflict:'Source distinction',textbook:'Textbook connection',source:'Source note',assignment:'Applied in class'})[c.k]||'Study note'}</span><p>${rich(c.t,m.id,i)}</p></aside>`).join('')}<p class="study-citation">Sources: ${(s.src||[]).map(escape).join('; ')}</p>${window.DXSectionStudy.button(m.id+':'+i,s.h)}</article>`;
+    const flag=badge(m.id,i,s),state={used:new Set()};
+    return `<article class="card study-card ${flag?'has-emphasis':''}">${flag}<h3>${escape(s.h)}</h3>${special}<div class="study-prose">${(s.body||[]).map((p,n)=>`<p>${rich(p,m.id,i,state,null,'body:'+n)}</p>`).join('')}${s.bullets?`<ul>${s.bullets.map(p=>`<li>${rich(p,m.id,i,state)}</li>`).join('')}</ul>`:''}</div>${s.visual?window.DXV.render(s.visual,{mode:'guide',zoom:false}):''}${s.table?`<div class="tablewrap" tabindex="0"><table class="topic-table study-table"><thead><tr>${s.table.head.map(p=>`<th>${escape(p)}</th>`).join('')}</tr></thead><tbody>${s.table.rows.map(row=>`<tr>${row.map(p=>`<td>${rich(p,m.id,i,state)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`:''}${(s.callouts||[]).map((c,noteIndex)=>c.k==='gonsoulin'?'':`<aside class="study-note note-${escape(c.k)}"><span>${({flag:'Your exam flag',lecture:'From the lecture',trap:'Keep these apart',numbers:'Numbers to retain',conflict:'Source distinction',textbook:'Textbook connection',source:'Source note',assignment:'Applied in class'})[c.k]||'Study note'}</span><p>${rich(c.t,m.id,i,{used:new Set()},noteIndex)}</p></aside>`).join('')}<p class="study-citation">Sources: ${(s.src||[]).map(escape).join('; ')}</p>${window.DXSectionStudy.button(m.id+':'+i,s.h)}</article>`;
   }
   window.DXGuideDesign={rich,legend,route,moduleHead,section};
 })();
