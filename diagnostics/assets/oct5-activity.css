@@ -1,0 +1,16 @@
+/* Scoped supplement to the accepted Diagnostics layout. */
+.oct5-feature { margin-top:24px; border-left:3px solid #d5b263; }
+.oct5-feature h2 { margin:8px 0; }
+.oct5-priority { color:#ebc565; }
+[data-theme="light"] .oct5-priority { color:#785400; }
+[data-theme="light"] .top { background:var(--bg); }
+.oct5-jumps { display:flex; flex-wrap:wrap; gap:10px; margin:24px 0; }
+.oct5-jumps .btn { white-space:normal; text-align:left; min-height:44px; }
+.oct5-section { scroll-margin-top:24px; }
+.oct5-tree figure { margin:20px auto; max-width:610px; }
+.oct5-tree img { display:block; width:100%; height:auto; background:white; }
+.oct5-tree figcaption { margin-top:12px; font-size:.85rem; }
+.oct5-intro p { max-width:76ch; }
+.mastery-rule { max-width:76ch; }
+.mastery-rule strong { font-weight:700; }
+@media(max-width:600px) { .oct5-jumps { flex-direction:column; } .oct5-feature .row .btn { flex:1 1 auto; } }

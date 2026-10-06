@@ -1,4 +1,28 @@
-# Diagnostics Exam One release — October 1, 2026
+# Diagnostics Exam One release — October 6, 2026
+
+Current scope: 9 chapters, 21 modules, 111 competencies, 398 prompts (374 automatically graded and 24 manual listings), and 101 focused teaching-section practice actions. The original 440 definitions, four legacy forms, storage identity and learner history remain available.
+
+The original course and chapter completion totals remain at their accepted 103 concepts. The seven October 5 activity concepts and one newly connected checklist concept have separate completion totals, while all 111 competencies use the same saved mastery ledger. Adding material does not lower an existing completion percentage.
+
+## October 5 activity and source priority
+
+The October 5 assignment adds ASHA Module 9, Implementation and Evaluation of the Decision. The instructor's assignment requests an explanation of the assessment decision when given a patient scenario; the October 4 announcement confirms this activity is on Exam 1, Monday October 12. The new Home and Guide entry contains the diagnostic tree, seven assessment limitations, 14 original multiple-choice applications, and shared clinical-reasoning notes. The tree image is page 1 of ASHA's public resource, verified against the supplied copy with attribution intact.
+
+Instructor slides and current lectures govern the core content. Assigned videos reinforce their main ideas. The current bank uses scenario facts supplied in the question, rather than requiring recall of particular video patients, survey percentages, presenter quotes, or tongue-mobility cutoffs. Sixty current questions have new wording/source versions; their prior definitions and checked snapshots are retained. In mastery practice, the numerical TRMR items were replaced with the instructor-taught rate and intelligibility procedures. Both mock exams keep their prior wording, answer keys, IDs, allocations and scoring. The supplied developmental checklist now has two original questions about using caregiver evidence in a complete assessment, without promoting its old age examples into universal norms. Oral figure questions are included in the corresponding section practice.
+
+All 101 section actions route to real graded questions. Every one of the 111 competencies has at least two distinct automatic retrieval roots. Practice, review, case decisions, mocks and cumulative drills contribute to the same course record. Typed listings and separate corrections remain visible in history and do not award automatic mastery. Reading or watching does not award mastery.
+
+Mastery requires two consecutive correct unhinted answers on different roots, with the latest confidence medium or high. A miss resets that qualifying streak and adds review; it does not award mastery. Previously earned mastery stays earned after a later miss. The baseline rule matches the Aural Rehab automatic rule. Broad mixed practice spreads attempts among concepts; focused section practice makes the two retrieval opportunities easier to reach.
+
+For active saved mastery-practice runs, only unanswered retired items update. Saved mock runs remain entirely unchanged. The original occurrence and any unscored draft are archived within the saved record and shown in a disclosure. Checked items, first answers, point weights, corrections, notes, flags, activity position and earned mastery remain intact. A cached old writer's checked response remains paired with the exact question it answered. No learner backup or synthetic progress is published.
+
+The exact exam allocations and larger format update remain pending the Wednesday October 7 instructor review. Existing mocks retain their 100-point historical practice allocations and sample the core pre-activity modules; the new activity is fully available in section/chapter/mixed practice and case decisions.
+
+The following October 1 account is retained as release history. Its old counts and video-detail targets are superseded above.
+
+---
+
+## October 1 release history
 
 Nine chapters covering current Weeks 1–6, assigned videos, reviewed handouts and relevant textbook sections. The accepted functional SSD/CAS chapter supplies the appearance, narrated teaching, feedback and progress standard.
 

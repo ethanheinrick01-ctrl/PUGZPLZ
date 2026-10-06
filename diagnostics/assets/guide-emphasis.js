@@ -1170,3 +1170,6 @@ window.DX_GUIDE_EMPHASIS = {
     "noteGold": {}
   }
 };
+
+/* October 5 assignment: gold is the explicitly assigned decision task. */
+for(let i=0;i<8;i++)window.DX_GUIDE_EMPHASIS['m21:'+i]={terms:['diagnostic purpose','diagnostic accuracy','normative sample','validity','reliability','sufficiency','dynamic assessment','both languages','ongoing','baseline','qualitative','patient-reported'],gold:i===0?['Explain the limitation']:[],notes:{},noteGold:{}};

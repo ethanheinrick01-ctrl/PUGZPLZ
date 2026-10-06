@@ -2,6 +2,7 @@
 (function(){
   'use strict';
   const groups={
+    m21:[['m3-questions'],['oct5-no-test'],['oct5-access'],['oct5-language'],['oct5-time'],['oct5-baseline'],['oct5-observations'],['oct5-function']],
     m01:[['m1-reasoning'],['m1-process'],['m1-conflict']],
     m02:[['m2-integrity'],['m2-ebp','m2-ethics'],['m2-hipaa'],['m2-culture']],
     m03:[['m3-eba'],['m3-eba','m3-problems','m3-cases'],['m3-questions'],['m3-accuracy'],['m3-validity-evidence'],['m3-sufficiency']],
@@ -15,10 +16,10 @@
     m11:[['m11-questions'],['m11-structure'],['m11-skills'],['m11-cases']],
     m12:[['m12-precautions'],['m12-tools'],['m12-findings']],
     m13:[['m13-why'],['m13-four','m13-posture'],['m13-posture'],['m13-airway'],['m13-rest'],['m13-jawlips']],
-    m14:[['m14-tongue'],['m14-teeth'],['m14-palate'],['m14-smc'],['m14-ddk'],['m14-document']],
+    m14:[['m14-tongue'],['m14-teeth'],['m14-palate','m14-diagram'],['m14-smc'],['m14-ddk'],['m14-document']],
     m15:[['m15-ddkadmin'],['m15-sample'],['m15-narrative'],['m15-rate'],['m15-intel'],['m15-phrases']],
     m16:[['m16-three'],['m16-observe'],['m16-dynamic'],['m16-informal'],['m16-observe','m16-informal'],['m16-observe','m16-informal']],
-    m17:[['m17-lsa'],['m17-semantic'],['m17-narcomp','m17-levels'],[]],
+    m17:[['m17-lsa'],['m17-semantic'],['m17-narcomp','m17-levels'],['m17-checklist']],
     m18:[['m18-ca','m18-transfer','m18-boundary','m18-mixed']],
     m20:[['w6-plan','w6-screen','w6-context','w6-intelligibility'],['w6-stim','w6-norms'],['w6-processing'],['w6-record'],['w6-task']]
   };

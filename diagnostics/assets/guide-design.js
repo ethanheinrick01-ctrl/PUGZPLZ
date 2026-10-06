@@ -21,6 +21,7 @@
     m16:['Notice when teaching enters','Observe · elicit · teach and retest','The teaching phase is what makes an assessment dynamic.'],
     m17:['Zoom between story and language','Macrostructure ≠ microstructure','Story organization and the language used within a story are different levels of analysis.'],
     m18:['Convert through z','Distance from the mean, in SD units','Use z to move between scales while retaining the same relative position.'],
+    m21:['Make the assessment decision','Question → limitation → next evidence','Apply the tree and explain what the combined evidence supports.'],
     m20:['Record what was produced','Substitution · omission · distortion · NR','Combine error recording with history, hearing, oral evidence and connected speech.']
   };
   function rich(value,module,index,state={used:new Set()},noteIndex=null,field=null){
