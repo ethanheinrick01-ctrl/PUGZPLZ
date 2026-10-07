@@ -238,7 +238,7 @@
   }
 
   /* ================= router ================= */
-  const NAV = [["topic/home", "Home"], ["topic/guide", "Guide"], ["topic/practice", "Practice"], ["topic/review", "Review"], ["topic/cases", "Cases"], ["topic/test", "Mocks"], ["topic/progress", "Progress"], ["topic/sources", "Sources"], ["topic/backup", "Backup"]];
+  const NAV = [["topic/home", "Home"], ["topic/focus", "Exam focus"], ["topic/guide", "Guide"], ["topic/practice", "Practice"], ["topic/review", "Review"], ["topic/cases", "Cases"], ["topic/test", "Mocks"], ["topic/progress", "Progress"], ["topic/sources", "Sources"], ["topic/backup", "Backup"]];
   function route() {
     const parts = (location.hash.replace(/^#\/?/, "") || "topic/home").split("/").filter(Boolean);
     const top = parts[0] || "";

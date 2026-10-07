@@ -21,6 +21,14 @@
     if(q.type==='num')return q.fields.length;
     return q.type==='teach'?0:1;
   }
+  function manualScore(q,ss){
+    const marks=ss?.marks||[];
+    // Old snapshots retain one point per checked component, even when a form
+    // assigned a different maximum. Only new, explicitly versioned rubrics scale.
+    if(q.type!=='list'||q.rubricScoring!=='weighted-v1')return marks.filter(Boolean).length;
+    const count=q.rubric.length;
+    return count?marks.slice(0,count).filter(Boolean).length*maxPoints(q)/count:0;
+  }
   function grade(q,a){
     const g={answered:answered(q,a),ok:false,points:0,max:maxPoints(q)};
     if(!g.answered)return g;
@@ -57,7 +65,7 @@
     run.items.filter(o=>!o.rep).forEach(o=>{
       const g=grade(o.snapshot,run.responses[o.key]&&run.responses[o.key].answer);
       max+=g.max;if(!g.answered)return;answeredCount++;
-      if(g.manual){const ss=object(run.selfScores)[o.key];if(ss)points+=(ss.marks||[]).filter(Boolean).length;else if(!g.ungraded)pending++;}
+      if(g.manual){const ss=object(run.selfScores)[o.key];if(ss)points+=manualScore(o.snapshot,ss);else if(!g.ungraded)pending++;}
       else points+=g.points;
     });
     return {points,max,answered:answeredCount,total:run.items.filter(o=>!o.rep).length,pending};
@@ -169,6 +177,6 @@
     Object.assign(state.concepts,concepts);Object.assign(state.items,itemStats);
     return state;
   }
-  root.DXTopicEngine={answered,maxPoints,grade,occurrence,shuffle,makeRun,requeue,score,evidence,deriveCourse};
+  root.DXTopicEngine={answered,maxPoints,manualScore,grade,occurrence,shuffle,makeRun,requeue,score,evidence,deriveCourse};
   if(typeof module==='object'&&module.exports)module.exports=root.DXTopicEngine;
 })(typeof window==='object'?window:globalThis);
