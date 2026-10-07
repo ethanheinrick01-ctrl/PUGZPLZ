@@ -1,14 +1,24 @@
 # Diagnostics Exam One release — October 7, 2026
 
-This release adds the Exam focus tab and repairs select-all answer wrapping.
+This release adds 180 original questions to Exam focus, with fresh 15 MC + 15 T/F rehearsals. It retains the earlier Exam focus listings, clinical writing and select-all answer-wrapping repair.
 
-Current scope: 9 chapters, 21 modules, 111 competencies, and 405 prompts. The existing 398 course prompts comprise 374 automatically graded questions and 24 manual listings; seven additional clinical writing cases are available in Exam focus. All 101 focused teaching-section practice actions remain available. The original 440 definitions, four legacy forms, storage identity and learner history remain available.
+Current scope: 9 chapters, 21 modules, 111 competencies, and 585 prompts. The 578 course prompts comprise 554 automatically graded questions and 24 manual listings; seven additional clinical writing cases are available in Exam focus. All 101 focused teaching-section practice actions remain available. The original 440 definitions, four legacy forms, storage identity and learner history remain available.
 
 The original course and chapter completion totals remain at their accepted 103 concepts. The seven October 5 activity concepts and one newly connected checklist concept have separate completion totals, while all 111 competencies use the same saved mastery ledger. Adding material does not lower an existing completion percentage.
 
+## October 7 original question pool
+
+The 180 new questions comprise 90 MC and 90 T/F, ten of each per chapter. They use current instructor material for content and Gonsoulin’s historical Professor DNA for construction: adjacent alternatives, exact qualifiers, sequencing, negative exceptions and clinical interpretation. Student stems omit lecturer/slide attribution. Sources appear in checked feedback. Each MC has four option-specific explanations.
+
+Six successive fresh objective sets can cover all 180 questions without repetition if no other activity has already used them. The selection considers questions assigned to saved activities, including unfinished queues. The pool also participates in ordinary practice through existing concepts; completion denominators remain unchanged. Historical mock forms and all earlier item definitions remain intact.
+
+Final verification: all 180 initial independent solves agreed with the drafted keys. Twenty-nine items then received wording, originality or source-locator refinements, with revised items independently read back. All 56 Node test entries passed. Two browser-created sets contained 30 distinct questions each with no overlap; a draft, confidence and checked first response persisted. MC rows retained red/green feedback and no overflow at 390 CSS pixels.
+
+Six frozen 30-question practice forms, separate reasoned keys and seed receipts were generated using the Evidence Mock Exam workflow and retained with the private authoring review. Final instructor counts and written allocations remain pending.
+
 ## October 7 Exam focus
 
-The in-class review establishes MC, T/F, listing and a written clinical application of the October 5 activity. Exam focus uses the requested provisional allocation: 15 MC and 15 T/F, two points each, for 60 objective points. The other 40 exam points are reserved jointly for listing and clinical writing. Their internal allocation and the final question breakdown remain pending. The objective rehearsal has no timer and gives feedback after each checked answer; it is a reviewed selection from the existing practice bank across all nine chapters, not a prediction of the unseen exam.
+The in-class review establishes MC, T/F, listing and a written clinical application of the October 5 activity. Exam focus uses the requested provisional allocation: 15 MC and 15 T/F, two points each, for 60 objective points. The other 40 exam points are reserved jointly for listing and clinical writing. Their internal allocation and the final question breakdown remain pending. The objective rehearsal has no timer and gives feedback after each checked answer; it now draws from 180 new questions across all nine chapters. New sets prioritize questions absent from prior saved sets. Resuming preserves the exact saved queue, option order and first answers. This practice does not predict the unseen exam.
 
 Four priority listing prompts surface the existing seven-stage assessment framework, six grouped evaluation components, three CAS features and four Foundational Integrity qualities. Their original IDs and history remain intact. The two framework prompts identify the distinct lecture groupings. The clinical section adds seven original supplied-facts cases based on the assigned ASHA Module 9 assessment limitations, each with four self-review components, a model answer and source locators. All seven cases were independently reviewed against the original assigned slides, pages 7–26.
 
@@ -16,7 +26,7 @@ The checklists organize practice; they are not the instructor's official rubric 
 
 The tab highlights documented repetition of dynamic assessment, disorder versus difference, multiple evidence sources and assessment suitability. These are teaching emphases, not probabilities of exam appearance. The review notes record no Scantron and bonus questions. The breakdown email is expected October 8; a study-guide attachment is not yet confirmed. Exact counts, written weights, official rubric, time limit, supplied aids and bonus details remain unresolved.
 
-Local verification: all 52 Node test entries pass, including focus allocation, source coverage, all listing/case contracts, old form preservation, saved snapshots, scoring, mastery and recovery behavior. Browser checks covered all 16 select-all questions and 79 answer rows at desktop size and exactly 390 CSS pixels, with no document overflow and correct green/red feedback. The CAS listing draft and confidence survived reload; its original checked answer remained immutable; its 2-of-3 self-score and separate reflection persisted after reload; the completed result remained 2/3. The select-all layout repair also applies to older saved runs. Clinical drafts and confidence also survived reload; an explicitly confirmed zero self-score completed as 0/4.
+Earlier Exam focus verification: all 52 Node test entries passed, including focus allocation, source coverage, all listing/case contracts, old form preservation, saved snapshots, scoring, mastery and recovery behavior. Browser checks covered all 16 select-all questions and 79 answer rows at desktop size and exactly 390 CSS pixels, with no document overflow and correct green/red feedback. The CAS listing draft and confidence survived reload; its original checked answer remained immutable; its 2-of-3 self-score and separate reflection persisted after reload; the completed result remained 2/3. The select-all layout repair also applies to older saved runs. Clinical drafts and confidence also survived reload; an explicitly confirmed zero self-score completed as 0/4.
 
 ## October 5 activity and source priority
 
@@ -56,7 +66,7 @@ Textbook reading stayed within Chapters 1,2,3,6,7 and relevant portions of 8/9. 
 
 ## Original October 1 practice design (preserved)
 
-382 prompts across 103 competencies:188 MC,97 T/F,16 select-all,9 sequencing,10 matching,7 classification,18 numerical procedures,13 figure selections and24 typed listings. Each competency has at least two distinct automatically graded roots. Practice, review, cases and a27-question cumulative drill share course progress.
+382 prompts across 103 competencies:188 MC,97 T/F,16 select-all,9 sequencing,10 matching,7 classification,18 numerical procedures,13 figure selections and 24 typed listings. Each competency has at least two distinct automatically graded roots. Practice, review, cases and a27-question cumulative drill share course progress.
 
 Gonsoulin professor DNA and the last two Language Disorders exams govern response demands: concise neighboring distractors, negative stems, precise T/F swaps, brief cases, matching, component listings and procedures. Mock A uses the historical Test2 structure:20TF×2+20MC×3=100. Mock B uses the historical Final response mix with an explicit practice allocation:14TF×2+14MC×3+7matching components+7listing components+4procedures×4=100. Both cover all nine chapters; together they cover all20 modules. MC/T/F selections do not overlap between forms. These mocks sample the study bank and show immediate feedback; they are not advertised as unseen independent pools.
 

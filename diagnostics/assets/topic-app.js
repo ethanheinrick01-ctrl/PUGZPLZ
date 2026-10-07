@@ -50,7 +50,7 @@
   function startFocus(mode,selectedId){
     const F=window.DXExamFocus, ids=mode==='objective'?F.objectiveIds:mode==='clinical'?F.caseIds:F.listingIds;
     if(selectedId&&!ids.includes(selectedId))return;
-    const chosen=selectedId?[selectedId]:ids;
+    const chosen=selectedId?[selectedId]:mode==='objective'&&window.DXOriginalObjective?window.DXOriginalObjective.select(topic().runs):ids;
     const qs=chosen.map(key=>{const q=byId[key];return {...q,points:mode==='objective'?2:q.rubric.length,...(q.type==='list'?{rubricScoring:'weighted-v1'}:{})};});
     const run=E.makeRun('focus',qs,Date.now(),id());
     run.focusMode=mode;run.focusRevision=F.revision;run.chapter=null;run.deadlineAt=null;
