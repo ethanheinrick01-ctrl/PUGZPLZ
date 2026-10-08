@@ -1,3 +1,33 @@
+# Diagnostics Exam One release — October 8, 2026
+
+The October 8 instructor email supersedes the provisional October 7 format and scope below. The current exam has 15 MC at 3 points each, 15 true/false at 2 points each, and four short-answer/listing questions worth 25 points combined. One written question applies the October 5 assigned video to a clinical situation. Individual written weights, the complete written mix and the time limit remain unspecified.
+
+## Current preparation
+
+- Three original 34-question mocks follow the confirmed 45/30/25 section structure. They contain 90 distinct objective questions across all nine chapter groups, the six named priorities and multicultural content. Three listings plus one clinical case is a practice allocation, not a claim about the unseen test versions.
+- Six focused teaching comparisons and 12-question drills cover methods, SSD differential diagnosis, psychometrics, standardized administration and interpretation, the assessment process, and diagnostic reporting. Multicultural assessment has its own teaching panel and 12-question drill.
+- Five priority listings include the seven report sections and three consensus CAS features. Ten written clinical cases include three new scenarios combining assessment limitations.
+- The new 84 original questions are 42 MC and 42 true/false. After the scope audit, the original objective pool offers 251 eligible questions: 126 MC and 125 true/false. Fresh 30-question sets prioritize unseen items before reusing them.
+- The exact excluded Week 4 common-assessment-procedures deck is gated out of new draws. Overlapping material is retained only with independently verified included sources. Six teaching-section drills with no eligible questions are explicitly unavailable; historical records remain readable.
+
+## Questions and scoring
+
+Current course sources govern content. Professor DNA guides neighboring alternatives, precise qualifiers, sequence distinctions, negative exceptions and brief clinical applications. New stems do not ask learners to recall what a lecturer or slide said. Answer options are reviewed for plausible distractors, grammar, length and formatting cues. Sources and explanations appear after checking.
+
+Objective performance is scored out of 75. Written responses use separate component checklists because the instructor has not supplied individual point weights or a rubric. The lab does not invent a complete 100-point grade from those checklists. These are study rehearsals with immediate feedback, not secure copies or predictions of the actual exam.
+
+## Preservation and verification
+
+All 585 earlier question definitions and historical forms remain unchanged. New runs use the revised scope and scoring; saved runs retain their snapshots, option order, first answers, drafts, confidence and separate corrections. The storage identity and original 103-concept completion denominator remain unchanged. Additive material does not reduce existing completion percentages.
+
+All 64 automated checks pass. Isolated browser checks cover saved writing and confidence after reload, first-answer/correction separation, written checklist scoring, export/import merge, desktop and 390-pixel layouts, and readable wrong/correct feedback in both themes. Public publication includes reviewed site assets and these release notes only; private source packets, authoring records and progress exports are excluded.
+
+---
+
+# Historical release notes
+
+Earlier counts, provisional allocations and source scope below describe prior releases and are superseded by the October 8 account above.
+
 # Diagnostics Exam One release — October 7, 2026
 
 This release adds 180 original questions to Exam focus, with fresh 15 MC + 15 T/F rehearsals. It retains the earlier Exam focus listings, clinical writing and select-all answer-wrapping repair.

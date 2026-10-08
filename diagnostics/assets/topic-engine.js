@@ -61,6 +61,15 @@
     run.items.splice(Math.min(run.index+gap+1,run.items.length),0,copy);return gap;
   }
   function score(run){
+    if(run.scoreMode==='confirmed-objective-written-v1'){
+      const base=score({...run,scoreMode:null,items:run.items.filter(o=>o.snapshot.type!=='list')});
+      const writing=run.items.filter(o=>!o.rep&&o.snapshot.type==='list');
+      const reviewed=writing.filter(o=>grade(o.snapshot,run.responses[o.key]?.answer).answered&&object(run.selfScores)[o.key]);
+      const written={total:writing.length,answered:writing.filter(o=>run.responses[o.key]).length,reviewed:reviewed.length,
+        components:reviewed.reduce((n,o)=>n+(object(run.selfScores)[o.key].marks||[]).slice(0,o.snapshot.rubric.length).filter(Boolean).length,0),
+        componentTotal:writing.reduce((n,o)=>n+o.snapshot.rubric.length,0),reservedPoints:run.examFormat.writtenPoints};
+      return {...base,objectiveAnswered:base.answered,answered:base.answered+written.answered,total:base.total+writing.length,written,pending:writing.length-reviewed.length};
+    }
     let points=0,max=0,answeredCount=0,pending=0;
     run.items.filter(o=>!o.rep).forEach(o=>{
       const g=grade(o.snapshot,run.responses[o.key]&&run.responses[o.key].answer);

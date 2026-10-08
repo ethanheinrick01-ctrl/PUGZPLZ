@@ -34,12 +34,12 @@
     const [module,index]=String(key).split(':');
     const concepts=module==='cas'?cas[index]:groups[module]?.[Number(index)];
     if(!concepts)return null;
-    const items=(window.DX_EXAM1?.items||[]).filter(q=>q.type!=='list'&&concepts.includes(q.concept)&&(!exact[key]||(exact[key].includes(q.id)||exact[key].includes(q.rootId))));
+    const items=(window.DX_EXAM1?.items||[]).filter(q=>(!window.DXExamScope||window.DXExamScope.eligible(q))&&q.type!=='list'&&concepts.includes(q.concept)&&(!exact[key]||(exact[key].includes(q.id)||exact[key].includes(q.rootId))));
     return {concepts:concepts.slice(),items:items.map(q=>q.id),n:Math.min(10,items.length)};
   }
   function button(key,title){
     const s=selection(key),n=s?.items.length||0;
-    return `<div class="section-study"><p class="small">${n?`Up to ${s.n} focused question${s.n===1?'':'s'} · multiple choice first`:'Source note: dedicated practice questions are not yet available.'}</p><button type="button" class="btn primary" data-topic="section-study" data-section="${escape(key)}" data-section-title="${escape(title)}" aria-label="Study this section: ${escape(title)}" ${n?'':'disabled'}>Study this section <span aria-hidden="true">→</span></button></div>`;
+    return `<div class="section-study"><p class="small">${n?`Up to ${s.n} focused question${s.n===1?'':'s'} · multiple choice first`:'No eligible Exam One questions in this section after the October 8 scope review.'}</p><button type="button" class="btn primary" data-topic="section-study" data-section="${escape(key)}" data-section-title="${escape(title)}" aria-label="Study this section: ${escape(title)}" ${n?'':'disabled'}>Study this section <span aria-hidden="true">→</span></button></div>`;
   }
   window.DXSectionStudy={selection,button};
 })();

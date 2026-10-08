@@ -24,4 +24,20 @@
 .topic-shell .topic-option>span:last-child{min-width:0}
 .topic-shell .topic-option input[type="checkbox"]{border-radius:3px}
 
+/* Keep saved and new questions readable in either theme. Answer-state colors
+   must outrank the shared row background, including unselected correct rows. */
+.topic-shell .topic-option:has(input:checked){background:#192e41}
+.topic-shell .topic-option.answer-correct,
+.topic-shell .topic-option.answer-wrong,
+.topic-shell .topic-option.answer-correct:has(input:checked),
+.topic-shell .topic-option.answer-wrong:has(input:checked){color:var(--answer-color);background:var(--answer-bg);border-color:var(--answer-color)}
+[data-theme="light"] .topic-shell .topic-option{background:var(--panel2)}
+[data-theme="light"] .topic-shell .topic-option:has(input:checked){background:#dcebf9}
+[data-theme="light"] .topic-shell .topic-option.answer-correct,
+[data-theme="light"] .topic-shell .topic-option.answer-wrong,
+[data-theme="light"] .topic-shell .topic-option.answer-correct:has(input:checked),
+[data-theme="light"] .topic-shell .topic-option.answer-wrong:has(input:checked){color:var(--answer-color);background:var(--answer-bg);border-color:var(--answer-color)}
+[data-theme="light"] .topic-shell .topic-feedback,
+[data-theme="light"] .topic-shell .builder select{background:#f0f4fa;color:var(--ink)}
+
 .builder .formrow{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin:10px 0}.builder .formrow>label:first-child,.builder .formrow>span{min-width:190px;color:var(--mute)}.builder select{min-height:44px;min-width:180px;border-radius:8px;background:#11151c;color:var(--ink);border:1px solid var(--line);padding:8px 12px;font:inherit}.pick-group{border-top:1px solid var(--line);padding:4px 0}.pick-group summary{cursor:pointer;color:var(--acc);padding:12px 0;font-size:1.02rem;min-height:44px}.pick-all{display:flex;gap:10px;align-items:center;margin:2px 0 8px;font-weight:600}.pick-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 18px;margin:0 0 14px}.pick{display:flex;gap:10px;align-items:flex-start;padding:8px 10px;border-radius:8px;border:1px solid transparent;cursor:pointer}.pick:has(input:checked){border-color:var(--line);background:var(--panel2)}.builder input[type=checkbox]{width:18px;height:18px;margin-top:3px;flex-shrink:0;accent-color:var(--acc)}.pick span:first-of-type{flex:1}.pick-badge{font-size:.72rem;white-space:nowrap;border:1px solid var(--line);border-radius:20px;padding:2px 8px;color:var(--mute)}.pick-badge.done{color:var(--ok);border-color:var(--ok)}.pick-badge.due{color:var(--warn);border-color:var(--warn)}.pick-badge.learn{color:var(--acc)}#pick-status{margin:14px 0 8px}@media(max-width:700px){.pick-grid{grid-template-columns:1fr}.pick-badge{display:none}}

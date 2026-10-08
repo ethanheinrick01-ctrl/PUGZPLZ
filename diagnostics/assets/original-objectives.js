@@ -4,6 +4,10 @@
   const P=window.DXOriginalPool,T=window.DX_EXAM1;
   const byId=Object.fromEntries(T.items.map(q=>[q.id,q]));
   const ids=new Set(P.ids);
+  const eligible=P.ids.map(id=>byId[id]).filter(q=>!window.DXExamScope||window.DXExamScope.eligible(q));
+  P.counts={mc:eligible.filter(q=>q.type==='mc').length,tf:eligible.filter(q=>q.type==='tf').length};
+  P.evidenceCutoff='2026-10-08';
+  P.revision+='+'+window.DXEmailPool.revision;
   const pick=(a,random)=>a[Math.floor(random()*a.length)];
   function exposures(runs){
     const counts=Object.fromEntries(P.ids.map(id=>[id,0]));
@@ -16,7 +20,7 @@
   function select(runs,random=Math.random){
     const counts=exposures(runs),chosen=[];
     for(const type of ['mc','tf']){
-      const remaining=P.ids.filter(id=>byId[id].type===type);
+      const remaining=P.ids.filter(id=>byId[id].type===type&&(!window.DXExamScope||window.DXExamScope.eligible(id)));
       const inSet={};
       const total=Object.fromEntries(P.chapters.map(ch=>[ch,remaining.filter(id=>byId[id].chapter===ch).reduce((n,id)=>n+counts[id],0)]));
       for(let n=0;n<15;n++){
@@ -39,6 +43,6 @@
   // Printable practice has a frozen seed. A launched rehearsal draws from saved exposure history.
   window.DXExamFocus.previousObjectiveIds=window.DXExamFocus.objectiveIds.slice();
   window.DXExamFocus.objectiveIds=select({},seeded(20261007));
-  window.DXExamFocus.objectiveNote='Fresh 15 MC + 15 T/F rehearsals draw from 180 original questions and prioritize questions absent from earlier sets. Printable practice uses a frozen selection. Exact instructor counts remain provisional.';
+  window.DXExamFocus.objectiveNote='Fresh 15 MC + 15 T/F rehearsals prioritize eligible original questions absent from earlier sets. October 8 confirms 45 MC points and 30 T/F points; print forms use frozen selections.';
   window.DXExamFocus.revision+='+'+P.revision;
 })();
