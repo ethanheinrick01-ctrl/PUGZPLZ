@@ -20,7 +20,7 @@ Objective performance is scored out of 75. Written responses use separate compon
 
 All 585 earlier question definitions and historical forms remain unchanged. New runs use the revised scope and scoring; saved runs retain their snapshots, option order, first answers, drafts, confidence and separate corrections. The storage identity and original 103-concept completion denominator remain unchanged. Additive material does not reduce existing completion percentages.
 
-All 64 automated checks pass. Isolated browser checks cover saved writing and confidence after reload, first-answer/correction separation, written checklist scoring, export/import merge, desktop and 390-pixel layouts, and readable wrong/correct feedback in both themes. Public publication includes reviewed site assets and these release notes only; private source packets, authoring records and progress exports are excluded.
+All 65 automated checks pass. Detached video players ignore late playback events after navigation. Isolated browser checks cover saved writing and confidence after reload, first-answer/correction separation, written checklist scoring, export/import merge, desktop and 390-pixel layouts, and readable wrong/correct feedback in both themes. Public publication includes reviewed site assets and these release notes only; private source packets, authoring records and progress exports are excluded.
 
 ---
 
