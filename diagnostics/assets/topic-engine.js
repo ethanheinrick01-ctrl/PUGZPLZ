@@ -53,12 +53,16 @@
   }
   function makeRun(type,items,at,id){return {id,type,status:'active',index:0,startedAt:at,updated:at,deadlineAt:type==='test'?at+14*60*1000:null,items:items.map((q,n)=>occurrence(q,n)),responses:{},drafts:{},selfScores:{},corrections:[]};}
   function requeue(run,occ,response){
-    if(run.type!=='practice'||occ.rep>=2||occ.snapshot.type==='list'||occ.snapshot.type==='teach')return 0;
+    const focusPractice=run.type==='focus'&&run.adaptiveReviewVersion==='focus-v1'&&['priority','review'].includes(run.focusMode);
+    if((run.type!=='practice'&&!focusPractice)||occ.rep>=2||occ.snapshot.type==='list'||occ.snapshot.type==='teach')return 0;
     const gap=!response.correct?2:response.confidence==='low'?4:0;if(!gap)return 0;
     const copy=clone(occ);
     // Unique occurrence IDs also survive differently sized queues and tab merges.
     copy.key='repeat-'+response.checkedAt+'-'+occ.key;copy.rep=occ.rep+1;
-    run.items.splice(Math.min(run.index+gap+1,run.items.length),0,copy);return gap;
+    const insertion=Math.min(run.index+gap+1,run.items.length);
+    run.items.splice(insertion,0,copy);
+    if(focusPractice){const actualGap=insertion-run.index-1;if(actualGap===0)response.requeueAtEnd=true;return actualGap;}
+    return gap;
   }
   function score(run){
     if(run.scoreMode==='confirmed-objective-written-v1'){
