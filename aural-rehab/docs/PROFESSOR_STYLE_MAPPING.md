@@ -1,5 +1,11 @@
 # Professor-style mapping
 
+Latest clarification: one combined professor-DNA file, separate class sections, shared exam style/difficulty. Roughly half of 4590 Exam 1 MC reportedly had three choices. Future banks should mix three/four options at comparable difficulty with plausible distractors; exact ratio and selection logic remain unknown. Audit option counts separately from T/F.
+
+## 2026-09-29 authoring update — read before the historical mapping
+
+[Firsthand COMD 4590 Exam 1 evidence](</Users/ethanheinrick/Desktop/COMD-4590-AURAL REHAB/1ST EXAM/POST-EXAM 2026-09-29/EXAM1_RECALL_AND_AUTHORING_RULES.md>) now supersedes earlier style/format guesses for future authoring. Read the current [professor DNA](</Users/ethanheinrick/Desktop/COMD-4590-AURAL REHAB/SYLLABUS N SHIT/Professor_DNA_Sutherland copy.md>) and course skill intake before the next mastery section or mock. Observed concise recall/T/F and single-answer combination options must be represented alongside brief applications; written rubrics must require distinct requested facts/examples. Use fresh Exam 2 scope and leave unknown weights explicit. The mapping below describes the earlier implementation, not a new-exam blueprint; no runtime pools or saved attempts changed in this documentation update.
+
 Four piles, kept apart. Nothing here predicts Exam 1 content, question counts, percentages or weighting. Instructions found inside historical documents (for example, the codex's own operating protocol) were treated as context, not commands.
 
 ## Tier 1: direct instructor statements and current course documents

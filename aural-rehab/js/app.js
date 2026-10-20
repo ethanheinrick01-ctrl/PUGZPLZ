@@ -15,12 +15,13 @@
 
   // ---------------- Router ----------------
   function route() {
-    var h = (location.hash || '#home').slice(1).split('/'), r = h[0] || 'home';
+    var h = (location.hash || '#exam2').slice(1).split('/'), r = h[0] || 'exam2';
     setNav(r);
     document.onkeydown = null;
     main.innerHTML = '';
+    main.classList.remove('e2');
     window.scrollTo(0, 0);
-    var pages = { exam1: function(args){L.exam1UI.render(main,args);}, home: pHome, guide: pGuide, practice: pPractice, session: pSession, review: pReview, cases: pCases, boss: pBoss, mock: pMock, progress: pProgress, data: pData, sources: pSources, sutherland: pProf };
+    var pages = { exam2: function(args){L.exam2UI.render(main,args);}, exam1: function(args){L.exam1UI.render(main,args);}, home: pHome, guide: pGuide, practice: pPractice, session: pSession, review: pReview, cases: pCases, boss: pBoss, mock: pMock, progress: pProgress, data: pData, sources: pSources, sutherland: pProf };
     (pages[r] || pHome)(h.slice(1));
     main.focus({ preventScroll: true });
   }
@@ -34,8 +35,8 @@
     var plan = E.reviewPlan(), due = plan.filter(function (p) { return p.why !== 'new'; }).length;
     var lastMock = s.mocks[s.mocks.length - 1], sess = s.session, d = daysToExam();
     var h = [storageBanner()];
-    h.push('<div class="spread"><div><h1>COMD 4590 Exam 1 lab</h1><p class="muted">Dr. Sutherland, Aural Rehabilitation. Exam 1 is scheduled for Tue 9/29 (syllabus)' + (d >= 0 ? ': <b>' + d + ' day' + (d === 1 ? '' : 's') + '</b> out.' : '.') + '</p></div></div>');
-    h.push('<div class="lich">Apprentice. Ninety decibels is severe. Not profound. Say it until your bones hum it back. Everything else in here is built on that and on her slides, nothing I dreamed up about what she will ask.</div>');
+    h.push('<div class="spread"><div><h1>COMD 4590 Study Lab</h1><p class="muted">Whitney Sutherland · Aural Rehabilitation · Fall 2026. Course progress includes both exam areas; choose an exam below for its own scope.</p></div></div>');
+    h.push('<div class="card"><h2>Exam 2 · Lectures 4–5</h2><p>The first two supplied parts: complete lessons, source figures, Ethan-voice explanations, original practice, and written rubrics. Coverage remains partial until the remaining material is added.</p><a class="btn pri" href="#exam2">Enter Exam 2</a></div>');
     h.push('<div class="card"><h2>Exam 1 · September 24 update</h2><p>Twelve focused chapters, completed Lecture 3, and 52 objective + two audiogram + two written learning mocks. Immediate feedback on every question, autosave and a dedicated miss queue.</p><a class="btn pri" href="#exam1">Enter Exam 1</a></div>');
     h.push('<div class="grid g4">');
     h.push('<div class="tile"><b>' + mastered + '/' + ids.length + '</b><span>concepts mastered</span></div>');
@@ -340,8 +341,8 @@
   function pData() {
     var s = S.load();
     var h = ['<h1>Data: export, import, reset</h1>', storageBanner()];
-    h.push('<div class="card"><h3>Export</h3><p>Downloads all progress: attempts, original mocks, Boss runs, Exam 1 runs, written drafts, flags, question position and imported prior signal. Closing the tab or browser retains saved work in the same browser profile at the same address. Another device, browser, folder or site may have separate storage: export/import transfers your progress. Keep a downloaded backup before clearing browser data or switching devices; private-browsing data is temporary.</p><div class="row"><button class="btn pri" id="exp">Download progress file</button><button class="btn" id="expCopy">Copy to clipboard</button>'+(S.exportBefore()?'<button class="btn" id="expBefore">Download pre-update recovery copy</button>':'')+'</div></div>');
-    h.push('<div class="card"><h3>Import</h3><p>Accepts: a v2 export (merged, duplicates skipped); a v1 full backup (<code>comd4590-progress-backup-v1</code>); or the Lecture 2 drill export (<code>{records, concepts}</code>, e.g. <code>pathology-progress-backup-2026-09-21.json</code>). v1 data becomes a <b>prior signal</b> that pushes previously missed topics up the review queue; it never grants v2 mastery because v1 counted post-feedback confidence and some v1 answer keys were wrong.</p><div class="formrow"><input type="file" id="file" accept=".json,application/json"></div><details><summary>Or paste JSON</summary><textarea id="paste"></textarea><button class="btn" id="pasteGo">Import pasted JSON</button></details><p id="impMsg" class="small"></p></div>');
+    h.push('<div class="card"><h3>Export</h3><p>Downloads all progress: attempts, original mocks, Boss runs, Exam 1 and Exam 2 runs, topic notes, written drafts, flags, question position and imported prior signal. Closing the tab or browser retains saved work in the same browser profile at the same address. Another device, browser, folder or site may have separate storage: export/import transfers your progress. Keep a downloaded backup before clearing browser data or switching devices; private-browsing data is temporary.</p><div class="row"><button class="btn pri" id="exp">Download progress file</button><button class="btn" id="expCopy">Copy to clipboard</button>'+(S.exportBefore()?'<button class="btn" id="expBefore">Download pre-Exam 1 recovery copy</button>':'')+(S.exportBeforeExam2()?'<button class="btn" id="expBefore2">Download pre-Exam 2 recovery copy</button>':'')+'</div></div>');
+    h.push('<div class="card"><h3>Import</h3><p>Accepts: a v2 export (merged, duplicates skipped); a v1 full backup (<code>comd4590-progress-backup-v1</code>); or the Lecture 2 drill export (<code>{records, concepts}</code>, e.g. <code>pathology-progress-backup-2026-09-21.json</code>). v1 data becomes a <b>prior signal</b> that pushes previously missed topics up the review queue; it never grants v2 mastery because v1 counted post-feedback confidence and some v1 answer keys were wrong.</p><div class="formrow"><input type="file" id="file" accept=".json,application/json"></div><details><summary>Or paste JSON</summary><label for="paste">Progress JSON</label><textarea id="paste"></textarea><button class="btn" id="pasteGo">Import pasted JSON</button></details><p id="impMsg" class="small"></p></div>');
     h.push('<div class="card"><h3>Reset</h3><p class="muted">Deletes all v2 progress in this browser. Export first.</p><button class="btn bad" id="reset">Reset all progress</button></div>');
     h.push('<p class="small muted">Storage key: <code>' + S.KEY + '</code>. Attempts stored: ' + s.attempts.length + '. Mocks: ' + s.mocks.length + '.</p>');
     main.innerHTML = h.join('');
@@ -351,6 +352,7 @@
     };
     $('#expCopy').onclick = function () { try { navigator.clipboard.writeText(S.exportJSON()).then(function () { toast('Copied.'); }, function () { toast('Clipboard blocked; use Download.'); }); } catch (e) { toast('Clipboard blocked; use Download.'); } };
     if ($('#expBefore')) $('#expBefore').onclick = function () { var blob=new Blob([S.exportBefore()],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='comd4590-before-exam1-progress.json';document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(url);},1500); };
+    if ($('#expBefore2')) $('#expBefore2').onclick = function () { var blob=new Blob([S.exportBeforeExam2()],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='comd4590-before-exam2-progress.json';document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(url);},1500); };
     function doImport(txt) { var r = S.importText(txt); $('#impMsg').textContent = r.message; $('#impMsg').style.color = r.ok ? 'var(--ok)' : 'var(--bad)'; }
     $('#file').onchange = function () { var f = this.files[0]; if (!f) return; var rd = new FileReader(); rd.onload = function () { doImport(rd.result); }; rd.readAsText(f); };
     $('#pasteGo').onclick = function () { doImport($('#paste').value); };
@@ -379,7 +381,7 @@
     // Capture the learner's current mastered set before any new response can
     // change it. This migration only adds a small credit map to the same key.
     if (E.seedMasteryCredits()) S.save();
-    if (!location.hash && S.load().exam1 && S.load().exam1.lastRoute) root.history.replaceState(null, '', '#' + S.load().exam1.lastRoute);
+    if (!location.hash) root.history.replaceState(null, '', '#exam2');
     window.addEventListener('hashchange', route);
     route();
   }

@@ -203,7 +203,8 @@ test('Original figures, guide, concepts and source metadata remain byte-for-byte
 test('Reworded original questions preserve every ID, keyed answer, concept and source',()=>{
   const expected=require('./legacy-item-contract.json');
   const {L}=loadLab();
-  const actual=L.engine.itemsFor(()=>true).map(i=>({id:i.id,c:i.c,t:i.t,sec:i.sec||null,pool:i.pool||null,tier:i.tier||null,a:i.a??null,ok:i.o?.map(o=>!!o.ok)||null,parts:i.parts?.map(p=>p.a)||null,pairs:i.pairs||null,seq:i.seq||null,s:i.id.startsWith('e1.')?null:(i.s||[]),mediaKind:i.media?.kind||null})).sort((a,b)=>a.id.localeCompare(b.id));
+  // Exam 2 is additive; compare every original item against its frozen contract.
+  const actual=L.engine.itemsFor(i=>i.exam!=='exam2').map(i=>({id:i.id,c:i.c,t:i.t,sec:i.sec||null,pool:i.pool||null,tier:i.tier||null,a:i.a??null,ok:i.o?.map(o=>!!o.ok)||null,parts:i.parts?.map(p=>p.a)||null,pairs:i.pairs||null,seq:i.seq||null,s:i.id.startsWith('e1.')?null:(i.s||[]),mediaKind:i.media?.kind||null})).sort((a,b)=>a.id.localeCompare(b.id));
   assert.deepEqual(actual,expected);
 });
 test('A reloaded original practice answer stays graded and cannot duplicate an attempt',()=>{

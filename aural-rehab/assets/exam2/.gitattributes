@@ -1,0 +1,7 @@
+# Preserve supplied source bytes; these are reference documents, not authored code.
+sources/*.pdf binary
+sources/*.txt -whitespace
+source-packet.zip binary
+audio/*.mp3 binary
+pages/*.jpg binary
+figures/*.jpg binary

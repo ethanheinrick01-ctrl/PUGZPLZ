@@ -200,7 +200,7 @@
   function hasPracticeContent(c) { return (BY_CONCEPT[c] || []).some(practiceEligible) || !!GEN_FOR[c]; }
   function practiceEligible(id) {
     var it = REG[id], s = L.store.load();
-    if (!it || it.t === 'teach') return false;
+    if (!it || it.t === 'teach' || it.scenario) return false;
     if (it.pool === 'x' && !s.seenX[id] && !s.settings.includeHeld) {
       var open = (BY_CONCEPT[it.c] || []).filter(function (key) {
         return REG[key] && REG[key].t !== 'teach' && REG[key].pool !== 'x' && !CASE_OF[key];

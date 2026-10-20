@@ -9,7 +9,8 @@
   function blank() {
     return { app: 'comd4590-lab', schema: 2, created: Date.now(), updated: Date.now(), attempts: [], mocks: [], mockActive: null, session: null,
       boss: {}, seenX: {}, guideRead: {}, teach: {}, legacy: null, settings: { includeHeld: false },
-      masteryCredits: {}, masterySeeded: false, exam1: { runs: [], chapterRead: {}, lastRoute: 'exam1' } };
+      masteryCredits: {}, masterySeeded: false, exam1: { runs: [], chapterRead: {}, lastRoute: 'exam1' },
+      exam2: {runs: [], read: {}, notes: {}, activeId: null} };
   }
   function storageProblem(action, e) {
     if (e && (e.name === 'QuotaExceededError' || e.code === 22 || e.code === 1014)) return 'Browser storage is full, so this tab cannot save new progress.';
@@ -40,6 +41,10 @@
     if (!s.exam1 || typeof s.exam1 !== 'object') s.exam1 = b.exam1;
     if (!Array.isArray(s.exam1.runs)) s.exam1.runs = [];
     if (!s.exam1.chapterRead) s.exam1.chapterRead = {};
+    if (!s.exam2 || typeof s.exam2 !== 'object') s.exam2 = b.exam2;
+    if (!Array.isArray(s.exam2.runs)) s.exam2.runs = [];
+    if (!s.exam2.read) s.exam2.read = {};
+    if (!s.exam2.notes) s.exam2.notes = {};
     // Boss runs saved before the early-exit fix have no completion flag and cannot be trusted as a best score.
     if (s.boss && typeof s.boss === 'object') Object.keys(s.boss).forEach(function (k) {
       var b = s.boss[k]; if (!b || !Array.isArray(b.runs)) return;
@@ -72,6 +77,9 @@
       // A full duplicate can exceed the browser quota. The unchanged original
       // remains in KEY, so a failed backup must not block the live save.
       if (!before) lsSet(KEY + '-before-exam1', lastRaw);
+      var before2=lsGet(KEY+'-before-exam2');
+      if (!readOK) return false;
+      if (!before2) lsSet(KEY+'-before-exam2',lastRaw);
     }
     mem.updated = Date.now();
     var raw = JSON.stringify(mem), ok = lsSet(KEY, raw);
@@ -129,6 +137,7 @@
     return JSON.stringify({ app: 'comd4590-lab', schema: 2, exported: new Date().toISOString(), state: s }, null, 1);
   }
   function exportBefore() { var raw=lsGet(KEY+'-before-exam1'); if(!raw)return null;try{return JSON.stringify({app:'comd4590-lab',schema:2,exported:new Date().toISOString(),state:JSON.parse(raw)},null,1);}catch(e){return null;} }
+  function exportBeforeExam2() { var raw=lsGet(KEY+'-before-exam2');if(!raw)return null;try{return JSON.stringify({app:'comd4590-lab',schema:2,exported:new Date().toISOString(),state:JSON.parse(raw)},null,1);}catch(e){return null;} }
   function mergeV2(into, from) {
     // Mastery is earned once. A backup/import must never revoke existing credit.
     Object.keys(from.masteryCredits || {}).forEach(function (c) {
@@ -137,8 +146,9 @@
     });
     into.masterySeeded = into.masterySeeded || from.masterySeeded;
     var seen = {};
-    into.attempts.forEach(function (a) { seen[a.i + '|' + a.t] = 1; });
-    (from.attempts || []).forEach(function (a) { if (!seen[a.i + '|' + a.t]) { into.attempts.push(a); seen[a.i + '|' + a.t] = 1; } });
+    function attemptKey(a){return a.aid || a.i + '|' + a.t;}
+    into.attempts.forEach(function (a) { seen[attemptKey(a)] = 1; });
+    (from.attempts || []).forEach(function (a) { if (!seen[attemptKey(a)]) { into.attempts.push(a); seen[attemptKey(a)] = 1; } });
     into.attempts.sort(function (x, y) { return x.t - y.t; });
     var ms = {}; into.mocks.forEach(function (m) { ms[m.id] = 1; });
     (from.mocks || []).forEach(function (m) { if (!ms[m.id]) into.mocks.push(m); });
@@ -160,6 +170,33 @@
     });
     Object.keys(from.exam1.chapterRead || {}).forEach(function(k){into.exam1.chapterRead[k] = Math.max(into.exam1.chapterRead[k] || 0, from.exam1.chapterRead[k]);});
     if (!into.exam1.activeId && from.exam1.activeId) into.exam1.activeId = from.exam1.activeId;
+    // Merge scoped runs by identity, preserving already checked question snapshots.
+    var e2index={};into.exam2.runs.forEach(function(r){e2index[r.id]=r;});
+    from.exam2.runs.forEach(function(r){
+      var old=e2index[r.id];if(!old){into.exam2.runs.push(r);e2index[r.id]=r;return;}
+      var qi={};old.tasks.forEach(function(t,i){qi[t.uid]=i;});
+      r.tasks.forEach(function(t){
+        var n=qi[t.uid];if(n===undefined){qi[t.uid]=old.tasks.length;old.tasks.push(t);return;}
+        var kept=old.tasks[n];
+        if(!kept.checked&&(t.checked||(r.updated||0)>(old.updated||0)))old.tasks[n]=t;
+        else if((t.correctionAt||0)>(kept.correctionAt||0)){kept.correction=t.correction;kept.correctionAt=t.correctionAt;}
+        if(t.flag)old.tasks[n].flag=true;
+      });
+      if((r.updated||0)>(old.updated||0)){old.cur=r.cur;old.ended=r.ended;old.updated=r.updated;}
+    });
+    Object.keys(from.exam2.read).forEach(function(k){into.exam2.read[k]=Math.max(into.exam2.read[k]||0,from.exam2.read[k]);});
+    Object.keys(from.exam2.notes).forEach(function(k){
+      var incoming=from.exam2.notes[k],old=into.exam2.notes[k];
+      if(!old)into.exam2.notes[k]=incoming;
+      else {
+        var newer=(incoming.updated||0)>(old.updated||0)?incoming:old,older=newer===incoming?old:incoming,versions=[];
+        (newer.alternates||[]).concat(older.alternates||[],[{text:older.text,updated:older.updated}]).forEach(function(a){
+          if(a.text!==newer.text&&!versions.some(function(v){return v.text===a.text;}))versions.push(a);
+        });
+        newer.alternates=versions;into.exam2.notes[k]=newer;
+      }
+    });
+    if(!into.exam2.activeId&&from.exam2.activeId)into.exam2.activeId=from.exam2.activeId;
   }
   // Returns {ok, kind, message}
   function importText(text) {
@@ -174,7 +211,7 @@
       var before = s.attempts.length; mergeV2(s, incoming);
       if (L.engine && L.engine.captureMasteryCredits) L.engine.captureMasteryCredits(s);
       var saved = save();
-      return { ok: saved, kind: 'v2', message: saved ? 'Merged progress: ' + (s.attempts.length - before) + ' new attempts, ' + s.exam1.runs.length + ' Exam 1 runs, and ' + s.mocks.length + ' original mock records. Unfinished work is included.' : problem };
+      return { ok: saved, kind: 'v2', message: saved ? 'Merged progress: ' + (s.attempts.length - before) + ' new attempts, ' + s.exam1.runs.length + ' Exam 1 runs, '+s.exam2.runs.length+' Exam 2 runs, and ' + s.mocks.length + ' original mock records. Unfinished work is included.' : problem };
     }
     if (d && d.schema === 'comd4590-progress-backup-v1' && d.storage) {
       var p = {};
@@ -195,6 +232,6 @@
     return { ok: false, message: 'Unrecognized file. Expected a v2 export, a v1 "comd4590-progress-backup-v1" backup, or a Lecture 2 drill export.' };
   }
 
-  L.store = { KEY: KEY, load: load, save: save, reset: reset, exportJSON: exportJSON, exportBefore: exportBefore, importText: importText,
+  L.store = { KEY: KEY, load: load, save: save, reset: reset, exportJSON: exportJSON, exportBefore: exportBefore, exportBeforeExam2: exportBeforeExam2, importText: importText,
     ok: function () { return storageOK; }, problem: function () { return problem; }, _setMem: function (s) { mem = normalize(s); lastRaw = lsGet(KEY); }, _blank: blank, _lsDel: lsDel };
 })(typeof window !== 'undefined' ? window : globalThis);

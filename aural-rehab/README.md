@@ -1,4 +1,19 @@
-# COMD 4590 Exam 1 Lab (v2)
+# COMD 4590 Aural Rehabilitation Study Lab (v2)
+
+## October 20: Exam 2, supplied first two parts
+
+Open **Exam 2** for 10 complete lessons, 34 teaching sections, 44 concepts, 101 original automatic questions, 11 written prompts with explicit rubrics, three cases, figure practice, Boss, targeted review and a partial learning mock. The presentation follows the accepted geology lab: blue headings, magenta key terms, gold documented lecture emphasis, useful bullets, source drawers and real course figures. Twenty original figures/reference pages and 188 exact source locations are bundled locally.
+
+Ten synthetic Ethan-voice explanations (8 minutes 21 seconds total) use the established local History Tok voice route. Native controls include seeking and speed; complete transcripts and written lessons stay available. Script/hash, unprompted encoded transcription, loudness and true-peak checks passed. Pronunciation, prosody and naturalness remain pending actual listening; these are explicitly labeled private review candidates.
+
+Coverage is **partial Exam 2**. The supplied Lectures 4–5 do not include the later auditory-training, APD guest and visual-stimulus material announced in class. The 30-question plus choose-two-written learning set is an authored practice design; final Exam 2 counts and weights are unknown. Conflicting source values remain visible in Sources and are excluded from ambiguous keys.
+
+The existing file path, `comd4590-lab-v2` storage key, original questions, checked snapshots, first answers, confidence, drafts and history are retained. Data exports include both exams and topic notes. A pre-Exam 2 recovery copy is available after updating an existing record. Reading, listening and marking a topic studied do not award mastery. Written results are explicit rubric self-assessments.
+
+Double-click **index.html** to open the saved offline lab. The local review preview is `http://127.0.0.1:8933/#exam2` while its preview server runs. This address, a local file and a hosted site have separate browser storage. Use Data export/import when transferring progress. The preview starts clean; no QA attempts were put there. The complete Exam 2 extension is published here at Ethan’s explicit request, including its course source files, source pages, figures and narration.
+
+Implementation and verification: `docs/EXAM2_BUILD_2026-10-20.md`. The following entries describe the earlier Exam 1 edition.
+
 
 Offline study lab for COMD 4590 Aural Rehabilitation (Dr. Whitney Sutherland), Exam 1 (scheduled 9/29/2026).
 No accounts or paid APIs. The downloaded lab works offline; the hosted edition loads from its URL. Progress stays in each person's browser and is never uploaded to a server.
@@ -10,8 +25,6 @@ September 25 question-style repair: the full 284-item multiple-choice bank was c
 September 26 progress repair: a finished Exam 1 run opens its results instead of appearing unfinished. Review misses shows both open mistakes and recent mistakes resolved by later correct work; the original first-response score stays in My history. Newly checked graded answers in mocks and drills, individual audiogram parts, and self-rated Exam 1 writing update the shared concept record. Completing a run alone does not grant mastery: a concept still needs two correct, unhinted answers on different questions, with medium or high confidence on the latest. Older mock records remain saved but mastery-neutral, so the update does not retroactively change anyone's progress.
 
 **Every question gives immediate feedback.** MC/T/F checks when you select an answer. Graph parts check as you select them. Numeric/multiple-response tasks have a per-question check action. Written work reveals its rubric when you click **Check this answer now**, then you honestly rate your own response. Your first answer stays scored; no full-exam submission is needed to see corrections.
-
-September 28 word-clue addition: Guide sections 4 and 5 and the matching Exam 1 chapters now decode meaningful Greek/Latin medical roots for every taught infection, injury and syndrome. Relevant clues also appear after each practice or mock answer. Eponyms are labeled as names; the clue instead decodes a signature term such as micrognathia, syndactyly or retinitis pigmentosa. Stickler’s collagen formation problem and CHARGE’s reduced pinna cartilage are distinguished using the 9/08 recording and Lecture 2 slides. No question, answer key, ID or saved-progress schema changed.
 
 ## Open it
 1. Unzip the folder anywhere.
