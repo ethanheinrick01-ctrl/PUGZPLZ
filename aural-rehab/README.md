@@ -1,19 +1,20 @@
 # COMD 4590 Aural Rehabilitation Study Lab (v2)
 
-## October 20: Exam 2, supplied first two parts
+## October 22: Lecture 6 integrated into Exam 2
 
-Open **Exam 2** for 10 complete lessons, 34 teaching sections, 44 concepts, 101 original automatic questions, 11 written prompts with explicit rubrics, three cases, figure practice, Boss, targeted review and a partial learning mock. The presentation follows the accepted geology lab: blue headings, magenta key terms, gold documented lecture emphasis, useful bullets, source drawers and real course figures. Twenty original figures/reference pages and 188 exact source locations are bundled locally.
+Exam 2 now covers the supplied Lectures 4–6: 16 lessons, 62 teaching sections, 69 concepts, 157 original automatic questions, 16 written prompts with explicit rubrics, five cases, figure practice, Boss, targeted Review and the partial learning mock. The six auditory-training topics extend the same existing framework and geology-style presentation: blue headings, magenta terms, gold documented emphasis, complete teaching points and direct source access.
 
-Ten synthetic Ethan-voice explanations (8 minutes 21 seconds total) use the established local History Tok voice route. Native controls include seeking and speed; complete transcripts and written lessons stay available. Script/hash, unprompted encoded transcription, loudness and true-peak checks passed. Pronunciation, prosody and naturalness remain pending actual listening; these are explicitly labeled private review candidates.
+The addition contains 28 teaching sections, 25 concepts, 56 automatic items, five written rubrics, two cases, six actual source figures/reference pages and 79 exact source locations. All 56 supplied slides were freshly rendered. The original filled PPT, October 22 automatic transcript, exported PDF, FAPI and goal handouts are linked in Sources. In total, the lab includes 26 figures/reference pages and 267 source locations. Earlier questions and all original source files are preserved.
 
-Coverage is **partial Exam 2**. The supplied Lectures 4–5 do not include the later auditory-training, APD guest and visual-stimulus material announced in class. The 30-question plus choose-two-written learning set is an authored practice design; final Exam 2 counts and weights are unknown. Conflicting source values remain visible in Sources and are excluded from ambiguous keys.
+Six new synthetic Ethan-voice explanations add 5 minutes 29 seconds, bringing the lab to 16 explanations (about 13 minutes 50 seconds). Native playback is on demand with seeking, speed choices, audio downloads and full transcripts. Pronunciation, prosody and naturalness remain pending actual listening, as stated on the players; objective content and delivery checks are recorded separately.
 
-The existing file path, `comd4590-lab-v2` storage key, original questions, checked snapshots, first answers, confidence, drafts and history are retained. Data exports include both exams and topic notes. A pre-Exam 2 recovery copy is available after updating an existing record. Reading, listening and marking a topic studied do not award mastery. Written results are explicit rubric self-assessments.
+Coverage remains partial: APD guest and visual-stimulus material are still missing, and final Exam 2 counts/weights are unconfirmed. The partial mock retains 30 automatic questions plus a choice of two of four written prompts, now spanning Lectures 4–6. This is an authored study format. Source conflicts and assisted-fill provenance remain visible.
 
-Double-click **index.html** to open the saved offline lab. The local review preview is `http://127.0.0.1:8933/#exam2` while its preview server runs. This address, a local file and a hosted site have separate browser storage. Use Data export/import when transferring progress. The preview starts clean; no QA attempts were put there. The complete Exam 2 extension is published here at Ethan’s explicit request, including its course source files, source pages, figures and narration.
+The existing `comd4590-lab-v2` key, original questions and IDs, first answers, checked snapshots, confidence, flags, corrections, drafts, notes, mastery and history are retained. Reading/listening does not award checked mastery. Written results are explicit learner rubric self-assessments. Data export/import transfers progress between separate origins without replacing saved first responses.
 
-Implementation and verification: `docs/EXAM2_BUILD_2026-10-20.md`. The following entries describe the earlier Exam 1 edition.
+Open **index.html** for the saved offline lab. The existing public site is https://ethanheinrick01-ctrl.github.io/PUGZPLZ/aural-rehab/#exam2. Sources are included under Ethan’s continuing explicit publication authorization. Each browser/profile/origin keeps separate progress; use Data to back it up or transfer it.
 
+The following entries describe the earlier Exam 1 edition.
 
 Offline study lab for COMD 4590 Aural Rehabilitation (Dr. Whitney Sutherland), Exam 1 (scheduled 9/29/2026).
 No accounts or paid APIs. The downloaded lab works offline; the hosted edition loads from its URL. Progress stays in each person's browser and is never uploaded to a server.

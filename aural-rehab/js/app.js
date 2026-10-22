@@ -36,7 +36,7 @@
     var lastMock = s.mocks[s.mocks.length - 1], sess = s.session, d = daysToExam();
     var h = [storageBanner()];
     h.push('<div class="spread"><div><h1>COMD 4590 Study Lab</h1><p class="muted">Whitney Sutherland · Aural Rehabilitation · Fall 2026. Course progress includes both exam areas; choose an exam below for its own scope.</p></div></div>');
-    h.push('<div class="card"><h2>Exam 2 · Lectures 4–5</h2><p>The first two supplied parts: complete lessons, source figures, Ethan-voice explanations, original practice, and written rubrics. Coverage remains partial until the remaining material is added.</p><a class="btn pri" href="#exam2">Enter Exam 2</a></div>');
+    h.push('<div class="card"><h2>Exam 2 · Lectures 4–6</h2><p>Cochlear implants, listening development, speech acoustics, and the October 22 auditory-training addition: complete lessons, source figures, Ethan-voice explanations, original practice, and written rubrics. APD guest and visual-stimulus coverage remain pending.</p><a class="btn pri" href="#exam2">Enter Exam 2</a></div>');
     h.push('<div class="card"><h2>Exam 1 · September 24 update</h2><p>Twelve focused chapters, completed Lecture 3, and 52 objective + two audiogram + two written learning mocks. Immediate feedback on every question, autosave and a dedicated miss queue.</p><a class="btn pri" href="#exam1">Enter Exam 1</a></div>');
     h.push('<div class="grid g4">');
     h.push('<div class="tile"><b>' + mastered + '/' + ids.length + '</b><span>concepts mastered</span></div>');

@@ -40,9 +40,9 @@
   }).join('')+'</div>';
  }
  function overview(){
-  base('','Exam 2 · Aural Rehabilitation','Cochlear implants, listening development, speech acoustics, and the supplied handouts. Learn the concepts, check your reasoning, and keep your first answers.');
+  base('','Exam 2 · Aural Rehabilitation','Cochlear implants, listening development, speech acoustics, and auditory training. Learn the concepts, check your reasoning, and keep your first answers.');
   var active=X.get(X.state().activeId);
-  el('e2body').innerHTML='<div class="callout"><b>First two parts · partial Exam 2 coverage</b><br>The October 20 lecture also names auditory training, APD guest material, and visual-stimulus content. Those materials are still missing here. Full-exam simulation is unavailable until the remaining scope is supplied.</div>'+
+  el('e2body').innerHTML='<div class="callout"><b>Lectures 4–6 · auditory training added October 22</b><br>The 56-slide Auditory Training deck and October 22 lecture are integrated below. APD guest and visual-stimulus material remain missing; final Exam 2 counts and scoring are unconfirmed. The partial mock remains a practice design.</div>'+
    (active&&!X.score(active).complete?'<div class="card"><b>Saved work:</b> '+esc(active.title)+' '+link('Resume','run/'+active.id)+'</div>':'')+
    metrics()+'<p class="legend"><span class="e2-term">Magenta: key terms</span> · <span class="e2-emphasis">Gold: documented lecture emphasis</span> · Blue: headings and navigation. Reading and listening do not award mastery.</p>'+cards();bindPractice();
  }
@@ -75,9 +75,9 @@
   if(target){var n=target.indexOf('section-')===0?target:'section-'+Math.max(0,t.sections.findIndex(function(s){return (s.concepts||[]).indexOf(target.replace(/^e2-/,''))>=0;}));var node=el(n);if(node)node.scrollIntoView({block:'start'});}
  }
  function practice(){
-  base('practice','Practice the supplied material','Choose a topic or mix the two lectures. Select an answer, then submit a confidence level to reveal feedback.');
-  el('e2body').innerHTML='<div class="card"><h2>Mixed practice</h2><p>20 questions from Lectures 4–5. Misses return after two intervening activities; low-confidence correct answers return after four. First answers remain saved.</p>'+button('Start mixed practice','id="mixed"')+'</div>'+cards();
-  el('mixed').onclick=function(){begin('mixed','Lectures 4–5 · mixed practice',X.select(null,20));};bindPractice();
+  base('practice','Practice the supplied material','Choose a topic or mix Lectures 4–6. Select an answer, then submit a confidence level to reveal feedback.');
+  el('e2body').innerHTML='<div class="card"><h2>Mixed practice</h2><p>20 questions from Lectures 4–6. Misses return after two intervening activities; low-confidence correct answers return after four. First answers remain saved.</p>'+button('Start mixed practice','id="mixed"')+'</div>'+cards();
+  el('mixed').onclick=function(){begin('mixed','Lectures 4–6 · mixed practice',X.select(null,20));};bindPractice();
  }
  function writing(){
   base('writing','Short-answer workshop','Practice the requested count of distinct points. Rubrics are authored study aids, and you explicitly assess your own draft.');
@@ -90,14 +90,14 @@
   main.querySelectorAll('[data-case]').forEach(function(b){b.onclick=function(){var c=D.cases.find(function(c){return c.id===b.dataset.case;});begin('case',c.title,c.items);};});
  }
  function challenge(view){
-  var boss=view==='boss';base(view,boss?'Exam 2 Boss challenge':'Partial Exam 2 practice set',boss?'A 24-question challenge across the supplied material. Only a fully answered run qualifies for a best score.':'A learning mock for Lectures 4–5. Its structure is a practice choice, not the announced Exam 2 format.');
+  var boss=view==='boss';base(view,boss?'Exam 2 Boss challenge':'Partial Exam 2 practice set',boss?'A 24-question challenge across the supplied material. Only a fully answered run qualifies for a best score.':'A learning mock for Lectures 4–6. Its structure is a practice choice, not the announced Exam 2 format.');
   var complete=X.state().runs.filter(function(r){return r.kind==='boss'&&r.ended&&X.score(r).complete;}),best=complete.reduce(function(n,r){var s=X.score(r);return Math.max(n,s.auto/s.autoN);},0);
   el('e2body').innerHTML='<div class="callout"><b>Coverage remains partial.</b> '+esc(D.missing.join(' · '))+'.</div><div class="card"><h2>'+(boss?'24 automatic questions':'30 automatic questions + your choice of two written prompts')+'</h2><p>'+(boss?'Your first responses determine the run score. An early ending remains incomplete.':'Immediate feedback follows each confidence-rated answer. Written rubric scores are shown separately. This does not reproduce unknown exam weights.')+'</p>'+
-   (boss?'<p>Best completed Boss: '+(complete.length?Math.round(best*100)+'%':'none yet')+'</p>':[D.written[0],D.written[1],D.written[5],D.written[8]].map(function(w){return '<p><label><input type="checkbox" name="mockWrite" value="'+w.id+'"> '+esc(w.q)+'</label></p>';}).join(''))+
+   (boss?'<p>Best completed Boss: '+(complete.length?Math.round(best*100)+'%':'none yet')+'</p>':(D.practiceWriting||[]).map(function(id){return D.written.find(function(w){return w.id===id;});}).filter(Boolean).map(function(w){return '<p><label><input type="checkbox" name="mockWrite" value="'+w.id+'"> '+esc(w.q)+'</label></p>';}).join(''))+
    button(boss?'Start Boss':'Start partial practice set','id="challengeStart"')+'<p id="challengeMsg" role="status"></p></div><div class="empty">Full-scope Exam 2 simulation: awaiting remaining materials and confirmed format.</div>';
   el('challengeStart').onclick=function(){
    var ws=[];if(!boss){ws=Array.from(main.querySelectorAll('[name=mockWrite]:checked')).map(function(b){return D.written.find(function(w){return w.id===b.value;});});if(ws.length!==2){el('challengeMsg').textContent='Choose exactly two written prompts.';return;}}
-   begin(boss?'boss':'partial',boss?'Lectures 4–5 · Boss':'Lectures 4–5 · partial practice set',X.select(null,boss?24:30),ws);
+   begin(boss?'boss':'partial',boss?'Lectures 4–6 · Boss':'Lectures 4–6 · partial practice set',X.select(null,boss?24:30),ws);
   };
  }
  function review(){
@@ -118,7 +118,7 @@
  }
  function sourceIndex(){
   base('sources','Sources, scope, and unresolved details','Current-course materials control the lessons. Historical exam evidence shapes the style of original practice; it does not predict Exam 2 weights.');
-  el('e2body').innerHTML='<div class="callout"><b>Scope decision:</b> October 6 directs CI study to Sutherland’s lecture. October 20 names additional upcoming topics. This build covers the supplied first two parts.</div><div class="card"><h2>Source conflicts retained</h2><ul class="note-points">'+D.conflicts.map(function(c){return '<li>'+esc(c)+'</li>';}).join('')+'</ul></div><div class="card"><h2>Original source files</h2><p><a href="assets/exam2/source-packet.zip" download>Download the original supplied packet (ZIP)</a></p>'+Object.keys(D.sources).map(function(k){var s=D.sources[k];return '<p><a href="'+esc(s.f)+'" target="_blank" rel="noopener">'+esc(s.t)+'</a></p>';}).join('')+'</div><div class="card"><h2>Practice design</h2><p>'+D.items.length+' original automatic questions, mixed three/four-choice MC and T/F, three cases, and 11 written rubrics. Final Exam 2 counts and weights are not confirmed. The learning mock’s design is stated on its launch screen.</p><p class="caption">Authoring evidence: COMD4590-EXAM1-RECALL-20260929; cutoff September 29, 2026. Student recall establishes observed style, not an official answer key. Private recall and student responses are not included here.</p></div>';
+  el('e2body').innerHTML='<div class="callout"><b>Scope decision:</b> October 6 directs CI study to Sutherland’s lecture. The supplied Lectures 4–6 now include the October 22 auditory-training deck and discussion. APD guest and visual-stimulus material remain missing.</div><div class="card"><h2>Source conflicts retained</h2><ul class="note-points">'+D.conflicts.map(function(c){return '<li>'+esc(c)+'</li>';}).join('')+'</ul></div><div class="card"><h2>Original source files</h2><p><a href="assets/exam2/source-packet.zip" download>Download the original October 20 packet (ZIP)</a></p><p>Lecture 6 originals and its goal/FAPI references are linked individually below. The filled deck includes student/assisted fills; it is not an official answer key. Source drawers preserve the matching slides and transcript passages.</p>'+Object.keys(D.sources).map(function(k){var s=D.sources[k];return '<p><a href="'+esc(s.f)+'" target="_blank" rel="noopener">'+esc(s.t)+'</a></p>';}).join('')+'</div><div class="card"><h2>Practice design</h2><p>'+D.items.length+' original automatic questions, mixed three/four-choice MC and T/F, '+D.cases.length+' cases, and '+D.written.length+' written rubrics. Final Exam 2 counts and weights are not confirmed. The learning mock’s design is stated on its launch screen.</p><p class="caption">Authoring evidence: COMD4590-EXAM1-RECALL-20260929; cutoff September 29, 2026, with current lectures through October 22. Student recall establishes observed style, not an official answer key.</p></div>';
  }
  function renderWriting(r,t,index){
   var h='<div class="card"><p class="prompt">'+esc(t.item.q)+'</p><label for="writtenDraft">Your original answer</label><textarea id="writtenDraft" '+(t.revealed?'readonly':'')+'></textarea>';

@@ -3,7 +3,7 @@
 Live homepage: https://ethanheinrick01-ctrl.github.io/PUGZPLZ/
 
 - `diagnostics/`: COMD 4756 Diagnostics, latest v2 release; 440 activities across 18 modules.
-- `aural-rehab/`: COMD 4590 Aural Rehab lab with its preserved Exam 1 edition and the supplied first two parts of Exam 2 (Lectures 4–5).
+- `aural-rehab/`: COMD 4590 Aural Rehab lab with its preserved Exam 1 edition and the supplied Lectures 4–6 of Exam 2, including October 22 auditory training.
 
 Each lab includes its complete runtime, images, documentation and tests. GitHub Pages serves `main` from the repository root; `.nojekyll` keeps this a static deployment.
 
@@ -15,6 +15,6 @@ Progress belongs to each browser profile. Both labs retain export/import for bac
 
 ## Verification
 
-See the [Exam 2 release receipt](aural-rehab/docs/EXAM2_RELEASE_2026-10-20.md) and [earlier two-lab receipt](docs/RELEASE.md). Serve the repository locally on port 8794 and run `node tests/site.cjs` with Playwright installed and Chrome available. `TEST_URL` can select another server; `PLAYWRIGHT_MODULE` can specify a Playwright module path. Test profiles are temporary and independent of personal browsing profiles.
+See the [October 22 addition receipt](aural-rehab/docs/LECTURE6_2026-10-22.md), [Exam 2 release receipt](aural-rehab/docs/EXAM2_RELEASE_2026-10-20.md) and [earlier two-lab receipt](docs/RELEASE.md). Serve the repository locally on port 8794 and run `node tests/site.cjs` with Playwright installed and Chrome available. `TEST_URL` can select another server; `PLAYWRIGHT_MODULE` can specify a Playwright module path. Test profiles are temporary and independent of personal browsing profiles.
 
-Exam 2 includes 10 lessons, 101 automatic questions, 11 writing prompts, three cases, source pages/files, real figures and 10 synthetic Ethan-voice explanations. Later Exam 2 material is still missing; the app labels coverage as partial. Audio transcript/level/playback checks passed; pronunciation and delivery listening review remain pending.
+Exam 2 includes 16 lessons, 157 automatic questions, 16 writing prompts, five cases, source pages/files, real figures and 16 synthetic Ethan-voice explanations. Later Exam 2 material is still missing; the app labels coverage as partial. Audio transcript/level/playback checks passed; pronunciation and delivery listening review remain pending.
