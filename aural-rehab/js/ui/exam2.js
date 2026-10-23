@@ -57,11 +57,16 @@
    '<label>Playback speed <select id="audioSpeed"><option value=".75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option></select></label> <a href="'+esc(a.src)+'" download>Save audio</a>'+
    '<details><summary>Read the narration transcript</summary><p class="transcript">'+esc(a.text)+'</p></details></section>';
  }
+ function film(t){
+  var f=(L.EXAM2_FILMS||{})[t.id];if(!f)return '';
+  var path='assets/exam2/films/'+t.id;
+  return '<section class="card player"><h2>Watch the listening task unfold</h2><p>'+esc(f.title)+'</p><p class="caption">Original schematic teaching animation · synthetic Ethan voice · pronunciation and naturalness listening review pending.</p><video id="lessonFilm" controls playsinline preload="metadata" style="width:100%;height:auto;aspect-ratio:16/9" poster="'+path+'.jpg"><source src="'+path+'.mp4" type="video/mp4"><track kind="captions" src="'+path+'.vtt" srclang="en" label="English" default></video><div class="controls" aria-label="Film chapters">'+f.chapters.map(function(c){return '<button type="button" data-film-seek="'+c[0]+'">'+esc(c[1])+'</button>';}).join('')+'</div><label>Film speed <select id="filmSpeed"><option value=".75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option></select></label> · <a href="'+path+'.mp4" download>Save video</a><details><summary>Read the film transcript</summary><p class="transcript">'+esc(f.text)+'</p></details><p class="caption">Examples illustrate task demands; they are not a diagnostic demonstration. Watching does not award mastery.</p>'+sources([f.source])+'</section>';
+ }
  function learn(id,target){
   var t=topic(id);if(!t)return overview();
   base('guide',esc(t.title),esc(t.summary));
   el('e2body').innerHTML='<div class="navline">'+link('← All topics','')+'<div>'+button('Topic practice','data-practice="'+t.id+'"')+(X.pool(t.id,true).length?button('Figure practice','data-figures="'+t.id+'"'):'')+'</div></div>'+
-   '<p class="legend"><span class="e2-term">Key terms</span> · <span class="e2-emphasis">Lecture emphasis</span> · '+esc(t.part)+'</p>'+media(t)+
+   '<p class="legend"><span class="e2-term">Key terms</span> · <span class="e2-emphasis">Lecture emphasis</span> · '+esc(t.part)+'</p>'+film(t)+media(t)+
    '<div class="toc">'+t.sections.map(function(s,i){return '<a href="#exam2/topic/'+id+'/section-'+i+'">'+esc(s.title)+'</a>';}).join('')+'</div>'+
    t.sections.map(function(s,i){return '<section class="card note-group" id="section-'+i+'"><h2 class="note-heading">'+esc(s.title)+'</h2><ul class="note-points">'+s.points.map(function(p){return '<li>'+p+'</li>';}).join('')+'</ul>'+sources(s.sources)+'</section>';}).join('')+
    (t.figures.length?'<h2>Source figures and reference pages</h2><p class="caption">Open any figure to enlarge it. Source geometry and labels are preserved.</p><div class="figure-grid">'+t.figures.map(function(f){var path='assets/exam2/figures/'+f.id+'.jpg';return '<figure><a href="'+path+'" target="_blank" rel="noopener"><img src="'+path+'" alt="'+esc(f.label)+'" loading="lazy"></a><figcaption><b>'+esc(f.label)+'</b><p>'+esc(f.notice)+'</p>'+sources([f.source])+'</figcaption></figure>';}).join('')+'</div>':'')+
@@ -71,6 +76,12 @@
   el('studyNote').oninput=function(){X.state().notes[t.id]=Object.assign({},X.state().notes[t.id]||{},{text:this.value,updated:Date.now()});el('noteStatus').textContent=X.touch()?'Saved.':'Not saved: '+S.problem();};
   el('markRead').onclick=function(){X.state().read[t.id]=Date.now();X.touch();this.textContent='Marked studied';};
   if(el('audioSpeed'))el('audioSpeed').onchange=function(){el('lessonAudio').playbackRate=+this.value;};
+  var video=el('lessonFilm');if(video){
+   main.querySelectorAll('[data-film-seek]').forEach(function(b){b.onclick=function(){video.currentTime=+b.dataset.filmSeek;};});
+   el('filmSpeed').onchange=function(){video.playbackRate=+this.value;};
+   video.onplay=function(){var a=el('lessonAudio');if(a)a.pause();};
+   el('lessonAudio').onplay=function(){video.pause();};
+  }
   bindPractice();
   if(target){var n=target.indexOf('section-')===0?target:'section-'+Math.max(0,t.sections.findIndex(function(s){return (s.concepts||[]).indexOf(target.replace(/^e2-/,''))>=0;}));var node=el(n);if(node)node.scrollIntoView({block:'start'});}
  }
