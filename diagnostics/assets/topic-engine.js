@@ -56,6 +56,7 @@
     const focusPractice=run.type==='focus'&&run.adaptiveReviewVersion==='focus-v1'&&['priority','review'].includes(run.focusMode);
     if((run.type!=='practice'&&!focusPractice)||occ.rep>=2||occ.snapshot.type==='list'||occ.snapshot.type==='teach')return 0;
     const gap=!response.correct?2:response.confidence==='low'?4:0;if(!gap)return 0;
+    if(run.strictReturnSpacing&&run.items.length-run.index-1<gap){response.reviewDeferred=true;return 0;}
     const copy=clone(occ);
     // Unique occurrence IDs also survive differently sized queues and tab merges.
     copy.key='repeat-'+response.checkedAt+'-'+occ.key;copy.rep=occ.rep+1;

@@ -1,0 +1,7 @@
+.e2-scope {border-left:4px solid var(--accent,#65d2cf)}
+.e2-original img {display:block;width:min(100%,740px);max-height:560px;object-fit:contain;margin:1rem auto;background:#dce9ec}
+.e2-original figcaption {font-size:.9rem;line-height:1.6}
+.topic-shell .tablewrap {overflow:auto}
+.topic-shell video {width:100%;aspect-ratio:16/9}
+.movie-stage .btn {min-height:44px}
+@media(max-width:600px){.topin {flex-wrap:wrap}.brand {font-size:1rem}.topic-shell .tablewrap {max-width:100%}.e2-original img{max-height:360px}}
