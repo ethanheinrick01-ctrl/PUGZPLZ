@@ -1,12 +1,13 @@
 (function(root){
  'use strict';
- var L=root.L,D=L.EXAM2_DATA,X=L.exam2,E=L.engine,S=L.store,U=L.util,I=L.itemUI,esc=U.esc,main;
+ var L=root.L,D=L.EXAM2_DATA,X=L.exam2,E=L.engine,S=L.store,U=L.util,I=L.itemUI,esc=U.esc,main,filmResize;
  function go(route){location.hash='#exam2'+(route?'/'+route:'');}
  function el(id){return main.querySelector('#'+id);}
  function button(label,attrs){return '<button class="btn" '+(attrs||'')+'>'+label+'</button>';}
  function link(label,route){return '<a class="btn" href="#exam2/'+route+'">'+label+'</a>';}
  function topic(id){return D.topics.find(function(t){return t.id===id;});}
  function base(view,title,lead){
+  if(filmResize){filmResize.disconnect();filmResize=null;}
   var tabs=[['','Overview'],['guide','Guide'],['practice','Practice'],['writing','Writing'],['cases','Cases'],['boss','Boss'],['partial','Partial mock'],['review','Review'],['history','History'],['progress','Progress'],['sources','Sources']];
   main.classList.add('e2');
   main.innerHTML='<div class="eyebrow">COMD 4590 · Fall 2026 · Whitney Sutherland</div><h1>'+title+'</h1>'+(lead?'<p class="lead">'+lead+'</p>':'')+
@@ -59,8 +60,8 @@
  }
  function film(t){
   var f=(L.EXAM2_FILMS||{})[t.id];if(!f)return '';
-  var path='assets/exam2/films/'+t.id;
-  return '<section class="card player"><h2>Watch the listening task unfold</h2><p>'+esc(f.title)+'</p><p class="caption">Original schematic teaching animation · synthetic Ethan voice · pronunciation and naturalness listening review pending.</p><video id="lessonFilm" controls playsinline preload="metadata" style="width:100%;height:auto;aspect-ratio:16/9" poster="'+path+'.jpg"><source src="'+path+'.mp4" type="video/mp4"><track kind="captions" src="'+path+'.vtt" srclang="en" label="English" default></video><div class="controls" aria-label="Film chapters">'+f.chapters.map(function(c){return '<button type="button" data-film-seek="'+c[0]+'">'+esc(c[1])+'</button>';}).join('')+'</div><label>Film speed <select id="filmSpeed"><option value=".75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option></select></label> · <a href="'+path+'.mp4" download>Save video</a><details><summary>Read the film transcript</summary><p class="transcript">'+esc(f.text)+'</p></details><p class="caption">Examples illustrate task demands; they are not a diagnostic demonstration. Watching does not award mastery.</p>'+sources([f.source])+'</section>';
+  var path='assets/exam2/films/'+t.id;var visualNote='<details><summary>Visual sources and diagram notes</summary><p>Original diagrams and AI-assisted illustrations connect the course concepts to a listening activity and room. The figures are illustrative, not patient photographs or device anatomy.</p><p>Visual research: <a href="https://www.boystownhospital.org/knowledge-center/supporting-auditory-skills-development-home" target="_blank" rel="noopener noreferrer">Boys Town National Research Hospital: auditory-skills activity wheel and listening environment</a>. The course’s four listening levels remain the teaching framework; outside illustrations add context, not exam scoring rules.</p></details>';
+  return '<section class="card player"><h2>Watch the listening task unfold</h2><p>'+esc(f.title)+'</p><p class="caption">Source-backed diagram animation · AI-assisted illustrations · synthetic Ethan voice · pronunciation and naturalness listening review pending.</p><p class="film-mobile-hint">For diagram detail, use full screen and turn your phone sideways.</p><video id="lessonFilm" controls playsinline preload="metadata" style="width:100%;height:auto;aspect-ratio:16/9" poster="'+path+'.jpg?v=20261023-diagrams3"><source src="'+path+'.mp4?v=20261023-diagrams3" type="video/mp4"><track kind="captions" src="'+path+'.vtt?v=20261023-diagrams4" srclang="en" label="English" default></video><div class="controls" aria-label="Film chapters">'+f.chapters.map(function(c){return '<button class="btn" type="button" data-film-seek="'+c[0]+'">'+esc(c[1])+'</button>';}).join('')+'</div><label>Film speed <select id="filmSpeed"><option value=".75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option></select></label> · <a href="'+path+'.mp4" download>Save video</a><details><summary>Read the film transcript</summary><p class="transcript">'+esc(f.text)+'</p></details><p class="caption">Examples illustrate task demands; they are not a diagnostic demonstration. Watching does not award mastery.</p>'+visualNote+sources([f.source])+'</section>';
  }
  function learn(id,target){
   var t=topic(id);if(!t)return overview();
@@ -77,6 +78,14 @@
   el('markRead').onclick=function(){X.state().read[t.id]=Date.now();X.touch();this.textContent='Marked studied';};
   if(el('audioSpeed'))el('audioSpeed').onchange=function(){el('lessonAudio').playbackRate=+this.value;};
   var video=el('lessonFilm');if(video){
+   function placeCaptions(){
+    var line=video.clientWidth<700?55:82;
+    Array.from(video.textTracks).forEach(function(track){Array.from(track.cues||[]).forEach(function(cue){cue.snapToLines=false;cue.line=line;});});
+   }
+   video.querySelector('track').addEventListener('load',placeCaptions);
+   video.addEventListener('loadedmetadata',placeCaptions);
+   if(window.ResizeObserver){filmResize=new ResizeObserver(placeCaptions);filmResize.observe(video);}
+   placeCaptions();
    main.querySelectorAll('[data-film-seek]').forEach(function(b){b.onclick=function(){video.currentTime=+b.dataset.filmSeek;};});
    el('filmSpeed').onchange=function(){video.playbackRate=+this.value;};
    video.onplay=function(){var a=el('lessonAudio');if(a)a.pause();};

@@ -46,3 +46,6 @@ body{background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,B
 .e2 .toc{display:flex;flex-wrap:wrap;gap:.65rem;margin:1rem 0}
 @media(max-width:720px){.e2 .topic-grid,.e2 .figure-grid{grid-template-columns:1fr}.e2 .metric-grid{grid-template-columns:repeat(2,1fr)}.e2 .note-group{scroll-margin-top:140px;padding:1.1rem}.e2 .subnav{gap:.3rem}.e2 figure{padding:.5rem}.e2 .note-points{padding-left:1.1rem}.e2 .run-card{width:100%}}
 @media print{.top,.e2 .subnav,.e2 .controls,.e2 audio,.e2 button{display:none}.e2,.e2 .card{color:#111;background:white}.e2 .e2-term{color:#74205c}.e2 .e2-emphasis{color:#695000}.e2 h2,.e2 h3{color:#164c76}.e2 .note-group{break-inside:avoid}.e2 details:not([open]){display:none}}
+
+.e2 .film-mobile-hint{display:none}
+@media(max-width:640px){.e2 .film-mobile-hint{display:block;font-size:.9rem;line-height:1.5;color:var(--muted);margin:.65rem 0}}
