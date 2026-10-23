@@ -3,9 +3,9 @@ const {loadLab,ROOT}=require('./load.cjs');let passed=0;
 function test(name,fn){fn();passed++;console.log('PASS '+name);}
 let {L,storage}=loadLab(),D=L.EXAM2_DATA,E=L.engine,X=L.exam2,S=L.store;
 const correct=i=>i.o.findIndex(o=>o.ok),wrong=i=>i.o.findIndex(o=>!o.ok);
-test('complete new bank has valid keys, source locations, and at least two independent roots per concept',()=>{
+test('complete new bank has valid keys, source locations, and at least eight independent roots per concept',()=>{
  const ids=new Set();D.items.forEach(raw=>{assert(!ids.has(raw.id));ids.add(raw.id);const i=E.resolve({id:raw.id});assert(i);assert.equal(i.o.filter(o=>o.ok).length,1);assert(D.conceptNames[i.c]);assert(i.s.every(c=>D.sourcePages[c]));if(i.t==='mc')assert([3,4].includes(i.o.length));});
- D.topics.forEach(t=>t.concepts.forEach(c=>{const roots=X.pool(t.id).filter(i=>i.c===c);assert(roots.length>=2,c);assert(new Set(roots.map(i=>i.q)).size>=2,c);}));
+ D.topics.forEach(t=>t.concepts.forEach(c=>{const roots=X.pool(t.id).filter(i=>i.c===c);assert(roots.length>=8,c);assert(new Set(roots.map(i=>i.q)).size>=8,c);assert.equal(X.select(t.id,8,false,[c]).length,8,c);assert.equal(new Set(E.practiceRefs({concepts:[c],n:8}).map(r=>r.id)).size,8,c);}));
  D.written.forEach(w=>{assert(w.rubric.length>=3&&w.model&&w.s.every(c=>D.sourcePages[c]));});
 });
 test('legacy 35/70 item mock scope remains Exam 1',()=>{[35,70].forEach(n=>{const m=E.buildMock(n);assert.equal(m.refs.length,n);assert(m.refs.every(r=>!E.resolve(r).exam));S.load().mockActive=null;});});

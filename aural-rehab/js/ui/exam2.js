@@ -22,7 +22,12 @@
  }
  function sources(codes){return '<details class="sources"><summary>Direct source material · '+codes.map(function(c){return esc(L.srcLabel(c));}).join(' · ')+'</summary>'+codes.map(source).join('')+'</details>';}
  function begin(kind,title,ids,writing){var r=X.start(kind,title,ids,writing);go('run/'+r.id);}
+ function conceptPractice(t,c,st){
+  var available=X.pool(t.id).filter(function(i){return i.c===c;}).length,n=Math.min(8,available);
+  return '<div class="history-row"><p class="small"><a href="#exam2/topic/'+t.id+'/'+c+'">'+esc(D.conceptNames[c])+'</a> · '+esc(st[c].status)+' · '+st[c].att+' checks · '+available+' questions available</p>'+button('Practice '+n+' questions','data-concept="'+c+'" aria-label="Practice '+n+' questions: '+esc(D.conceptNames[c])+'" '+(!n?'disabled':''))+'</div>';
+ }
  function bindPractice(){
+  main.querySelectorAll('[data-concept]').forEach(function(b){b.onclick=function(){var c=b.dataset.concept,t=D.topics.find(function(t){return t.concepts.indexOf(c)>=0;});begin('topic',D.conceptNames[c]+' · mastery practice',X.select(t.id,8,false,[c]));};});
   main.querySelectorAll('[data-practice]').forEach(function(b){b.onclick=function(){var t=topic(b.dataset.practice);begin('topic',t.title+' · topic practice',X.select(t.id,12));};});
   main.querySelectorAll('[data-figures]').forEach(function(b){b.onclick=function(){var t=topic(b.dataset.figures);begin('figures',t.title+' · figure practice',X.select(t.id,20,true));};});
  }
@@ -37,7 +42,7 @@
    return '<article class="topic-card card"><span class="eyebrow">'+t.part+'</span><h2>'+esc(t.title)+'</h2><p>'+esc(t.summary)+'</p>'+
     '<span class="small">'+r.mastered+'/'+r.total+' mastered · '+r.checks+' checks · '+r.firsts+' first responses</span><progress max="'+r.total+'" value="'+r.mastered+'" aria-label="'+esc(t.title)+' mastery"></progress>'+
     '<div class="controls">'+link('Learn', 'topic/'+t.id)+button('Topic practice','data-practice="'+t.id+'"')+(fig?button('Figure practice','data-figures="'+t.id+'"'):'')+'</div>'+
-    '<details><summary>Mastery details</summary>'+t.concepts.map(function(c){return '<p class="small"><a href="#exam2/topic/'+t.id+'/'+c+'">'+esc(D.conceptNames[c])+'</a> · '+esc(st[c].status)+' · '+st[c].att+' checks</p>';}).join('')+'</details></article>';
+    '<details><summary>Mastery details and practice</summary>'+t.concepts.map(function(c){return conceptPractice(t,c,st);}).join('')+'</details></article>';
   }).join('')+'</div>';
  }
  function overview(){
@@ -68,6 +73,7 @@
   base('guide',esc(t.title),esc(t.summary));
   el('e2body').innerHTML='<div class="navline">'+link('← All topics','')+'<div>'+button('Topic practice','data-practice="'+t.id+'"')+(X.pool(t.id,true).length?button('Figure practice','data-figures="'+t.id+'"'):'')+'</div></div>'+
    '<p class="legend"><span class="e2-term">Key terms</span> · <span class="e2-emphasis">Lecture emphasis</span> · '+esc(t.part)+'</p>'+film(t)+media(t)+
+   '<section class="card"><h2>Mastery practice</h2><p>Choose a concept for eight questions. Misses and low-confidence answers may add spaced review.</p>'+t.concepts.map(function(c){return conceptPractice(t,c,E.conceptStats());}).join('')+'</section>'+
    '<div class="toc">'+t.sections.map(function(s,i){return '<a href="#exam2/topic/'+id+'/section-'+i+'">'+esc(s.title)+'</a>';}).join('')+'</div>'+
    t.sections.map(function(s,i){return '<section class="card note-group" id="section-'+i+'"><h2 class="note-heading">'+esc(s.title)+'</h2><ul class="note-points">'+s.points.map(function(p){return '<li>'+p+'</li>';}).join('')+'</ul>'+sources(s.sources)+'</section>';}).join('')+
    (t.figures.length?'<h2>Source figures and reference pages</h2><p class="caption">Open any figure to enlarge it. Source geometry and labels are preserved.</p><div class="figure-grid">'+t.figures.map(function(f){var path='assets/exam2/figures/'+f.id+'.jpg';return '<figure><a href="'+path+'" target="_blank" rel="noopener"><img src="'+path+'" alt="'+esc(f.label)+'" loading="lazy"></a><figcaption><b>'+esc(f.label)+'</b><p>'+esc(f.notice)+'</p>'+sources([f.source])+'</figcaption></figure>';}).join('')+'</div>':'')+
@@ -95,7 +101,7 @@
   if(target){var n=target.indexOf('section-')===0?target:'section-'+Math.max(0,t.sections.findIndex(function(s){return (s.concepts||[]).indexOf(target.replace(/^e2-/,''))>=0;}));var node=el(n);if(node)node.scrollIntoView({block:'start'});}
  }
  function practice(){
-  base('practice','Practice the supplied material','Choose a topic or mix Lectures 4–6. Select an answer, then submit a confidence level to reveal feedback.');
+  base('practice','Practice the supplied material','Every mastery concept has at least eight practice questions. Expand a topic’s mastery details to choose a concept, or mix Lectures 4–6.');
   el('e2body').innerHTML='<div class="card"><h2>Mixed practice</h2><p>20 questions from Lectures 4–6. Misses return after two intervening activities; low-confidence correct answers return after four. First answers remain saved.</p>'+button('Start mixed practice','id="mixed"')+'</div>'+cards();
   el('mixed').onclick=function(){begin('mixed','Lectures 4–6 · mixed practice',X.select(null,20));};bindPractice();
  }
