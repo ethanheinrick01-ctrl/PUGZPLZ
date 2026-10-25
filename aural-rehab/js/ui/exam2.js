@@ -24,7 +24,7 @@
  function begin(kind,title,ids,writing){var r=X.start(kind,title,ids,writing);go('run/'+r.id);}
  function conceptPractice(t,c,st){
   var available=X.pool(t.id).filter(function(i){return i.c===c;}).length,n=Math.min(8,available);
-  return '<div class="history-row"><p class="small"><a href="#exam2/topic/'+t.id+'/'+c+'">'+esc(D.conceptNames[c])+'</a> · '+esc(st[c].status)+' · '+st[c].att+' checks · '+available+' questions available</p>'+button('Practice '+n+' questions','data-concept="'+c+'" aria-label="Practice '+n+' questions: '+esc(D.conceptNames[c])+'" '+(!n?'disabled':''))+'</div>';
+  return '<div class="history-row"><p class="small"><a href="#exam2/topic/'+t.id+'/'+c+'">'+esc(D.conceptNames[c])+'</a>'+ (X.state().read[c]?' · <span class="badge">Studied (restored)</span>':'')+' · '+esc(st[c].status)+' · '+st[c].att+' checks · '+available+' questions available</p>'+button('Practice '+n+' questions','data-concept="'+c+'" aria-label="Practice '+n+' questions: '+esc(D.conceptNames[c])+'" '+(!n?'disabled':''))+'</div>';
  }
  function bindPractice(){
   main.querySelectorAll('[data-concept]').forEach(function(b){b.onclick=function(){var c=b.dataset.concept,t=D.topics.find(function(t){return t.concepts.indexOf(c)>=0;});begin('topic',D.conceptNames[c]+' · mastery practice',X.select(t.id,8,false,[c]));};});

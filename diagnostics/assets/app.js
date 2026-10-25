@@ -127,11 +127,11 @@
     b.checkpointAt = nowISO(); b.updated = b.checkpointAt;
   }
   function readMirror() {
-    const raw = localStorage.getItem(Store.MIRROR_KEY);
+    const raw = (window.StudyStorage || localStorage).getItem(Store.MIRROR_KEY);
     if (!raw) return null;
     try { const mirror = JSON.parse(raw); Store.validateMirror(mirror); return mirror; }
     catch (e) {
-      try { localStorage.setItem(Store.MIRROR_KEY + "-unreadable-" + Date.now(), raw); } catch (_) { /* primary is still retained */ }
+      try { (window.StudyStorage || localStorage).setItem(Store.MIRROR_KEY + "-unreadable-" + Date.now(), raw); } catch (_) { /* primary is still retained */ }
       flash = flash || "An unreadable recovery copy was retained. The current progress record is still available.";
       return null;
     }
@@ -141,7 +141,7 @@
     if (window.DXTopic && typeof window.DXTopic.derive === "function") window.DXTopic.derive(S);
   }
   function syncWithDisk() {
-    const raw = localStorage.getItem(KEY);
+    const raw = (window.StudyStorage || localStorage).getItem(KEY);
     let disk = null;
     if (raw) {
       try {
@@ -150,7 +150,7 @@
         Store.validateTopics(disk.topics);
       } catch (e) {
         primaryUnreadable = true;
-        try { localStorage.setItem(KEY + "-unreadable-" + Date.now(), raw); } catch (_) { /* original stays untouched */ }
+        try { (window.StudyStorage || localStorage).setItem(KEY + "-unreadable-" + Date.now(), raw); } catch (_) { /* original stays untouched */ }
         throw e;
       }
       disk = sanitize(disk);
@@ -162,7 +162,7 @@
   }
   function readV1Raw() {
     const raw = {};
-    for (const k of Object.values(E.V1_KEYS)) { try { raw[k] = localStorage.getItem(k); } catch (e) { raw[k] = null; } }
+    for (const k of Object.values(E.V1_KEYS)) { try { raw[k] = (window.StudyStorage || localStorage).getItem(k); } catch (e) { raw[k] = null; } }
     return raw;
   }
   function applyLegacy(raw, source) {
@@ -182,7 +182,7 @@
   function load() {
     let raw = null;
     try {
-      raw = localStorage.getItem(KEY);
+      raw = (window.StudyStorage || localStorage).getItem(KEY);
       const parsed = raw ? JSON.parse(raw) : null;
       if (parsed && parsed.schema !== KEY) throw Error("Unrecognized Diagnostics progress record.");
       S = parsed ? sanitize(parsed) : fresh();
@@ -191,7 +191,7 @@
     } catch (e) {
       storageOK = false; S = fresh(); primaryUnreadable = !!raw;
       if (raw) {
-        try { localStorage.setItem(KEY + "-unreadable-" + Date.now(), raw); } catch (_) { /* original stays untouched */ }
+        try { (window.StudyStorage || localStorage).setItem(KEY + "-unreadable-" + Date.now(), raw); } catch (_) { /* original stays untouched */ }
         flash = "The existing progress record could not be read. It was retained for recovery; export any new work before leaving.";
       }
       try { S = Store.recoverCourse(S, readMirror()); } catch (_) { /* never replace an unreadable primary */ }
@@ -210,10 +210,10 @@
     deriveTopics();
     S.updated = nowISO();
     let mirrored = false;
-    try { localStorage.setItem(Store.MIRROR_KEY, JSON.stringify(Store.makeMirror(S, readMirror()))); mirrored = true; }
+    try { (window.StudyStorage || localStorage).setItem(Store.MIRROR_KEY, JSON.stringify(Store.makeMirror(S, readMirror())), true); mirrored = true; }
     catch (e) { /* the primary still preserves the full record when mirror storage fails */ }
     if (primaryUnreadable) { storageOK = false; return false; }
-    try { localStorage.setItem(KEY, JSON.stringify(S)); diskBase = Store.clone(S); storageOK = true; return true; }
+    try { (window.StudyStorage || localStorage).setItem(KEY, JSON.stringify(S)); diskBase = Store.clone(S); storageOK = true; return true; }
     catch (e) { storageOK = false; return mirrored; }
   }
 
@@ -761,7 +761,7 @@
     <div class="card danger"><h2>Reset</h2><p>Clears v2 progress in this browser. v1 records are not touched.</p><button class="btn" data-act="reset">Reset v2 progress…</button></div>
     <p class="muted small">Content revision ${esc(REV)} · ${D.items.length} questions · ${Object.keys(CONC).length} concepts · storage ${storageOK ? "working" : "blocked"}</p>`;
   }
-  function hasPre() { try { return !!localStorage.getItem(KEY + "-preimport"); } catch (e) { return false; } }
+  function hasPre() { try { return !!(window.StudyStorage || localStorage).getItem(KEY + "-preimport"); } catch (e) { return false; } }
   function exportProgress() {
     save();
     const out = { schema: BACKUP_SCHEMA, version: 1, course: "COMD 4756", createdAt: nowISO(), dataRev: REV, state: S, v1Raw: readV1Raw() };
@@ -879,9 +879,9 @@
       case "rfilter": app.dataset.rfilter = b.dataset.f; rerender(); break;
       case "export": exportProgress(); break;
       case "import": { const f = document.getElementById("importf"); f.value = ""; f.onchange = () => { if (f.files[0]) importProgress(f.files[0]); }; f.click(); break; }
-      case "undo-import": { try { const pre = localStorage.getItem(KEY + "-preimport"); if (pre) { topicAPI.importMerge(JSON.parse(pre)); localStorage.removeItem(KEY + "-preimport"); showToast("Recovery backup merged; newer records retained."); route(); } } catch (err) { showToast("Could not merge the recovery backup.", true); } break; }
+      case "undo-import": { try { const pre = (window.StudyStorage || localStorage).getItem(KEY + "-preimport"); if (pre) { topicAPI.importMerge(JSON.parse(pre)); (window.StudyStorage || localStorage).removeItem(KEY + "-preimport"); showToast("Recovery backup merged; newer records retained."); route(); } } catch (err) { showToast("Could not merge the recovery backup.", true); } break; }
       case "rescan-v1": { const raw = readV1Raw(); if (applyLegacy(raw, "this browser")) { save(); showToast("v1 progress read again."); } else showToast("No v1 progress in this browser."); route(); break; }
-      case "reset": { const ch = await modal(`<h2 id="mtitle">Reset all v2 progress?</h2><p>Mastery, practice history and exam attempts in this browser are erased. Export first if you might want them.</p>`, [{ label: "Erase v2 progress", cls: "danger" }, { label: "Cancel" }]); if (ch === 0) { const theme = S.settings.theme; S = fresh(); S.legacy = { checked: true, at: nowISO(), none: true, resetAt: nowISO() }; S.settings.theme = theme; diskBase = null; primaryUnreadable = false; try { localStorage.removeItem(KEY); localStorage.removeItem(Store.MIRROR_KEY); } catch (_) { /* explicit reset can still be kept in memory */ } ensureBaseline(S); save({ skipDisk: true }); showToast("v2 progress reset."); route(); } break; }
+      case "reset": { const ch = await modal(`<h2 id="mtitle">Reset all v2 progress?</h2><p>Mastery, practice history and exam attempts in this browser are erased. Export first if you might want them.</p>`, [{ label: "Erase v2 progress", cls: "danger" }, { label: "Cancel" }]); if (ch === 0) { const theme = S.settings.theme; S = fresh(); S.legacy = { checked: true, at: nowISO(), none: true, resetAt: nowISO() }; S.settings.theme = theme; diskBase = null; primaryUnreadable = false; try { (window.StudyStorage || localStorage).removeItem(KEY); (window.StudyStorage || localStorage).removeItem(Store.MIRROR_KEY); } catch (_) { /* explicit reset can still be kept in memory */ } ensureBaseline(S); save({ skipDisk: true }); showToast("v2 progress reset."); route(); } break; }
       case "zoom": { await modal(`<h2 id="mtitle" class="sr">Enlarged diagram</h2><div class="zoomview">${V.render(b.dataset.viz, { mode: "guide", zoom: false })}</div>`, [{ label: "Close", cls: "primary" }]); break; }
       case "theme": S.settings.theme = S.settings.theme === "light" ? "dark" : "light"; applyTheme(); save(); break;
     }
@@ -901,7 +901,7 @@
       Store.validateTopics(incoming.topics);
       const valid = sanitize(Store.clone(incoming)); ensureBaseline(valid);
       try { syncWithDisk(); } catch(e) { /* valid imported data can recover an unreadable primary */ }
-      try { localStorage.setItem(KEY + "-preimport", JSON.stringify(S)); } catch(e) { /* still preserve memory */ }
+      try { (window.StudyStorage || localStorage).setItem(KEY + "-preimport", JSON.stringify(S), true); } catch(e) { /* still preserve memory */ }
       S = Store.mergeBackup(S, valid); foldBaseline(S); diskBase = null; primaryUnreadable = false;
       save({ skipDisk: true });
     }
