@@ -13,6 +13,11 @@
   function daysToExam() { return U.daysBetween(U.todayKey(), EXAM_DATE); }
   function storageBanner() { return S.ok() ? '' : '<div class="warnbox"><b>Progress is not saving.</b> ' + esc(S.problem() || 'This browser could not save progress.') + ' This tab\'s newest work may disappear on reload. Use Data &gt; Download progress file before closing or reloading.</div>'; }
 
+  function updateStorageStatus() {
+    var node = document.getElementById('storageStatus');
+    node.innerHTML = storageBanner(); node.hidden = S.ok();
+  }
+
   // ---------------- Router ----------------
   function route() {
     var h = (location.hash || '#exam2').slice(1).split('/'), r = h[0] || 'exam2';
@@ -34,7 +39,7 @@
     var mis = ids.filter(function (c) { return st[c].rawStatus === 'misconception'; }).length;
     var plan = E.reviewPlan(), due = plan.filter(function (p) { return p.why !== 'new'; }).length;
     var lastMock = s.mocks[s.mocks.length - 1], sess = s.session, d = daysToExam();
-    var h = [storageBanner()];
+    var h = [];
     h.push('<div class="spread"><div><h1>COMD 4590 Study Lab</h1><p class="muted">Whitney Sutherland · Aural Rehabilitation · Fall 2026. Course progress includes both exam areas; choose an exam below for its own scope.</p></div></div>');
     h.push('<div class="card"><h2>Exam 2 · Lectures 4–6</h2><p>Cochlear implants, listening development, speech acoustics, and the October 22 auditory-training addition: complete lessons, source figures, Ethan-voice explanations, original practice, and written rubrics. APD guest and visual-stimulus coverage remain pending.</p><a class="btn pri" href="#exam2">Enter Exam 2</a></div>');
     h.push('<div class="card"><h2>Exam 1 · September 24 update</h2><p>Twelve focused chapters, completed Lecture 3, and 52 objective + two audiogram + two written learning mocks. Immediate feedback on every question, autosave and a dedicated miss queue.</p><a class="btn pri" href="#exam1">Enter Exam 1</a></div>');
@@ -340,7 +345,7 @@
   // ---------------- Data ----------------
   function pData() {
     var s = S.load();
-    var h = ['<h1>Data: export, import, reset</h1>', storageBanner()];
+    var h = ['<h1>Data: export, import, reset</h1>'];
     h.push('<div class="card"><h3>Export</h3><p>Downloads all progress: attempts, original mocks, Boss runs, Exam 1 and Exam 2 runs, topic notes, written drafts, flags, question position and imported prior signal. Closing the tab or browser retains saved work in the same browser profile at the same address. Another device, browser, folder or site may have separate storage: export/import transfers your progress. Keep a downloaded backup before clearing browser data or switching devices; private-browsing data is temporary.</p><div class="row"><button class="btn pri" id="exp">Download progress file</button><button class="btn" id="expCopy">Copy to clipboard</button>'+(S.exportBefore()?'<button class="btn" id="expBefore">Download pre-Exam 1 recovery copy</button>':'')+(S.exportBeforeExam2()?'<button class="btn" id="expBefore2">Download pre-Exam 2 recovery copy</button>':'')+'</div></div>');
     h.push('<div class="card"><h3>Import</h3><p>Accepts: a v2 export (merged, duplicates skipped); a v1 full backup (<code>comd4590-progress-backup-v1</code>); or the Lecture 2 drill export (<code>{records, concepts}</code>, e.g. <code>pathology-progress-backup-2026-09-21.json</code>). v1 data becomes a <b>prior signal</b> that pushes previously missed topics up the review queue; it never grants v2 mastery because v1 counted post-feedback confidence and some v1 answer keys were wrong.</p><div class="formrow"><input type="file" id="file" accept=".json,application/json"></div><details><summary>Or paste JSON</summary><label for="paste">Progress JSON</label><textarea id="paste"></textarea><button class="btn" id="pasteGo">Import pasted JSON</button></details><p id="impMsg" class="small"></p></div>');
     h.push('<div class="card"><h3>Reset</h3><p class="muted">Deletes all v2 progress in this browser. Export first.</p><button class="btn bad" id="reset">Reset all progress</button></div>');
@@ -376,8 +381,10 @@
   // ---------------- Boot ----------------
   function boot() {
     main = $('#main');
+    window.addEventListener('lab-storage-status', updateStorageStatus);
     E.build();
     S.load();
+    updateStorageStatus();
     // Capture the learner's current mastered set before any new response can
     // change it. This migration only adds a small credit map to the same key.
     if (E.seedMasteryCredits()) S.save();

@@ -3,6 +3,12 @@
   'use strict';
   var L = root.L = root.L || {};
   var KEY = 'comd4590-lab-v2';
+  var COMPRESSED = 'comd4590-lz16-v1:';
+  function decode(raw) {
+    var json = raw.indexOf(COMPRESSED) === 0 ? L.compression.decompressFromUTF16(raw.slice(COMPRESSED.length)) : raw;
+    if (!json) throw new Error('Unreadable progress');
+    return JSON.parse(json);
+  }
   var LEGACY_KEYS = ['comd4590-study-lab-progress-v1', 'comd4590-guided-progress-v1', 'comd4590-lecture2-drill-v1'];
   var mem = null, storageOK = true, lastRaw = null, problem = '', corrupt = false, readOK = true, backupAttempted = false;
 
@@ -58,12 +64,12 @@
     if (mem) return mem;
     var raw = lsGet(KEY), s = null;
     lastRaw = raw;
-    if (raw) { try { s = JSON.parse(raw); } catch (e) { s = null; corrupt = true; storageOK = false; problem = 'Saved data could not be read. The original data has been left untouched.'; } }
+    if (raw) { try { s = decode(raw); } catch (e) { s = null; corrupt = true; storageOK = false; problem = 'Saved data could not be read. The original data has been left untouched.'; } }
     mem = normalize(s);
     if (!raw) autoDetectLegacy(mem);
     return mem;
   }
-  function save() {
+  function writeProgress() {
     if (!mem) return false;
     if (corrupt) return false;
     var currentRaw = lsGet(KEY);
@@ -82,8 +88,21 @@
       if (!before2) lsSet(KEY+'-before-exam2',lastRaw);
     }
     mem.updated = Date.now();
-    var raw = JSON.stringify(mem), ok = lsSet(KEY, raw);
+    var json = JSON.stringify(mem), raw = json, ok;
+    // Keep ordinary JSON compatible until quota requires compression. Once
+    // compressed, keep using it so saves have room to grow with full history.
+    if (lastRaw && lastRaw.indexOf(COMPRESSED) === 0) raw = COMPRESSED + L.compression.compressToUTF16(json);
+    ok = lsSet(KEY, raw);
+    if (!ok && raw === json && L.compression) {
+      raw = COMPRESSED + L.compression.compressToUTF16(json);
+      if (raw.length < json.length) ok = lsSet(KEY, raw);
+    }
     if (ok) { lastRaw = raw; storageOK = true; problem = ''; }
+    return ok;
+  }
+  function save() {
+    var ok = writeProgress();
+    if (root.dispatchEvent && root.CustomEvent) root.dispatchEvent(new root.CustomEvent('lab-storage-status'));
     return ok;
   }
   function reset(keepLegacy) {
@@ -136,8 +155,8 @@
     var s = load();
     return JSON.stringify({ app: 'comd4590-lab', schema: 2, exported: new Date().toISOString(), state: s }, null, 1);
   }
-  function exportBefore() { var raw=lsGet(KEY+'-before-exam1'); if(!raw)return null;try{return JSON.stringify({app:'comd4590-lab',schema:2,exported:new Date().toISOString(),state:JSON.parse(raw)},null,1);}catch(e){return null;} }
-  function exportBeforeExam2() { var raw=lsGet(KEY+'-before-exam2');if(!raw)return null;try{return JSON.stringify({app:'comd4590-lab',schema:2,exported:new Date().toISOString(),state:JSON.parse(raw)},null,1);}catch(e){return null;} }
+  function exportBefore() { var raw=lsGet(KEY+'-before-exam1'); if(!raw)return null;try{return JSON.stringify({app:'comd4590-lab',schema:2,exported:new Date().toISOString(),state:decode(raw)},null,1);}catch(e){return null;} }
+  function exportBeforeExam2() { var raw=lsGet(KEY+'-before-exam2');if(!raw)return null;try{return JSON.stringify({app:'comd4590-lab',schema:2,exported:new Date().toISOString(),state:decode(raw)},null,1);}catch(e){return null;} }
   function mergeV2(into, from) {
     // Mastery is earned once. A backup/import must never revoke existing credit.
     Object.keys(from.masteryCredits || {}).forEach(function (c) {
