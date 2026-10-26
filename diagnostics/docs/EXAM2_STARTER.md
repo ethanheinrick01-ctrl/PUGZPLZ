@@ -57,3 +57,5 @@ The current home counts narrated chapters from actual media entries. Media file 
 Week 10 adds three original narrated films: Dysphagia (2:59), Fluency (2:48), and Pediatric feeding disorder (2:36). They use speech-anchored mechanism changes, 1280×720 video at60fps, captions, chapter seeking and text transcripts. Swallowing anatomy is schematic; feeding and fluency examples are illustrative. No Week10 instructor transcript was available.
 
 The October26 integrated suite passes132 tests, including all new eight-root section launches and the retained bank/progress contracts. New media received encoded-file, central-illustration state and decoded-audio comparisons. These checks do not constitute actual browser playback or a listening pass.
+
+October26 motion revision: later narration now drives complete utensil reach/return, contextual sample collection, denominator regrouping and model/response/task-complexity comparisons. Feeding observations develop into coordinated assessment records. Original narration and captions are retained; this revision changes visual timing/actions only. In-use acceptance remains with the learner.
