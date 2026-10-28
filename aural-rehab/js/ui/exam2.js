@@ -8,10 +8,22 @@
  function topic(id){return D.topics.find(function(t){return t.id===id;});}
  function base(view,title,lead){
   if(filmResize){filmResize.disconnect();filmResize=null;}
-  var tabs=[['','Overview'],['guide','Guide'],['practice','Practice'],['writing','Writing'],['cases','Cases'],['boss','Boss'],['partial','Partial mock'],['review','Review'],['history','History'],['progress','Progress'],['sources','Sources']];
+  var tabs=[['','Mini-chapters'],['guide','Guide'],['practice','Practice'],['writing','Writing'],['cases','Cases'],['boss','Boss'],['partial','Partial mock'],['review','Review'],['history','My history'],['progress','Progress'],['sources','Sources']];
   main.classList.add('e2');
-  main.innerHTML='<div class="eyebrow">COMD 4590 · Fall 2026 · Whitney Sutherland</div><h1>'+title+'</h1>'+(lead?'<p class="lead">'+lead+'</p>':'')+
-   '<nav class="subnav" aria-label="Exam 2">'+tabs.map(function(t){return '<a href="#exam2'+(t[0]?'/'+t[0]:'')+'"'+(view===t[0]?' aria-current="page"':'')+'>'+t[1]+'</a>';}).join('')+'</nav><div id="e2body"></div>';
+  var heading='<div class="eyebrow">COMD 4590 · Fall 2026 · Whitney Sutherland</div><h1>'+title+'</h1>'+(lead?'<p class="lead">'+lead+'</p>':'');
+  var navigation='<nav class="subnav" aria-label="Exam 2">'+tabs.map(function(t){return '<a href="#exam2'+(t[0]?'/'+t[0]:'')+'"'+(view===t[0]?' aria-current="page"':'')+'>'+t[1]+'</a>';}).join('')+'<a href="#data">Backup / restore</a></nav>';
+  main.innerHTML=(view==='guide'?navigation+heading:heading+navigation)+'<div id="e2body"></div>';
+ }
+ function readingKey(){
+  return '<aside class="e2-reading-key" aria-label="Reading color key"><span><i class="e2-key-dot gold" aria-hidden="true"></i>Gold: documented lecture emphasis</span><span><i class="e2-key-dot term" aria-hidden="true"></i>Magenta: key terms and distinctions</span><small>Colors guide study; they do not predict exam questions.</small></aside>';
+ }
+ function mastery(t){
+  var r=X.summary(t.id),st=E.conceptStats();
+  return '<details class="topic-mastery"><summary>Mastery details · '+(r.total-r.mastered)+' unfinished</summary><p class="caption">Choose a concept for up to eight distinct questions. Misses and low-confidence answers may add spaced review.</p>'+t.concepts.map(function(c){return conceptPractice(t,c,st);}).join('')+'</details>';
+ }
+ function adjacent(t){
+  var n=D.topics.indexOf(t),prev=D.topics[n-1],next=D.topics[n+1];
+  return '<nav class="navline lesson-pagination" aria-label="Mini-chapter navigation">'+(prev?link('← '+esc(prev.title),'topic/'+prev.id):'<span></span>')+(next?link(esc(next.title)+' →','topic/'+next.id):link('All mini-chapters',''))+'</nav>';
  }
  function source(code){
   var p=D.sourcePages[code];
@@ -39,10 +51,10 @@
   var st=E.conceptStats();
   return '<div class="topic-grid">'+D.topics.map(function(t){
    var r=X.summary(t.id),fig=X.pool(t.id,true).length;
-   return '<article class="topic-card card"><span class="eyebrow">'+t.part+'</span><h2>'+esc(t.title)+'</h2><p>'+esc(t.summary)+'</p>'+
+   return '<article class="topic-card card"><span class="eyebrow">'+esc(t.part)+' · '+(D.topics.indexOf(t)+1)+'/'+D.topics.length+'</span><h2><a href="#exam2/topic/'+t.id+'">'+esc(t.title)+'</a></h2>'+
     '<span class="small">'+r.mastered+'/'+r.total+' mastered · '+r.checks+' checks · '+r.firsts+' first responses</span><progress max="'+r.total+'" value="'+r.mastered+'" aria-label="'+esc(t.title)+' mastery"></progress>'+
-    '<div class="controls">'+link('Learn', 'topic/'+t.id)+button('Topic practice','data-practice="'+t.id+'"')+(fig?button('Figure practice','data-figures="'+t.id+'"'):'')+'</div>'+
-    '<details><summary>Mastery details and practice</summary>'+t.concepts.map(function(c){return conceptPractice(t,c,st);}).join('')+'</details></article>';
+    '<div class="controls">'+link('Learn', 'topic/'+t.id).replace('class="btn"','class="btn primary"')+button('Practice topic','data-practice="'+t.id+'"')+(fig?button('Practice figure','data-figures="'+t.id+'"'):'')+'</div>'+
+    mastery(t)+'</article>';
   }).join('')+'</div>';
  }
  function overview(){
@@ -73,13 +85,12 @@
  function learn(id,target){
   var t=topic(id);if(!t)return overview();
   base('guide',esc(t.title),esc(t.summary));
-  el('e2body').innerHTML='<div class="navline">'+link('← All topics','')+'<div>'+button('Topic practice','data-practice="'+t.id+'"')+(X.pool(t.id,true).length?button('Figure practice','data-figures="'+t.id+'"'):'')+'</div></div>'+
-   '<p class="legend"><span class="e2-term">Key terms</span> · <span class="e2-emphasis">Lecture emphasis</span> · '+esc(t.part)+'</p>'+film(t)+media(t)+
-   '<section class="card"><h2>Mastery practice</h2><p>Choose a concept for eight questions. Misses and low-confidence answers may add spaced review.</p>'+t.concepts.map(function(c){return conceptPractice(t,c,E.conceptStats());}).join('')+'</section>'+
-   '<div class="toc">'+t.sections.map(function(s,i){return '<a href="#exam2/topic/'+id+'/section-'+i+'">'+esc(s.title)+'</a>';}).join('')+'</div>'+
-   t.sections.map(function(s,i){return '<section class="card note-group" id="section-'+i+'"><h2 class="note-heading">'+esc(s.title)+'</h2><ul class="note-points">'+s.points.map(function(p){return '<li>'+p+'</li>';}).join('')+'</ul>'+sources(s.sources)+'</section>';}).join('')+
+  el('e2body').innerHTML='<div class="navline">'+link('← All topics','')+'<div>'+button('Practice topic','data-practice="'+t.id+'"')+(X.pool(t.id,true).length?button('Practice figure','data-figures="'+t.id+'"'):'')+'</div></div>'+
+   mastery(t)+'<nav class="lesson-tools" aria-label="This mini-chapter"><a href="#exam2/topic/'+id+'/lesson-notes">Read the notes</a><a href="#exam2/topic/'+id+'/lesson-media">Watch / listen</a><a href="#exam2/topic/'+id+'/lesson-figures">Source figures</a><a href="#exam2/topic/'+id+'/study-notes">My notes</a></nav>'+readingKey()+
+   '<article class="card lesson-reading" id="lesson-notes" aria-label="Mini-chapter notes"><h2>'+esc(t.title)+'</h2>'+t.sections.map(function(s,i){return '<section class="note-group" id="section-'+i+'"><h3 class="note-heading">'+esc(s.title)+'</h3><ul class="note-points">'+s.points.map(function(p){return '<li>'+p+'</li>';}).join('')+'</ul>'+sources(s.sources)+'</section>';}).join('')+'</article>'+
+   '<section id="lesson-media" aria-label="Narrated explanation">'+film(t)+media(t)+'</section><div id="lesson-figures"></div>'+
    (t.figures.length?'<h2>Source figures and reference pages</h2><p class="caption">Open any figure to enlarge it. Source geometry and labels are preserved.</p><div class="figure-grid">'+t.figures.map(function(f){var path='assets/exam2/figures/'+f.id+'.jpg';return '<figure><a href="'+path+'" target="_blank" rel="noopener"><img src="'+path+'" alt="'+esc(f.label)+'" loading="lazy"></a><figcaption><b>'+esc(f.label)+'</b><p>'+esc(f.notice)+'</p>'+sources([f.source])+'</figcaption></figure>';}).join('')+'</div>':'')+
-   '<div class="card"><h2>Your study notes</h2><label for="studyNote">Saved notes for this topic</label><textarea id="studyNote" placeholder="Add a question, example, or clarification…"></textarea><p id="noteStatus" class="caption">Notes stay in this browser and are included in Data exports.</p>'+button(X.state().read[t.id]?'Marked studied':'Mark this topic studied','id="markRead"')+'<p class="caption">Studied status is separate from checked mastery.</p></div>';
+   '<div class="card" id="study-notes"><h2>Your study notes</h2><label for="studyNote">Saved notes for this topic</label><textarea id="studyNote" placeholder="Add a question, example, or clarification…"></textarea><p id="noteStatus" class="caption">Notes stay in this browser and are included in Data exports.</p>'+button(X.state().read[t.id]?'Marked studied':'Mark this topic studied','id="markRead"')+'<p class="caption">Studied status is separate from checked mastery.</p></div>'+adjacent(t);
   var note=X.state().notes[t.id];el('studyNote').value=note?note.text:'';
   if(note&&note.alternates&&note.alternates.length){var versions=document.createElement('details');versions.innerHTML='<summary>Other imported note versions · '+note.alternates.length+'</summary>'+note.alternates.map(function(v){return '<p class="transcript">'+esc(v.text)+'</p>';}).join('');el('studyNote').parentNode.appendChild(versions);}
   el('studyNote').oninput=function(){X.state().notes[t.id]=Object.assign({},X.state().notes[t.id]||{},{text:this.value,updated:Date.now()});el('noteStatus').textContent=X.touch()?'Saved.':'Not saved: '+S.problem();};
@@ -100,7 +111,7 @@
    el('lessonAudio').onplay=function(){video.pause();};
   }
   bindPractice();
-  if(target){var n=target.indexOf('section-')===0?target:'section-'+Math.max(0,t.sections.findIndex(function(s){return (s.concepts||[]).indexOf(target.replace(/^e2-/,''))>=0;}));var node=el(n);if(node)node.scrollIntoView({block:'start'});}
+  if(target){var n=(/^(section-|lesson-|study-notes$)/.test(target))?target:'section-'+Math.max(0,t.sections.findIndex(function(s){return (s.concepts||[]).indexOf(target.replace(/^e2-/,''))>=0;}));var node=el(n);if(node)node.scrollIntoView({block:'start'});}
  }
  function practice(){
   base('practice','Practice the supplied material','Every mastery concept has at least eight practice questions. Expand a topic’s mastery details to choose a concept, or mix Lectures 4–6.');
@@ -196,7 +207,7 @@
    '<div class="card">'+r.tasks.map(function(t,i){return '<div class="history-row"><a href="#exam2/run/'+r.id+'/'+i+'">'+(i+1)+'. '+esc(t.item.q)+'</a><p class="'+(t.checked?(t.grade.ok?'good':'bad'):'muted')+'">'+(t.checked?(t.kind==='written'?'Rubric self-assessment: ':'Automatic check: ')+(t.grade.ok?'met / correct':'needs review'):'Not checked')+(t.retry?' · follow-up':'')+(t.flag?' · flagged':'')+'</p></div>';}).join('')+'</div>';
  }
  function render(host,args){
-  main=host;args=args||[];var view=args[0]||'';
+  main=host;args=args||[];var view=args[0]||'practice';
   var fn={'':overview,guide:guide,practice:practice,writing:writing,cases:cases,boss:function(){challenge('boss');},partial:function(){challenge('partial');},review:review,history:history,progress:progress,sources:sourceIndex};
   if(view==='topic')learn(args[1],args[2]);else if(view==='run')run(args[1],args[2]);else if(view==='result')result(args[1]);else(fn[view]||overview)();
  }

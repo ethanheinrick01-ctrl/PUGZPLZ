@@ -49,3 +49,39 @@ body{background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,B
 
 .e2 .film-mobile-hint{display:none}
 @media(max-width:640px){.e2 .film-mobile-hint{display:block;font-size:.9rem;line-height:1.5;color:var(--muted);margin:.65rem 0}}
+
+/* Exam 2 reading contract: geology-style cards and complete, notes-first lessons. */
+.e2 .topic-grid{grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;align-items:start}
+.e2 .topic-card{padding:16px;min-height:300px}
+.e2 .topic-card h2{font-size:1.05rem;line-height:1.5;min-height:3.1em;margin:20px 0 12px;color:var(--ink)}
+.e2 .topic-card h2 a{color:inherit;text-decoration:none}
+.e2 .topic-card h2 a:hover{text-decoration:underline}
+.e2 .topic-card .small{font-size:.88rem;line-height:1.6}
+.e2 .topic-card .controls{gap:8px;margin:8px 0 0}
+.e2 .topic-card details{border:0;padding:0;margin:16px 0 0}
+.e2 .topic-mastery>summary{color:var(--acc);font-size:.88rem}
+.e2 .btn.primary{background:#24649a;border-color:#438dce;color:#fff}
+.e2 .e2-reading-key{display:flex;flex-wrap:wrap;gap:8px 24px;margin:12px 0 16px;color:var(--muted);font-size:13px;line-height:1.5}
+.e2-reading-key>span{display:inline-flex;align-items:center;gap:8px}
+.e2-reading-key small{flex-basis:100%;font-size:12px}
+.e2-key-dot{display:inline-block;width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.e2-key-dot.gold{background:var(--gold)}.e2-key-dot.term{background:var(--magenta)}
+.e2 .lesson-tools{display:flex;flex-wrap:wrap;gap:10px 20px;margin:18px 0;font-size:.9rem}
+.e2 .lesson-reading{padding:16px;margin:0 0 20px}
+.e2 .lesson-reading>h2{font-size:1.15rem;margin:0 0 16px;line-height:1.5}
+.e2 .lesson-reading .note-group{padding:0;margin:0 0 24px;scroll-margin-top:160px}
+.e2 .lesson-reading .note-heading{font-size:1rem;margin:18px 0 8px}
+.e2 .note-points{max-width:82ch;line-height:1.6;margin:6px 0 16px;padding-left:1.35rem}
+.e2 .note-points>li{margin:0 0 .55rem}.e2 .note-points>li::marker{color:var(--muted)}
+.e2 .lesson-reading .e2-emphasis{box-shadow:0 2px 0 #f4c86b33}
+.e2 #lesson-media,.e2 #lesson-figures,.e2 #lesson-notes,.e2 #study-notes{scroll-margin-top:160px}
+.e2 .lesson-pagination .btn{max-width:48%;white-space:normal;text-align:left;line-height:1.5}
+.e2 a:focus-visible,.e2 button:focus-visible,.e2 summary:focus-visible{outline:2px solid var(--acc);outline-offset:4px}
+@media(max-width:560px){.e2 .topic-grid{grid-template-columns:1fr}.e2 .topic-card{min-height:0}.e2 .topic-card h2{min-height:0;margin:12px 0}.e2 .lesson-pagination .btn{max-width:100%}.e2 .lesson-reading{padding:16px}.e2 .lesson-tools{gap:12px 16px}}
+body:has(#main.e2) .bar{flex-wrap:nowrap;align-items:center}
+body:has(#main.e2) .brand{flex-shrink:0}
+body:has(#main.e2) .bar nav.main{flex-basis:auto;flex-wrap:nowrap;overflow-x:auto;min-width:0}
+.e2 h1{font-size:clamp(1.5rem,2.6vw,2rem);margin:.6rem 0}
+.e2 .navline>div{display:flex;gap:8px;flex-wrap:wrap}
+.e2 .subnav{margin:.5rem 0 1.25rem}
+@media(max-width:560px){body:has(#main.e2) .bar{flex-wrap:wrap}body:has(#main.e2) .bar nav.main{flex-basis:100%}}
