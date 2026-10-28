@@ -1199,7 +1199,7 @@
     'Emotion, social etiquette, fatigue, and articulation style can affect rate.'
    ]),
    p(T('Coarticulation')+' and '+T('stress')+' can change a sound’s visible appearance.',[
-    'A phoneme’s appearance is influenced by neighboring sounds. The following vowel can change the visible form of a consonant.',
+    'Coarticulation is the influence of neighboring speech sounds on articulation. A following vowel can influence how a consonant is produced, changing lip and jaw movements that a lipreader can see. The phonetic mechanism and its visible consequence are connected.',
     'Stress changes emphasis and appearance, as in “What did YOU do yesterday?”',
     'The visible form is not necessarily identical every time the same sound or word occurs.'
    ]),

@@ -25,14 +25,14 @@
   var n=D.topics.indexOf(t),prev=D.topics[n-1],next=D.topics[n+1];
   return '<nav class="navline lesson-pagination" aria-label="Mini-chapter navigation">'+(prev?link('← '+esc(prev.title),'topic/'+prev.id):'<span></span>')+(next?link(esc(next.title)+' →','topic/'+next.id):link('All mini-chapters',''))+'</nav>';
  }
- function source(code){
+ function source(code,open){
   var p=D.sourcePages[code];
   if(!p)return '<p>'+esc(L.srcLabel(code))+'</p>';
-  return '<details class="source-card"><summary>'+esc(p.label)+'</summary><a href="'+esc(p.href)+'" target="_blank" rel="noopener">'+(p.citationOnly?'View source citation':'Open original at this location')+'</a>'+
+  return '<details class="source-card"'+(open?' open':'')+'><summary>'+esc(p.label)+'</summary><p><a href="'+esc(p.href)+'" target="_blank" rel="noopener">'+(p.citationOnly?'View source citation':'Open original at this location')+'</a></p>'+
    (p.image?'<a href="'+esc(p.image)+'" target="_blank" rel="noopener"><img src="'+esc(p.image)+'" alt="'+esc(p.label)+'" loading="lazy"></a>':'')+
    '<details><summary>'+ (p.citationOnly?'Source note':'Source text'+(!p.image?' (automatic transcript)':''))+'</summary><div class="source-text">'+esc(p.text)+'</div></details></details>';
  }
- function sources(codes){return '<details class="sources"><summary>Direct source material · '+codes.map(function(c){return esc(L.srcLabel(c));}).join(' · ')+'</summary>'+codes.map(source).join('')+'</details>';}
+ function sources(codes,open){return '<details class="sources"'+(open?' open':'')+'><summary>Direct source material · '+codes.map(function(c){return esc(L.srcLabel(c));}).join(' · ')+'</summary>'+codes.map(function(c,i){return source(c,open&&i===0);}).join('')+'</details>';}
  function begin(kind,title,ids,writing){var r=X.start(kind,title,ids,writing);go('run/'+r.id);}
  function conceptPractice(t,c,st){
   var available=X.pool(t.id).filter(function(i){return i.c===c;}).length,n=Math.min(8,available);
@@ -198,7 +198,7 @@
    onChange:function(v){X.draft(r,index,v);},onSubmit:function(v,conf){if(X.answer(r,index,v,conf))run(r.id);}});
   if(t.checked){
    var tp=topic(t.item.topic)||D.topics.find(function(x){return x.concepts.indexOf(t.item.c)>=0;});
-   el('afterCheck').innerHTML='<div class="card">'+link('Study this section','topic/'+tp.id+'/'+t.item.c)+sources(t.item.s)+'<label for="correction">Later correction or reasoning note (original answer stays unchanged)</label><textarea id="correction"></textarea><p class="caption" id="correctionStatus">Corrections are saved separately.</p></div>';
+   el('afterCheck').innerHTML='<div class="card">'+link('Study this section','topic/'+tp.id+'/'+t.item.c)+sources(t.item.s,true)+'<label for="correction">Later correction or reasoning note (original answer stays unchanged)</label><textarea id="correction"></textarea><p class="caption" id="correctionStatus">Corrections are saved separately.</p></div>';
    el('correction').value=t.correction||'';el('correction').oninput=function(){t.correction=this.value;t.correctionAt=Date.now();el('correctionStatus').textContent=X.touch(r)?'Correction saved.':'Not saved: '+S.problem();};
   }
   el('flagTask').onclick=function(){t.flag=!t.flag;X.touch(r);this.textContent=t.flag?'Flagged':'Flag for review';};
