@@ -77,15 +77,16 @@ function decorate(){
  const t=activeTopic,sections=t.sections;
  groups.forEach((group,index)=>{
   group.classList.add('section-study-card');
-  const check=sections[index].checkpoint;if(check){const note=document.createElement('li');note.className='learning-checkpoint';const label=document.createElement('b');label.textContent=check.label;const body=document.createElement('p');body.textContent=check.text;note.append(label,body);group.querySelector('.note-points').append(note);}
+  const check=sections[index].outlineCheckpoint||sections[index].checkpoint;if(check){const note=document.createElement('li');note.className='learning-checkpoint';const label=document.createElement('b');label.textContent=check.label;const body=document.createElement('p');body.textContent=check.text;note.append(label,body);group.querySelector('.note-points').append(note);}
   group.querySelectorAll('.checkpoint-label').forEach(label=>{const li=label.closest('li');if(li&&!li.classList.contains('source-context'))li.classList.add('learning-checkpoint');});
   const old=group.querySelector('.note-heading');const heading=document.createElement('h2');heading.className=old.className;heading.textContent=old.textContent;old.replaceWith(heading);
   const cs=sections[index].concepts.map(c=>c.startsWith('e2-')?c:'e2-'+c);
   const available=L.exam2.pool(t.id).filter(i=>cs.includes(i.c)).length,n=Math.min(8,available);
   const footer=document.createElement('div');footer.className='section-study-footer';
   const count=document.createElement('p');count.className='caption';count.textContent=available+' aligned questions available · '+n+' in this set';
-  const button=document.createElement('button');button.type='button';button.className='btn primary';button.textContent='Study this section · '+n+' questions →';button.setAttribute('aria-label','Study this section: '+sections[index].title+' · '+n+' questions');button.disabled=!n;
-  button.onclick=()=>{const ids=L.exam2.select(t.id,n,false,cs);const run=L.exam2.start('topic',sections[index].title+' · section practice',ids);location.hash='#exam2/run/'+run.id;};
+  const sectionTitle=sections[index].outlineTitle||sections[index].title;
+  const button=document.createElement('button');button.type='button';button.className='btn primary';button.textContent='Study this section · '+n+' questions →';button.setAttribute('aria-label','Study this section: '+sectionTitle+' · '+n+' questions');button.disabled=!n;
+  button.onclick=()=>{const ids=L.exam2.select(t.id,n,false,cs);const run=L.exam2.start('topic',sectionTitle+' · section practice',ids);location.hash='#exam2/run/'+run.id;};
   footer.append(count,button);group.append(footer);
  });
  const mastery=main.querySelector('.topic-mastery');if(mastery)mastery.remove();
