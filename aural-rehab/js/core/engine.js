@@ -56,7 +56,18 @@
   function resolve(ref) { // ref: {id} or {gen, seed, opt}
     if (!ref) return null;
     if (ref.gen) { var g = L.gen.build(ref.gen, ref.seed, ref.opt); return norm(g); }
+    // Older shared sessions store IDs and answer indexes, not full snapshots.
+    // An unversioned ref must continue to resolve to its original choices/key.
+    var revision = (L.ITEM_REVISIONS || {})[ref.id];
+    if (revision && ref.v !== revision.current) {
+      var saved = revision.versions[ref.v || 'legacy'];
+      return saved ? norm(saved) : null;
+    }
     return REG[ref.id] || null;
+  }
+  function currentRef(id) {
+    var revision = (L.ITEM_REVISIONS || {})[id];
+    return revision ? { id: id, v: revision.current } : { id: id };
   }
   function refKey(ref) { return ref.gen ? 'g:' + ref.gen + ':' + ref.seed : ref.id; }
   function itemsFor(filter) { return Object.keys(REG).map(function (k) { return REG[k]; }).filter(filter); }
@@ -90,6 +101,7 @@
     seedMasteryCredits(s);
     if (it.t === 'teach') { s.teach[it.id] = { ts: Date.now(), self: r && r.self }; L.store.save(); return g; }
     var a = { i: ref ? refKey(ref) : it.id, c: it.c, ok: !!g.ok, sc: Math.round((g.sc || 0) * 100) / 100, cf: conf || 'm', m: mode || 'practice', t: Date.now() };
+    if (it.contentVersion) a.v = it.contentVersion;
     if (assisted) a.h = 1;
     if (it.generated || (ref && ref.gen)) a.g = (ref && ref.gen) || (it.gen && it.gen.name);
     s.attempts.push(a);
@@ -218,7 +230,7 @@
     s.attempts.forEach(function (a) { lastSeen[a.i] = a.t; lastOk[a.i] = a.ok; });
     var ids = (BY_CONCEPT[c] || []).filter(function (id) { return practiceEligible(id) && !exclude[id] && !CASE_OF[id]; });
     var gens = GEN_FOR[c] || [];
-    var cands = ids.map(function (id) { return { ref: { id: id }, score: (lastSeen[id] ? (lastOk[id] ? 3 : 1) : 0) * 1e13 + (lastSeen[id] || 0) + Math.random() * 1e6 }; });
+    var cands = ids.map(function (id) { return { ref: currentRef(id), score: (lastSeen[id] ? (lastOk[id] ? 3 : 1) : 0) * 1e13 + (lastSeen[id] || 0) + Math.random() * 1e6 }; });
     gens.forEach(function (g) { cands.push({ ref: freshGeneratedRef(g), score: 1.5e13 + Math.random() * 1e12 }); });
     if (!cands.length) { var caseIds = (BY_CONCEPT[c] || []).filter(function (id) { return !exclude[id] && CASE_OF[id]; }); if (caseIds.length) return { id: U.pick(Math.random, caseIds) }; return null; }
     cands.sort(function (a, b) { return a.score - b.score; });
@@ -228,6 +240,8 @@
   // ---------- Sessions (practice / review / drill / boss / case) ----------
   function newSession(mode, title, refs, opt) {
     opt = opt || {};
+    // Stamp new launches; resuming an existing queue never rewrites its refs.
+    refs = refs.map(function (r) { return r.id && !r.v ? currentRef(r.id) : r; });
     var sess = { id: 'S' + Date.now(), mode: mode, title: title, queue: refs.map(function (r) { return { ref: r, retry: false }; }), idx: 0, results: [],
       retries: 0, started: Date.now(), bossId: opt.bossId || null, planned: refs.filter(function (r) { var it = resolve(r); return it && it.t !== 'teach'; }).length, caseId: opt.caseId || null, noRetry: !!opt.noRetry, orders: {} };
     var s = L.store.load(); s.session = sess; L.store.save();
@@ -247,7 +261,7 @@
     if (!sess.noRetry && it.t !== 'teach' && (!g.ok || conf === 'l' || assisted)) {
       var gap = g.ok ? 4 : 2, again;
       if (q.ref.gen) again = freshGeneratedRef(q.ref.gen, q.ref.opt);
-      else { var alt = pickFor(it.c, (function () { var e = {}; e[it.id] = 1; return e; })()); again = alt && !alt.gen && alt.id !== it.id ? alt : (alt && alt.gen ? alt : { id: it.id }); }
+      else { var alt = pickFor(it.c, (function () { var e = {}; e[it.id] = 1; return e; })()); again = alt && !alt.gen && alt.id !== it.id ? alt : (alt && alt.gen ? alt : currentRef(it.id)); }
       var retriesOfThis = sess.queue.filter(function (x) { return x.retry && x.c === it.c; }).length;
       if (retriesOfThis < 2) { sess.queue.splice(Math.min(sess.idx + 1 + gap, sess.queue.length), 0, { ref: again, retry: true, c: it.c }); sess.retries++; }
     }
@@ -371,7 +385,7 @@
     return rec;
   }
 
-  L.engine = { build: build, resolve: resolve, refKey: refKey, grade: grade, record: record, conceptStats: conceptStats,
+  L.engine = { build: build, resolve: resolve, currentRef: currentRef, refKey: refKey, grade: grade, record: record, conceptStats: conceptStats,
     seedMasteryCredits: seedMasteryCredits, captureMasteryCredits: captureMasteryCredits, reviewPlan: reviewPlan,
     pickFor: pickFor, newSession: newSession, currentSession: currentSession, endSession: endSession, answerInSession: answerInSession, advance: advance,
     practiceRefs: practiceRefs, reviewRefs: reviewRefs, caseRefs: caseRefs, bossRefs: bossRefs, finishBoss: finishBoss, bossResult: bossResult, bestOf: bestOf, buildMock: buildMock, submitMock: submitMock,

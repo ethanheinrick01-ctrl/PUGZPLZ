@@ -12,7 +12,7 @@
     response:it.rubric?'':null,checked:false,confidence:null,ratings:it.rubric?it.rubric.map(function(){return null;}):null,retry:!!retry,flag:false};
   }
   function start(kind,title,ids,writing){
-   var now=Date.now(),tasks=ids.map(function(id){return task(E.resolve({id:id}));});
+   var now=Date.now(),tasks=ids.map(function(id){return task(E.resolve(E.currentRef(id)));});
    (writing||[]).forEach(function(w){tasks.push(task(w));});
    var r={id:'E2-'+now+'-'+U.newSeed(),scope:scope,kind:kind,title:title,version:D.version,started:now,updated:now,cur:0,ended:null,tasks:tasks,planned:tasks.length};
    state().runs.push(r);state().activeId=r.id;touch(r);return r;
@@ -33,10 +33,10 @@
    var gap=t.grade.ok?4:2,at=r.cur+1+gap;
    // Pad a short tail with genuine, different concepts before retrying.
    var fillers=U.shuffle(pool().filter(function(i){return i.c!==t.item.c&&!r.tasks.some(function(q){return q.item.id===i.id;});}));
-   while(r.tasks.length<at&&fillers.length)r.tasks.push(task(E.resolve({id:fillers.shift().id}),true));
+   while(r.tasks.length<at&&fillers.length)r.tasks.push(task(E.resolve(E.currentRef(fillers.shift().id)),true));
    if(r.tasks.length<at){r.retryPending=true;return;}
    var alt=pool(t.item.topic).find(function(i){return i.c===t.item.c&&i.id!==t.item.id&&!r.tasks.slice(r.cur+1).some(function(q){return q.item.id===i.id;});});
-   r.tasks.splice(at,0,task(E.resolve({id:alt?alt.id:t.item.id}),true));
+   r.tasks.splice(at,0,task(E.resolve(E.currentRef(alt?alt.id:t.item.id)),true));
   }
   function answer(r,index,response,conf){
    var t=r.tasks[index];if(!t||t.checked||t.kind!=='automatic'||['l','m','h'].indexOf(conf)<0)return false;
