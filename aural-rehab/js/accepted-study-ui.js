@@ -66,7 +66,7 @@ function decorate(){
  const lesson=main.querySelector('#lesson-notes');if(!lesson||lesson.dataset.previewDecorated)return;lesson.dataset.previewDecorated='true';
 
  const nav=main.querySelector('.navline');if(nav){nav.querySelector('a').textContent='← Study · all mini-chapters';nav.querySelector('a').href='#exam2/practice';nav.querySelector('[data-practice]').textContent='Practice this chapter';nav.querySelector('[data-practice]').classList.add('primary');}
- const key=main.querySelector('.e2-reading-key');key.innerHTML='<span><i class="e2-key-dot term" aria-hidden="true"></i>Magenta: terms & names</span><span><i class="e2-key-dot gold" aria-hidden="true"></i>Gold: lecture emphasis</span><span><i class="e2-key-dot checkpoint-dot" aria-hidden="true"></i>Peach + label: understanding checkpoint</span><small>Color guides reading; it does not predict exam questions.</small>';
+ const key=main.querySelector('.e2-reading-key');key.innerHTML='<span><i class="e2-key-dot term" aria-hidden="true"></i>Magenta: terms & names</span><span><i class="e2-key-dot gold" aria-hidden="true"></i>Gold: lecture emphasis</span><span><i class="e2-key-dot checkpoint-dot" aria-hidden="true"></i>Peach + label: understanding checkpoint</span><small>Color guides reading. It does not predict exam questions.</small>';
  const groups=main.querySelectorAll('.note-group');
  if(activeId==='ci-signal'){
  const p0=groups[0].querySelectorAll('.note-points>li');
