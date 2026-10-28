@@ -28,9 +28,9 @@
  function source(code){
   var p=D.sourcePages[code];
   if(!p)return '<p>'+esc(L.srcLabel(code))+'</p>';
-  return '<details class="source-card"><summary>'+esc(p.label)+'</summary><a href="'+esc(p.href)+'" target="_blank" rel="noopener">Open original at this location</a>'+
+  return '<details class="source-card"><summary>'+esc(p.label)+'</summary><a href="'+esc(p.href)+'" target="_blank" rel="noopener">'+(p.citationOnly?'View source citation':'Open original at this location')+'</a>'+
    (p.image?'<a href="'+esc(p.image)+'" target="_blank" rel="noopener"><img src="'+esc(p.image)+'" alt="'+esc(p.label)+'" loading="lazy"></a>':'')+
-   '<details><summary>Source text'+(!p.image?' (automatic transcript)':'')+'</summary><div class="source-text">'+esc(p.text)+'</div></details></details>';
+   '<details><summary>'+ (p.citationOnly?'Source note':'Source text'+(!p.image?' (automatic transcript)':''))+'</summary><div class="source-text">'+esc(p.text)+'</div></details></details>';
  }
  function sources(codes){return '<details class="sources"><summary>Direct source material · '+codes.map(function(c){return esc(L.srcLabel(c));}).join(' · ')+'</summary>'+codes.map(source).join('')+'</details>';}
  function begin(kind,title,ids,writing){var r=X.start(kind,title,ids,writing);go('run/'+r.id);}
@@ -60,7 +60,7 @@
  function overview(){
   base('','Exam 2 · Aural Rehabilitation','Cochlear implants, listening development, speech acoustics, and auditory training. Learn the concepts, check your reasoning, and keep your first answers.');
   var active=X.get(X.state().activeId);
-  el('e2body').innerHTML='<div class="callout"><b>Lectures 4–6 · auditory training added October 22</b><br>The 56-slide Auditory Training deck and October 22 lecture are integrated below. APD guest and visual-stimulus material remain missing; final Exam 2 counts and scoring are unconfirmed. The partial mock remains a practice design.</div>'+
+  el('e2body').innerHTML='<div class="callout"><b>Lectures 4–6 · auditory training added October 22</b><br>The 56-slide Auditory Training deck and October 22 lecture are integrated below. Lecture 7 visual stimuli are included; APD guest material remains missing; final Exam 2 counts and scoring are unconfirmed. The partial mock remains a practice design.</div>'+
    (active&&!X.score(active).complete?'<div class="card"><b>Saved work:</b> '+esc(active.title)+' '+link('Resume','run/'+active.id)+'</div>':'')+
    metrics()+'<p class="legend"><span class="e2-term">Magenta: key terms</span> · <span class="e2-emphasis">Gold: documented lecture emphasis</span> · Blue: headings and navigation. Reading and listening do not award mastery.</p>'+cards();bindPractice();
  }
@@ -70,7 +70,7 @@
  }
  function media(t){
   var a=(L.EXAM2_AUDIO||{})[t.id];
-  if(!a)return '<div class="card player"><h2>Narrated explanation</h2><p>Audio is being prepared. The complete written lesson is available below.</p></div>';
+  if(!a)return '<div class="card player"><h2>Narrated explanation</h2><p>No narration is available for this chapter yet. Use the written lesson and source slides.</p></div>';
   return ((L.EXAM2_FILMS||{})[t.id]?'<details class="card"><summary>Audio-only alternative</summary>':'')+'<section class="card player"><h2>Listen to the explanation</h2><p class="caption">Synthetic Ethan-voice teaching audio · '+esc(a.durationLabel)+' · on-demand playback. '+esc(a.reviewLabel)+'</p><audio id="lessonAudio" controls preload="none" src="'+esc(a.src)+'"></audio>'+
    '<label>Playback speed <select id="audioSpeed"><option value=".75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option></select></label> <a href="'+esc(a.src)+'" download>Save audio</a>'+
    '<details><summary>Read the narration transcript</summary><p class="transcript">'+esc(a.text)+'</p></details></section>'+((L.EXAM2_FILMS||{})[t.id]?'</details>':'');
@@ -114,9 +114,9 @@
   if(target){var n=(/^(section-|lesson-|study-notes$)/.test(target))?target:'section-'+Math.max(0,t.sections.findIndex(function(s){return (s.concepts||[]).indexOf(target.replace(/^e2-/,''))>=0;}));var node=el(n);if(node)node.scrollIntoView({block:'start'});}
  }
  function practice(){
-  base('practice','Practice the supplied material','Every mastery concept has at least eight practice questions. Expand a topic’s mastery details to choose a concept, or mix Lectures 4–6.');
-  el('e2body').innerHTML='<div class="card"><h2>Mixed practice</h2><p>20 questions from Lectures 4–6. Misses return after two intervening activities; low-confidence correct answers return after four. First answers remain saved.</p>'+button('Start mixed practice','id="mixed"')+'</div>'+cards();
-  el('mixed').onclick=function(){begin('mixed','Lectures 4–6 · mixed practice',X.select(null,20));};bindPractice();
+  base('practice','Practice the supplied material','Every mastery concept has at least eight practice questions. Expand a topic’s mastery details to choose a concept, or mix Lectures 4–7.');
+  el('e2body').innerHTML='<div class="card"><h2>Mixed practice</h2><p>20 questions from Lectures 4–7. Misses return after two intervening activities; low-confidence correct answers return after four. First answers remain saved.</p>'+button('Start mixed practice','id="mixed"')+'</div>'+cards();
+  el('mixed').onclick=function(){begin('mixed','Lectures 4–7 · mixed practice',X.select(null,20));};bindPractice();
  }
  function writing(){
   base('writing','Short-answer workshop','Practice the requested count of distinct points. Rubrics are authored study aids, and you explicitly assess your own draft.');
@@ -136,7 +136,7 @@
    button(boss?'Start Boss':'Start partial practice set','id="challengeStart"')+'<p id="challengeMsg" role="status"></p></div><div class="empty">Full-scope Exam 2 simulation: awaiting remaining materials and confirmed format.</div>';
   el('challengeStart').onclick=function(){
    var ws=[];if(!boss){ws=Array.from(main.querySelectorAll('[name=mockWrite]:checked')).map(function(b){return D.written.find(function(w){return w.id===b.value;});});if(ws.length!==2){el('challengeMsg').textContent='Choose exactly two written prompts.';return;}}
-   begin(boss?'boss':'partial',boss?'Lectures 4–6 · Boss':'Lectures 4–6 · partial practice set',X.select(null,boss?24:30),ws);
+   begin(boss?'boss':'partial',boss?'Lectures 4–7 · Boss':'Lectures 4–6 · partial practice set',X.select(null,boss?24:30,false,boss?null:D.topics.filter(function(t){return !t.part.startsWith('Lecture 7');}).flatMap(function(t){return t.concepts;})),ws);
   };
  }
  function review(){
@@ -157,7 +157,7 @@
  }
  function sourceIndex(){
   base('sources','Sources, scope, and unresolved details','Current-course materials control the lessons. Historical exam evidence shapes the style of original practice; it does not predict Exam 2 weights.');
-  el('e2body').innerHTML='<div class="callout"><b>Scope decision:</b> October 6 directs CI study to Sutherland’s lecture. The supplied Lectures 4–6 now include the October 22 auditory-training deck and discussion. APD guest and visual-stimulus material remain missing.</div><div class="card"><h2>Source conflicts retained</h2><ul class="note-points">'+D.conflicts.map(function(c){return '<li>'+esc(c)+'</li>';}).join('')+'</ul></div><div class="card"><h2>Original source files</h2><p><a href="assets/exam2/source-packet.zip" download>Download the original October 20 packet (ZIP)</a></p><p>Lecture 6 originals and its goal/FAPI references are linked individually below. The filled deck includes student/assisted fills; it is not an official answer key. Source drawers preserve the matching slides and transcript passages.</p>'+Object.keys(D.sources).map(function(k){var s=D.sources[k];return '<p><a href="'+esc(s.f)+'" target="_blank" rel="noopener">'+esc(s.t)+'</a></p>';}).join('')+'</div><div class="card"><h2>Practice design</h2><p>'+D.items.length+' original automatic questions, mixed three/four-choice MC and T/F, '+D.cases.length+' cases, and '+D.written.length+' written rubrics. Final Exam 2 counts and weights are not confirmed. The learning mock’s design is stated on its launch screen.</p><p class="caption">Authoring evidence: COMD4590-EXAM1-RECALL-20260929; cutoff September 29, 2026, with current lectures through October 22. Student recall establishes observed style, not an official answer key.</p></div>';
+  el('e2body').innerHTML='<div class="callout"><b>Scope decision:</b> October 6 directs CI study to Sutherland’s lecture. The supplied Lectures 4–6 now include the October 22 auditory-training deck and discussion. Lecture 7 visual stimuli are included; APD guest material remains missing.</div><div class="card"><h2>Source conflicts retained</h2><ul class="note-points">'+D.conflicts.map(function(c){return '<li>'+esc(c)+'</li>';}).join('')+'</ul></div><div class="card"><h2>Original source files</h2><p><a href="assets/exam2/source-packet.zip" download>Download the original October 20 packet (ZIP)</a></p><p>Lecture 6 originals and its goal/FAPI references are linked individually below. The filled deck includes student/assisted fills; it is not an official answer key. Source drawers preserve the matching slides and transcript passages.</p>'+Object.keys(D.sources).map(function(k){var s=D.sources[k];return '<p><a href="'+esc(s.f)+'" target="_blank" rel="noopener">'+esc(s.t)+'</a></p>';}).join('')+'</div><div class="card"><h2>Practice design</h2><p>'+D.items.length+' original automatic questions, mixed three/four-choice MC and T/F, '+D.cases.length+' cases, and '+D.written.length+' written rubrics. Final Exam 2 counts and weights are not confirmed. The learning mock’s design is stated on its launch screen.</p><p class="caption">Authoring evidence: COMD4590-EXAM1-RECALL-20260929; cutoff September 29, 2026, with current lectures through October 22 plus the supplied Lecture 7 student deck. Student recall establishes observed style, not an official answer key.</p></div>';
  }
  function renderWriting(r,t,index){
   var h='<div class="card"><p class="prompt">'+esc(t.item.q)+'</p><label for="writtenDraft">Your original answer</label><textarea id="writtenDraft" '+(t.revealed?'readonly':'')+'></textarea>';
