@@ -3,26 +3,55 @@ body{position:relative;isolation:isolate;min-height:100vh}body::before{content:"
 @media(max-width:560px){.brand{width:100%}.bar nav.main{gap:4px!important;justify-content:space-between}.bar nav.main a{font-size:14px;padding:9px 6px}.preview-context{width:100%;justify-content:space-between}body::before{background-size:130px 108px;opacity:.08}}
 @media print{body::before,.preview-banner{display:none}}
 /* Diagnostics-inspired section cards; Aural bullet structure and colors retained. */
-.accepted-lesson .e2 .lesson-reading{background:transparent;border:0;padding:0;max-width:920px;margin:20px auto;box-shadow:none}
-.accepted-lesson .e2 .section-study-card{background:#1b2029;border:1px solid #354253;border-radius:14px;padding:26px 28px;margin:0 0 20px}
-.accepted-lesson .e2 .section-study-card .note-heading{font-size:21px;line-height:1.4;margin:0 0 18px}
-.accepted-lesson .e2 .section-study-card .note-points{font-size:18px;line-height:1.8;max-width:72ch;padding-left:22px}
-.accepted-lesson .e2 .section-study-card .note-points>li{margin-bottom:18px}
-.accepted-lesson .e2 .section-study-card .note-subpoints{margin:8px 0 0;padding-left:24px;line-height:inherit}
+.accepted-lesson .e2 .lesson-reading{background:transparent;border:0;padding:0;max-width:1120px;margin:24px auto;box-shadow:none}
+.accepted-lesson .e2 .section-study-card{background:#1b2029;border:1px solid #354253;border-radius:14px;padding:32px;margin:0 0 24px}
+.accepted-lesson .e2 .section-study-card .note-heading{font-size:28px;line-height:1.35;margin:0 0 24px}
+.accepted-lesson .e2 .section-study-card .note-points{font-size:24px;line-height:1.7;max-width:68ch;padding-left:28px}
+.accepted-lesson .e2 .section-study-card .note-points>li{margin-bottom:24px}
+.accepted-lesson .e2 .section-study-card .note-subpoints{margin:12px 0 0;padding-left:28px;line-height:inherit}
 .accepted-lesson .e2 .section-study-card ul.note-subpoints{list-style-type:circle}
-.accepted-lesson .e2 .section-study-card .note-subpoints>li{margin:0 0 8px;padding-left:4px}
+.accepted-lesson .e2 .section-study-card .note-subpoints>li{margin:0 0 12px;padding-left:4px}
 .accepted-lesson .e2 .section-study-card .note-subpoints>li:last-child{margin-bottom:0}
 .accepted-lesson .e2 .section-study-card .note-subpoints>li::marker{color:var(--muted)}
 .accepted-lesson .e2 .section-study-card .note-label{font-weight:600}
-.accepted-lesson .e2 .section-study-card .note-points table{width:100%;min-width:640px;border:1px solid #354253;border-collapse:collapse;font-size:17px;line-height:1.6}
-.accepted-lesson .e2 .section-study-card .note-points caption{text-align:left;padding:12px 0;font-size:14px;color:var(--muted)}
+.accepted-lesson .e2 .section-study-card .note-points table{width:100%;min-width:800px;border:1px solid #354253;border-collapse:collapse;font-size:20px;line-height:1.6}
+.accepted-lesson .e2 .section-study-card .note-points caption{text-align:left;padding:12px 0;font-size:16px;color:var(--muted)}
 .accepted-lesson .e2 .section-study-card .note-points th,.accepted-lesson .e2 .section-study-card .note-points td{padding:12px;vertical-align:top;text-align:left;border-bottom:1px solid #354253}
 .accepted-lesson .e2 .section-study-card .note-points thead{background:#222834}
-.accepted-lesson .e2 .section-study-card .learning-checkpoint{padding:14px 18px}
-.accepted-lesson .e2 .section-study-footer{border-top:1px solid #354253;margin-top:20px;padding-top:16px}
-.accepted-lesson .e2 .section-study-footer .caption{font-size:14px;margin:0 0 12px}
-.accepted-lesson .e2 .section-study-footer .primary{background:#21629a;border-color:#4189c5;min-height:44px;font-size:16px}
-@media(max-width:560px){.accepted-lesson .e2 .section-study-card{padding:22px 18px}.accepted-lesson .e2 .section-study-card .note-points{font-size:17px;line-height:1.8}.accepted-lesson .e2 .section-study-footer button{width:100%}}
+.accepted-lesson .e2 .section-study-card .learning-checkpoint{padding:16px 20px}
+.accepted-lesson .e2 .section-study-card .learning-checkpoint>b,.accepted-lesson .e2 .section-study-card .source-context>b{font-size:16px}
+.accepted-lesson .e2 .section-study-card .sources{font-size:16px}
+.accepted-lesson .e2 .section-study-footer{border-top:1px solid #354253;margin-top:24px;padding-top:20px}
+.accepted-lesson .e2 .section-study-footer .caption{font-size:16px;margin:0 0 12px}
+.accepted-lesson .e2 .section-study-footer .primary{background:#21629a;border-color:#4189c5;min-height:52px;font-size:18px}
+@media(max-width:560px){.accepted-lesson .e2 .section-study-card{padding:24px 22px}.accepted-lesson .e2 .section-study-card .note-heading{font-size:24px}.accepted-lesson .e2 .section-study-card .note-points{font-size:20px;line-height:1.75;padding-left:24px}.accepted-lesson .e2 .section-study-card .note-subpoints{padding-left:24px}.accepted-lesson .e2 .section-study-footer button{width:100%}}
+/* Comfortable question reading across practice, cases, Boss and mocks. */
+.e2 .run-card{max-width:1120px;font-size:22px;line-height:1.65}
+#main .item,.e2 .run-card #questionHost>.card{max-width:1120px;padding:32px;font-size:22px;line-height:1.65;overflow-wrap:anywhere}
+#main .prompt{font-size:26px;line-height:1.5;max-width:65ch;margin:16px 0 24px}
+#main .item .opts{gap:12px}
+#main .item .opt{font-size:22px;line-height:1.6;min-height:64px;padding:16px;gap:12px}
+#main .item .opt .k{flex:0 0 36px;height:36px;font-size:18px}
+#main .item .opt .tx{min-width:0}
+#main .item .opt .why{font-size:20px}
+#main .item .qhead{font-size:16px;margin-bottom:16px;gap:12px}
+#main .item .badge{font-size:14px}
+#main .item .src{font-size:16px;padding:4px 8px}
+#main .item .confrow{margin-top:24px;padding-top:20px}
+#main .item .confrow .lbl{font-size:18px;margin-bottom:12px}
+#main .item .btn,.e2 .run-card .btn{font-size:20px;line-height:1.5;min-height:52px;padding:12px 16px;max-width:100%;white-space:normal}
+#main .item input,#main .item select,#main .item textarea,.e2 .run-card textarea{font-size:22px;line-height:1.6;min-height:52px}
+#main .item .formrow label{min-width:0}
+#main .item .small{font-size:18px}
+#main .item .tiny,.e2 .run-card .caption{font-size:16px}
+#main .item .fb{font-size:22px;line-height:1.7;padding:20px;margin-top:24px}
+#main .item .fb .verdict{font-size:24px;font-weight:700}
+#main .item .casebox{padding:20px;font-size:22px;line-height:1.7}
+#main .item .media svg.aud{max-width:720px}
+#main .item .media img{max-height:640px;object-fit:contain}
+.e2 .run-card .navline{font-size:18px}
+.e2 .run-card h2{font-size:26px}
+@media(max-width:560px){#main .item,.e2 .run-card #questionHost>.card{padding:24px 20px;font-size:20px}#main .prompt{font-size:22px}#main .item .opt{font-size:20px;padding:14px;gap:10px}#main .item .opt .k{flex-basis:32px;height:32px;font-size:17px}#main .item .opt .why{font-size:18px}#main .item .fb,#main .item .casebox,.e2 .run-card{font-size:20px}#main .item input,#main .item select,#main .item textarea,.e2 .run-card textarea{font-size:20px}#main .item .btn,.e2 .run-card .btn{font-size:18px}#main .item .qhead{font-size:15px}#main .item .casebox{padding:16px}}
 .e2 .custom-practice{margin:18px 0 24px}.e2 .custom-topic{padding:8px 0;border-bottom:1px solid #303947}.e2 .custom-topic summary{min-height:44px;padding:8px 0;cursor:pointer;color:#7cc4ff}.e2 .custom-options{display:grid;gap:8px;padding:10px 16px 16px}.e2 .custom-options label{display:flex;align-items:baseline;gap:10px;min-height:36px}.e2 #customCount{margin-left:10px;padding:8px}.e2 .custom-practice .primary{background:#21629a;border-color:#4189c5}.e2 .custom-practice .primary:disabled{opacity:.5;cursor:not-allowed}.e2 #customStatus{font-size:14px;color:#b9c6d8}
 .e2 .custom-practice>summary{font-size:19px;font-weight:650;cursor:pointer;padding:8px 0;min-height:44px;color:#7cc4ff}
 
