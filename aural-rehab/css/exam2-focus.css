@@ -2,13 +2,18 @@
 .final-focus-sections { max-width: 920px; margin: 24px auto; }
 .final-focus-card { padding: 26px 28px; margin-bottom: 20px; }
 .final-focus-card h2 { color: #7cc4ff; font-size: 21px; line-height: 1.4; }
-.final-focus-card > ul { font-size: 18px; line-height: 1.8; padding-left: 24px; }
-.final-focus-card > ul > li { margin-bottom: 18px; }
+.focus-note-group > ul { font-size: 18px; line-height: 1.8; padding-left: 22px; margin: 0; max-width: 72ch; }
+.focus-note-group > ul > li { margin-bottom: 18px; }
 .final-focus-card details { margin-top: 16px; }
 .final-focus-card details ul { line-height: 1.7; }
-.focus-checkpoint { border-left: 3px solid #ffb78a; padding: 12px 18px; margin: 20px 0; background: rgba(255,183,138,.045); }
-.focus-checkpoint > b { color: #ffb78a; }
-.focus-checkpoint p { line-height: 1.7; margin: 8px 0 0; }
+.focus-note-stack { display: grid; gap: 28px; margin: 24px 0; }
+.final-focus-card .focus-note-group h3 { color: #7cc4ff; font-size: 21px; line-height: 1.4; font-weight: 700; margin: 0 0 18px; }
+.focus-note-group > ul > li { padding-left: 2px; }
+.focus-note-group > ul > li:last-child { margin-bottom: 0; }
+.final-focus-card .e2-term { color: #ff4fd8; font-weight: 700; background: none; }
+.focus-checkpoint { padding: 16px 18px; margin: 18px 0; background: #232b36; border: 1px solid #47515e; border-radius: 8px; color: #e4e9f1; }
+.focus-checkpoint > b { display: block; color: #ffb78a; font-size: 15px; line-height: 1.5; margin-bottom: 8px; }
+.focus-checkpoint p { font-size: 18px; line-height: 1.8; margin: 0; max-width: 72ch; }
 .final-format { max-width: 920px; margin: 20px auto; line-height: 1.7; }
 .final-forms { margin: 20px 0; }
 .final-forms .card { padding: 24px; }
@@ -17,7 +22,9 @@
 .e2 .final-focus-sections .sources img { max-width: 100%; height: auto; }
 @media(max-width:600px) {
  .final-focus-card { padding: 22px 18px; }
- .final-focus-card > ul { font-size: 17px; }
+ .focus-note-group > ul { font-size: 17px; }
+ .focus-checkpoint { padding: 14px 16px; }
+ .focus-checkpoint p { font-size: 17px; }
  .final-forms { grid-template-columns: minmax(0,1fr); }
  .final-format { padding: 22px 18px; }
 }
