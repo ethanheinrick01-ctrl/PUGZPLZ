@@ -1,0 +1,23 @@
+/* Exam review uses the accepted card shell and existing progress architecture. */
+.final-focus-sections { max-width: 920px; margin: 24px auto; }
+.final-focus-card { padding: 26px 28px; margin-bottom: 20px; }
+.final-focus-card h2 { color: #7cc4ff; font-size: 21px; line-height: 1.4; }
+.final-focus-card > ul { font-size: 18px; line-height: 1.8; padding-left: 24px; }
+.final-focus-card > ul > li { margin-bottom: 18px; }
+.final-focus-card details { margin-top: 16px; }
+.final-focus-card details ul { line-height: 1.7; }
+.focus-checkpoint { border-left: 3px solid #ffb78a; padding: 12px 18px; margin: 20px 0; background: rgba(255,183,138,.045); }
+.focus-checkpoint > b { color: #ffb78a; }
+.focus-checkpoint p { line-height: 1.7; margin: 8px 0 0; }
+.final-format { max-width: 920px; margin: 20px auto; line-height: 1.7; }
+.final-forms { margin: 20px 0; }
+.final-forms .card { padding: 24px; }
+.final-focus-card .btn, .final-forms .btn { min-height: 44px; white-space: normal; }
+.final-focus-card progress { width: 100%; }
+.e2 .final-focus-sections .sources img { max-width: 100%; height: auto; }
+@media(max-width:600px) {
+ .final-focus-card { padding: 22px 18px; }
+ .final-focus-card > ul { font-size: 17px; }
+ .final-forms { grid-template-columns: minmax(0,1fr); }
+ .final-format { padding: 22px 18px; }
+}

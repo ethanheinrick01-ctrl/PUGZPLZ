@@ -17,7 +17,7 @@
    var r={id:'E2-'+now+'-'+U.newSeed(),scope:scope,kind:kind,title:title,version:D.version,started:now,updated:now,cur:0,ended:null,tasks:tasks,planned:tasks.length};
    state().runs.push(r);state().activeId=r.id;touch(r);return r;
   }
-  function pool(topic,figures){return D.items.filter(function(i){return (!topic||i.topic===topic)&&(!figures||i.figure)&&!i.scenario;});}
+  function pool(topic,figures){return D.items.filter(function(i){return (!topic||i.topic===topic)&&(!figures||i.figure)&&!i.scenario&&!i.mockOnly;});}
   function select(topic,n,figures,concepts){
    var seen={},last={};S.load().attempts.forEach(function(a){last[a.i]=a.t;});
    var p=U.shuffle(pool(topic,figures).filter(function(i){return !concepts||concepts.indexOf(i.c)>=0;}));

@@ -608,7 +608,7 @@
    p('Continue into the integrated teaching chapters.',[
     '<a href="#exam2/topic/at-hierarchy">Erber’s hierarchy and task examples</a> develops these distinctions through the October 22 lecture.',
     'The six Lecture 6 chapters and three Lecture 7 visual-stimulus chapters are included.',
-    'APD guest coverage and final exam-format confirmation remain pending. Do not infer complete exam coverage from the presence of these chapters.'
+    'APD is excluded from Exam 2 under the updated instructor scope. The supplied review notes report 65 questions, 65 points and no short answers; use Exam focus & mocks for the new forms.'
    ])
   ]
  ],
