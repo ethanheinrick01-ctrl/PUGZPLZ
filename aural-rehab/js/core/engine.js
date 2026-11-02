@@ -188,7 +188,7 @@
       if (current[c].rawStatus === 'mastered') state.masteryCredits[c] = 'earned';
     });
   }
-  function refRoot(key) { return key; } // generated items differ by seed => distinct instances; hand items by id
+  function refRoot(key) { return REG[key] && REG[key].masteryRoot || key; } // Revised mock records keep their original mastery root.
 
   // ---------- Review queue ----------
   var RANK = { misconception: 0, mock: 1, shaky: 2, due: 3, prior: 4, new: 5 };
