@@ -1,0 +1,44 @@
+name: Aural Rehab mock regression
+on:
+  push:
+    branches: [fix/aural-exam2-independent-mocks-20261102]
+    paths:
+      - 'aural-rehab/**'
+      - '.github/workflows/aural-mock-regression.yml'
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Check out only the study lab
+        env:
+          REPO: ${{ github.repository }}
+          REF: ${{ github.ref_name }}
+        run: |
+          git clone --filter=blob:none --no-checkout --depth 1 --branch "$REF" "https://github.com/$REPO.git" repo
+          cd repo
+          git sparse-checkout init --cone
+          git sparse-checkout set aural-rehab/js aural-rehab/css aural-rehab/tests aural-rehab/docs aural-rehab/references
+          git checkout
+      - name: Run independent-bank regression when present
+        run: |
+          if [ -f repo/aural-rehab/tests/independent-mocks.cjs ]; then
+            cd repo/aural-rehab
+            node tests/independent-mocks.cjs
+          fi
+      - name: Package source and verification evidence
+        if: always()
+        run: |
+          mkdir -p evidence
+          cd repo
+          git rev-parse HEAD > ../evidence/commit.txt
+          tar --exclude='.git' --exclude='assets' --exclude='node_modules' -czf ../evidence/lab-source.tgz aural-rehab
+      - name: Upload verification evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: aural-mock-verification
+          path: evidence/
+          retention-days: 3
