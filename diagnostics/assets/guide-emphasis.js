@@ -1173,3 +1173,13 @@ window.DX_GUIDE_EMPHASIS = {
 
 /* October 5 assignment: gold is the explicitly assigned decision task. */
 for(let i=0;i<8;i++)window.DX_GUIDE_EMPHASIS['m21:'+i]={terms:['diagnostic purpose','diagnostic accuracy','normative sample','validity','reliability','sufficiency','dynamic assessment','both languages','ongoing','baseline','qualitative','patient-reported'],gold:i===0?['Explain the limitation']:[],notes:{},noteGold:{}};
+
+/* The October 8 source-backed comparison tables retain their exact distinctions. */
+Object.assign(window.DX_GUIDE_EMPHASIS, {
+  'focus-methods:0': {terms:['Standardized','Clinical observation','Informal','Dynamic','question it can answer','examining responsiveness']},
+  'focus-ssd:0': {terms:['Functional / idiopathic SSD','Organic SSD','CAS concern','Processing versus production','Difference versus disorder','No single feature establishes CAS','not an automatic diagnosis']},
+  'focus-psychometrics:0': {terms:['Validity','Reliability','Standardization','Bias / fairness','Sensitivity','Specificity','widens the interval','does not improve the instrument’s intrinsic reliability']},
+  'focus-testing:0': {terms:['Accommodation / modification','Basal / ceiling','Raw / derived score','Percentile / percent correct','Age equivalent / overall ability','age-appropriate conversion']},
+  'focus-process:0': {terms:['seven-stage process','six grouped evaluation components','Referral & review','Case history & interview','Observation','Assessment','Analysis & interpretation','Diagnosis & recommendations','Report & results conference','Clinical reasoning']},
+  'focus-report:0': {terms:['Identifying information','Reason for referral','Background & history','Assessment procedures','Results by domain','Clinical impressions','Recommendations','functional impact']}
+});

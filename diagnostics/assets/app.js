@@ -315,9 +315,6 @@
         <a class="card mod link" href="#/guide/${m.id}"><span class="num">${m.number}</span><div><p class="kicker">${esc(m.kicker)}</p><h3>${esc(m.title)}</h3>
         <p>${esc(m.summary)}</p><div class="bar" aria-label="${mm.k} of ${mm.n} concepts mastered"><i style="width:${pct(mm.k, mm.n)}%"></i></div><small>${mm.k}/${mm.n} concepts mastered</small></div></a>`; }).join("")}</div>`;
   }
-  function renderTable(t) {
-    return `<div class="tablewrap"><table><thead><tr>${t.head.map(h => `<th>${md(h)}</th>`).join("")}</tr></thead><tbody>${t.rows.map(r => `<tr>${r.map((c, i) => `<td${i === 0 ? ' class="rh"' : ""}>${md(c)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
-  }
   function vModule(m) {
     if (m.specialTopic === "cas") return window.DXTopic.render(topicAPI, ["learn"]);
     const idx = D.modules.indexOf(m), next = D.modules[idx + 1], prev = D.modules[idx - 1];
@@ -325,14 +322,8 @@
     app.innerHTML = `<nav class="crumbs"><a href="#/guide">Guide</a> › Module ${m.number}</nav>
       <header class="modhead"><p class="kicker">${esc(m.kicker)} · ${esc(m.week)}</p><h1>${m.number}. ${esc(m.title)}</h1><p class="lede">${esc(m.summary)}</p>
       <div class="chips">${m.concepts.map(c => `<span class="chip st-${cstat(c)}" title="${esc(STATUS_LABEL[cstat(c)])}">${esc(CONC[c].label)}</span>`).join("")}</div></header>
-      ${m.sections.map((s, i) => `<section class="sec" id="s${i}"><h2>${md(s.h)}</h2>
-        ${(s.body || []).map(b => `<p>${md(b)}</p>`).join("")}
-        ${s.bullets ? `<ul>${s.bullets.map(b => `<li>${md(b)}</li>`).join("")}</ul>` : ""}
-        ${s.table ? renderTable(s.table) : ""}
-        ${s.visual ? V.render(s.visual, { mode: "guide" }) : ""}
-        ${(s.callouts || []).map(c => `<aside class="callout k-${esc(c.k)}"><p class="ch">${esc(CALLOUT[c.k] || c.k)} ${evBadge(c.ev)}</p><p>${md(c.t)}</p></aside>`).join("")}
-        ${s.src && s.src.length ? `<p class="src">Source: ${s.src.map(x => { const [sid, loc] = x.includes(":") ? [x.split(":")[0], x.slice(x.indexOf(":") + 1)] : [x, ""]; const S0 = D.sources[sid.trim()]; return esc(S0 ? S0.label : x) + (loc ? " · " + esc(loc.trim()) : ""); }).join("; ")}</p>` : ""}
-      </section>`).join("")}
+      ${window.DXGuideDesign.legend([m])}
+      <div class="legacy-reading">${m.sections.map((s,i)=>`<section id="s${i}">${window.DXGuideDesign.section(m,s,i,{practice:false,historicalCallouts:true,zoom:true,noteHeading:c=>esc(CALLOUT[c.k]||c.k)+' '+evBadge(c.ev)})}</section>`).join('')}</div>
       <div class="card endmod"><h2>Now prove it</h2><p>${PRACTICE.filter(i => i.module === m.id).length} practice questions cover this module.</p>
         <button class="btn primary" data-act="practice-module" data-m="${m.id}">Practice module ${m.number}</button>
         <div class="pager">${prev ? `<a href="#/guide/${prev.id}">← ${prev.number}. ${esc(prev.title)}</a>` : "<span></span>"}${next ? `<a href="#/guide/${next.id}">${next.number}. ${esc(next.title)} →</a>` : ""}</div></div>`;

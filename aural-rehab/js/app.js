@@ -82,7 +82,7 @@
     if (id === 's7') hh.push('<div class="media">' + L.svg.bte(true) + '</div>');
     if (id === 's9') hh.push('<div class="media">' + L.svg.dotsChart({}) + '</div>');
     cards.forEach(function (c) {
-      hh.push('<div class="card" id="' + c.id + '"><div class="spread"><h3 style="margin:0">' + esc(c.h) + '</h3><span>' + IU.tierBadge(c.tier) + '</span></div>' + c.html);
+      hh.push('<div class="card study-reading" id="' + c.id + '"><div class="spread"><h3 style="margin:0">' + esc(c.h) + '</h3><span>' + IU.tierBadge(c.tier) + '</span></div>' + c.html);
       if (c.traps && c.traps.length) hh.push('<div class="traps"><b>Tempting mistakes</b><ul>' + c.traps.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul></div>');
       if (c.conflict) hh.push('<div class="conflict"><b>Flagged in the sources</b><br>' + c.conflict + '</div>');
       hh.push('<div class="spread" style="margin-top:8px"><div>' + IU.srcChips(c.src) + '</div>' + (c.c && c.c.length ? '<button class="btn" data-cc="' + c.c.join(',') + '">Practice these</button>' : '') + '</div></div>');
