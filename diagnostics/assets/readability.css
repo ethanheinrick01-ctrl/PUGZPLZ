@@ -41,7 +41,7 @@
 #app .study-citation summary { color: var(--reading-blue); font-size: 18px; }
 #app .focus-rule > strong { display: block; color: var(--reading-checkpoint); font-size: 18px; }
 #app .study-focus .focus-grid { grid-template-columns: minmax(0, 1fr); gap: 24px; }
-#app :is(.study-focus .focus-section, .study-focus .focus-reading, .cas-reading, .legacy-reading) :is(p, li, td) { font-size: 22px; line-height: 1.75; }
+#app :is(.study-focus > section, .study-focus .focus-section, .study-focus .focus-reading, .cas-reading, .legacy-reading) :is(p, li, td) { font-size: 22px; line-height: 1.75; }
 #app :is(.study-note, .study-target) :is(p, li) { font-size: 22px; line-height: 1.75; }
 #app :is(.study-focus, .cas-reading, .legacy-reading) .small { font-size: 16px; line-height: 1.6; }
 #app :is(.study-focus, .cas-reading, .legacy-reading) .card { padding: 30px 32px; }
@@ -50,7 +50,7 @@
 #app .study-prose { color: var(--ink); }
 #app .study-card .emphasis-label { color: var(--ink); font-size: 16px; letter-spacing: normal; text-transform: none; }
 @media (max-width: 767px) {
-  #app :is(.study-focus .focus-section, .study-focus .focus-reading, .cas-reading, .legacy-reading, .study-note, .study-target) :is(p, li, td) { font-size: 20px; }
+  #app :is(.study-focus > section, .study-focus .focus-section, .study-focus .focus-reading, .cas-reading, .legacy-reading, .study-note, .study-target) :is(p, li, td) { font-size: 20px; }
   #app :is(.study-focus, .cas-reading, .legacy-reading) .card { padding: 24px 18px; }
   #app :is(.study-note, .study-target, .callout-cas, .focus-rule) { padding: 14px 16px; }
   #app :is(.study-focus, .cas-reading, .legacy-reading) :is(h2, h3) { font-size: 24px; line-height: 1.4; }
