@@ -1,0 +1,19 @@
+/* Larger reading across both exams; keep the existing lesson and wallpaper layout. */
+@media screen {
+  #main { font-size: 20px; line-height: 1.75; }
+  #main .card { font-size: 22px; line-height: 1.75; min-width: 0; overflow-wrap: anywhere; }
+  #main :is(.e1lesson, .focus-note-group > ul, .focus-checkpoint p) { font-size: 22px; line-height: 1.75; }
+  #main :is(.e1lesson li, .focus-note-group > ul > li) { margin-bottom: 18px; }
+  #main .final-focus-card { padding: 30px 32px; }
+  #main .final-focus-card :is(h2, .focus-note-group h3) { font-size: 26px; line-height: 1.4; }
+  #main .focus-checkpoint > b { font-size: 18px; }
+  #main :is(.src, .badge, .eyebrow, .caption, .small) { font-size: 16px; line-height: 1.6; }
+  #main :is(.e1detail summary, .final-focus-card summary, .final-focus-card .btn) { font-size: 18px; line-height: 1.6; }
+  #main :is(.e1lesson table, .focus-note-group table) { max-width: 100%; }
+}
+@media screen and (max-width: 767px) {
+  #main { font-size: 18px; }
+  #main .card, #main :is(.e1lesson, .focus-note-group > ul, .focus-checkpoint p) { font-size: 20px; }
+  #main .final-focus-card { padding: 24px 18px; }
+  #main .final-focus-card :is(h2, .focus-note-group h3) { font-size: 24px; }
+}

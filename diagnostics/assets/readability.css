@@ -1,0 +1,22 @@
+/* Shared lesson and Focus scale; theme colors and teaching content stay course-specific. */
+@media screen {
+  #app { font-size: 20px; line-height: 1.75; }
+  #app :is(.study-card, .cas-reading .card, .focus-priority, .focus-blueprint, .qcard) { font-size: 22px; line-height: 1.75; min-width: 0; overflow-wrap: anywhere; }
+  #app .topic-shell .study-card { padding: 30px 32px; }
+  #app :is(.study-card h3, .cas-reading .card h2, .focus-priority h3) { font-size: 26px; line-height: 1.4; color: var(--acc); }
+  #app :is(.study-prose, .study-prose p, .study-prose li, .study-note p, .study-table, .cas-reading .feature p, .qstem, .topic-option) { font-size: 22px; line-height: 1.75; }
+  #app .study-prose li { margin-bottom: 18px; }
+  #app :is(.study-citation, .section-study p, .source-box summary, .study-note > span) { font-size: 16px; line-height: 1.6; }
+  #app :is(.small, .eyebrow, .focus-number, .reading-key, .source-box figcaption) { font-size: 16px; line-height: 1.6; }
+  #app :is(.section-study .btn, .qcard .btn, .focus-priority .btn) { font-size: 18px; line-height: 1.6; min-height: 44px; }
+  #app .source-box pre { font-size: 18px; }
+  #app .study-card .flow { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); }
+  #app .study-card .flow li { font-size: 18px; line-height: 1.6; overflow-wrap: normal; }
+  #app .study-card .viz-note { font-size: 18px; line-height: 1.6; }
+}
+@media screen and (max-width: 767px) {
+  #app { font-size: 18px; }
+  #app :is(.study-card, .cas-reading .card, .focus-priority, .focus-blueprint, .qcard, .study-prose, .study-prose p, .study-prose li, .study-note p, .study-table, .cas-reading .feature p, .qstem, .topic-option) { font-size: 20px; }
+  #app .topic-shell .study-card { padding: 24px 18px; }
+  #app :is(.study-card h3, .cas-reading .card h2, .focus-priority h3) { font-size: 24px; }
+}
