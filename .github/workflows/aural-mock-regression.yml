@@ -20,7 +20,7 @@ jobs:
           git clone --filter=blob:none --no-checkout --depth 1 --branch "$REF" "https://github.com/$REPO.git" repo
           cd repo
           git sparse-checkout init --cone
-          git sparse-checkout set aural-rehab/js aural-rehab/css aural-rehab/tests aural-rehab/docs aural-rehab/references
+          git sparse-checkout set aural-rehab/js aural-rehab/css aural-rehab/tests aural-rehab/docs aural-rehab/references aural-rehab/assets/exam2/figures
           git checkout
       - name: Run independent-bank regression when present
         run: |
@@ -34,7 +34,7 @@ jobs:
           mkdir -p evidence
           cd repo
           git rev-parse HEAD > ../evidence/commit.txt
-          tar --exclude='.git' --exclude='assets' --exclude='node_modules' -czf ../evidence/lab-source.tgz aural-rehab
+          tar --exclude='.git' --exclude='node_modules' -czf ../evidence/lab-source.tgz aural-rehab
       - name: Upload verification evidence
         if: always()
         uses: actions/upload-artifact@v4
