@@ -3656,8 +3656,8 @@ var revisions={
     ],
     "x": "/z/ uses the same basic tongue position as /s/ with voicing added. The two nasal sounds and the two vowels are both voiced; /h/ and /s/ are both voiceless.",
     "s": [
-      "ARLING-10",
       "ARLING-14",
+      "ARLING-10",
       "ARLING-8"
     ]
   },
