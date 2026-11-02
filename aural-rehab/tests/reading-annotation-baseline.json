@@ -1,0 +1,75 @@
+{
+  "base": "ea30ec32cad4491e4d04b238e5943f41d712c119",
+  "records": {
+    "SOURCES": "5460eee4b4e457d28e2cdaf0646f3aea96329b439ae6b7038a4b5419a03853a2",
+    "SECTIONS": "b9da91be705cb5ebf85218e40af988681e3fd1286d9ea6c79f3709d0b5f6e149",
+    "DOMAINS": "3a301f2a0756b5963b4d0b61ef369356cf2f4110677a540317ae913f16d58f64",
+    "CONCEPTS": "6fa92f72d5ea17e3b8a3f8d523bd6f3d95460550f8bda285e9b124ba7f01f221",
+    "LEGACY_MAP": "30d6acd73724752f68cdfe447848079cc72a5f09ba7bbdab10998a9197b89ffb",
+    "ITEMS": "db0c9e09bf7a6b7f7336922b01ffe293e8a2421c55541ca732f7201f1cb194ae",
+    "CASES": "b1a7fd96a294dc951f5d3d28c182e4169378d7ed3767512533da30c6d4001cee",
+    "BOSSES": "58378af015eb84428b3da325256dd8c1fcd36342d3ff834fe3900ee5e525eaa3",
+    "EXAM1_DATA": "30c988ce7cb2c4190900d1f64b61d62906feb262119dda34882c56094e146674",
+    "EXAM2_DATA": "518cad37ceb21bb876c31b9843ecde181164a956a2eb4a5a5d501c7296bb2ef5",
+    "ITEM_REVISIONS": "29c5bb66d68e216c40b46c2dec68c2bd7965a4674f01d4ef72ab24d9bd5df7f5",
+    "EXAM2_AUDIO": "ef7715c0f8b67bb9080acdfb51f27082194544c5ca41d2e0fa14950d793694c5",
+    "EXAM2_FILMS": "7ced6c05cc1885ef62fe4bd9e4df510a465e026c3d6cded938c5f23bf9074c7a"
+  },
+  "exam1Guide": "8987d168661888ae0fd54c8204fa9f0c12615ef2f56a41aa917778078d50da42",
+  "storageKey": "comd4590-lab-v2",
+  "exam2GuideLinks": {
+    "e2-ci-signal-guide": [
+      "#exam2/topic/ci-signal"
+    ],
+    "e2-ci-candidacy-guide": [
+      "#exam2/topic/ci-candidacy"
+    ],
+    "e2-ci-assessment-guide": [
+      "#exam2/topic/ci-assessment"
+    ],
+    "e2-ci-life-guide": [
+      "#exam2/topic/ci-life"
+    ],
+    "e2-brain-guide": [
+      "#exam2/topic/brain"
+    ],
+    "e2-experience-guide": [
+      "#exam2/topic/experience"
+    ],
+    "e2-acoustics-guide": [
+      "#exam2/topic/acoustics"
+    ],
+    "e2-ling-guide": [
+      "#exam2/topic/ling"
+    ],
+    "e2-context-guide": [
+      "#exam2/topic/at-hierarchy",
+      "#exam2/topic/at-hierarchy",
+      "#exam2/topic/context"
+    ],
+    "e2-development-guide": [
+      "#exam2/topic/development"
+    ],
+    "e2-at-foundations-guide": [
+      "#exam2/topic/at-foundations"
+    ],
+    "e2-at-assessments-guide": [
+      "#exam2/topic/at-assessments"
+    ],
+    "e2-at-hierarchy-guide": [
+      "#exam2/topic/at-hierarchy"
+    ],
+    "e2-at-approaches-guide": [
+      "#exam2/topic/at-approaches"
+    ],
+    "e2-at-design-guide": [
+      "#exam2/topic/at-design"
+    ],
+    "e2-at-programs-guide": [
+      "#exam2/topic/at-programs"
+    ],
+    "e2-visual-foundations-guide": [],
+    "e2-visual-support-guide": [],
+    "e2-visual-manual-guide": []
+  }
+}

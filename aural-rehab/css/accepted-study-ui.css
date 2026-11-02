@@ -56,3 +56,17 @@ body{position:relative;isolation:isolate;min-height:100vh}body::before{content:"
 .e2 .custom-practice>summary{font-size:19px;font-weight:650;cursor:pointer;padding:8px 0;min-height:44px;color:#7cc4ff}
 
 .custom-options label{flex-wrap:wrap}.practice-progress{font-size:13px;color:#bcc8d8;border:1px solid #526078;border-radius:5px;padding:2px 6px;margin-left:auto}.practice-progress.is-mastered{border-color:#7ea6b7;color:#d2e6ef}.custom-topic.topic-complete>summary{border-left:3px solid #7ea6b7;padding-left:10px}.learning-checkpoint>.checkpoint-label{display:block;color:#ffb78a;font-weight:700;font-size:14px;margin-bottom:6px}
+
+/* Approved reading semantics are confined to Exam 2 teaching. */
+main.e2 .e2-definition{color:#c1e86a;font-weight:600}
+main.e2 :is(.lesson-reading,.focus-note-stack,.source-text) .e2-term{color:#ff4fd8;font-weight:700}
+main.e2 .reading-checkpoint{list-style:none;border:1px solid #47515e;border-radius:8px;background:#232b36;padding:14px 16px;margin:14px 0}
+main.e2 .reading-checkpoint>.checkpoint-label{display:block;color:#ffb78a;font-size:18px;font-weight:700;margin-bottom:6px}
+main.e2 .source-text .e2-definition{font-weight:600}
+@media print{main.e2 .e2-definition,main.e2 .e2-term{color:inherit;text-decoration:underline}main.e2 .reading-checkpoint{break-inside:avoid;background:none}}
+main.e2 .source-checkpoint-label{display:inline-block;color:#ffb78a;font-family:inherit;font-weight:700;font-size:.88em;border:1px solid #667180;border-radius:4px;padding:1px 5px;margin-right:7px;white-space:normal}
+main.e2 .reading-supplement p{margin-bottom:0}
+.annotated-reading .e2-term{color:#ff4fd8;font-weight:700}
+.annotated-reading .e2-definition{color:#c1e86a;font-weight:600}
+.annotated-reading .checkpoint-label{display:block;color:#ffb78a;font-weight:700;margin-bottom:6px}
+.annotated-reading .reading-checkpoint{list-style:none;border:1px solid #47515e;border-radius:8px;padding:14px 16px;margin:14px 0}

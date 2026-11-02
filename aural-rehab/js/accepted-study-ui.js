@@ -69,17 +69,10 @@ function decorate(){
  const nav=main.querySelector('.navline');if(nav){nav.querySelector('a').textContent='← Study · all mini-chapters';nav.querySelector('a').href='#exam2/practice';nav.querySelector('[data-practice]').textContent='Practice this chapter';nav.querySelector('[data-practice]').classList.add('primary');}
 
  const groups=main.querySelectorAll('.note-group');
- if(activeId==='ci-signal'){
- const p0=groups[0].querySelectorAll('.note-points>li');
- const cp=document.createElement('li');cp.className='learning-checkpoint';cp.setAttribute('aria-label','Key distinction');cp.innerHTML='<b>Key distinction</b><p>A hearing aid amplifies acoustic input. A cochlear implant changes the signal into electrical stimulation.</p>';p0[1].after(cp);
- const p1=groups[1].querySelectorAll('.note-points>li');p1[2].classList.add('learning-checkpoint');p1[2].insertAdjacentHTML('afterbegin','<b class="checkpoint-label">Follow the signal</b>');
- const p2=groups[2].querySelectorAll('.note-points>li');p2[2].classList.add('source-context');p2[2].insertAdjacentHTML('afterbegin','<b class="checkpoint-label">Historical context</b>');
- }
  const t=activeTopic,sections=t.sections;
  groups.forEach((group,index)=>{
   group.classList.add('section-study-card');
-  const check=sections[index].outlineCheckpoint||sections[index].checkpoint;if(check){const note=document.createElement('li');note.className='learning-checkpoint';const label=document.createElement('b');label.textContent=check.label;const body=document.createElement('p');body.textContent=check.text;note.append(label,body);group.querySelector('.note-points').append(note);}
-  group.querySelectorAll('.checkpoint-label').forEach(label=>{const li=label.closest('li');if(li&&!li.classList.contains('source-context'))li.classList.add('learning-checkpoint');});
+  group.querySelectorAll('.checkpoint-label').forEach(label=>{const li=label.parentElement;if(li.tagName==='LI'&&!li.classList.contains('source-context'))li.classList.add('learning-checkpoint');});
   const old=group.querySelector('.note-heading');const heading=document.createElement('h2');heading.className=old.className;heading.textContent=old.textContent;old.replaceWith(heading);
   const cs=sections[index].concepts.map(c=>c.startsWith('e2-')?c:'e2-'+c);
   const available=L.exam2.pool(t.id).filter(i=>cs.includes(i.c)).length,n=Math.min(8,available);
