@@ -20,6 +20,13 @@
 .final-focus-card .btn, .final-forms .btn { min-height: 44px; white-space: normal; }
 .final-focus-card progress { width: 100%; }
 .e2 .final-focus-sections .sources img { max-width: 100%; height: auto; }
+.focus-selection h2 { margin-top: 0; }
+.focus-selection .controls { align-items: end; }
+.focus-selection label { display: grid; gap: 6px; }
+.focus-choice { display: inline-flex; align-items: baseline; gap: 8px; cursor: pointer; }
+.focus-choice input { flex: none; width: 18px; height: 18px; }
+.focus-record ul.focus-choices { list-style: none; padding-left: 0; }
+.focus-choices li { margin: 8px 0; }
 @media(max-width:600px) {
  .final-focus-card { padding: 22px 18px; }
  .focus-note-group > ul { font-size: 17px; }
