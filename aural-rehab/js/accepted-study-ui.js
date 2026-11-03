@@ -14,6 +14,33 @@ sections[2].points[1]=sections[2].points[1].replace('<strong class="e2-term">Coc
 sections[2].points[1]=mark(sections[2].points[1],['Nucleus 22','behind-the-ear processor']);
 sections[2].points[2]=sections[2].points[2].replace('class="e2-term"','class="historical-note"');
 
+function studyResume(){
+ const X=L.exam2,run=X.get(X.state().activeId);if(!run)return null;
+ const score=X.score(run);return score.complete?null:{id:run.id,title:run.title,answered:score.answered,total:score.total};
+}
+function lessonHeadings(topic){
+ return topic.sections.map((section,index)=>({label:section.outlineTitle||section.title,href:'#exam2/topic/'+topic.id+'/section-'+index}));
+}
+
+function lessonTargetId(topic,hash){
+ const parts=hash.split('/');if(parts[0]!=='#exam2'||parts[1]!=='topic'||parts[2]!==topic.id||!parts[3])return null;
+ const target=parts[3];
+ if(/^section-\d+$/.test(target))return Number(target.slice(8))<topic.sections.length?target:null;
+ if(['lesson-notes','lesson-media','lesson-figures','study-notes'].includes(target))return target;
+ const concept=target.replace(/^e2-/,''),index=topic.sections.findIndex(section=>(section.concepts||[]).some(id=>id.replace(/^e2-/,'')===concept));
+ return index<0?null:'section-'+index;
+}
+function alignLessonTarget(topic,hash){
+ if(location.hash!==hash)return;
+ const id=lessonTargetId(topic,hash),target=id&&document.getElementById(id);if(!target)return;
+ const visible=node=>node&&node.getClientRects().length&&!node.hidden;
+ const headings=Array.from(target.querySelectorAll('.note-heading,h1,h2,h3,h4'));
+ let heading=headings.find(visible);
+ if(!heading&&target.nextElementSibling?.matches('h1,h2,h3,h4')&&visible(target.nextElementSibling))heading=target.nextElementSibling;
+ target.scrollIntoView({block:'start'});
+ const focus=heading||target;focus.setAttribute('tabindex','-1');focus.focus({preventScroll:true});
+}
+
 function customPractice(){
  const main=document.querySelector('main'),host=main.querySelector('#e2body');if(!host||host.querySelector('#customPractice'))return;
  const D=L.EXAM2_DATA,X=L.exam2,esc=L.util.esc;
@@ -45,26 +72,78 @@ function customPractice(){
  card.querySelector('#customAll').onclick=()=>{boxes.forEach(b=>b.checked=true);update();};
  card.querySelector('#customClear').onclick=()=>{boxes.forEach(b=>b.checked=false);update();};
  card.querySelector('#customStart').onclick=()=>start(selected(),+card.querySelector('#customCount').value,'Exam 2 · custom practice');update();
+ const grid=host.querySelector('.topic-grid');
+ if(grid){
+  const heading=document.createElement('h2');heading.id='miniChaptersHeading';heading.textContent='Mini-chapters';grid.before(heading);
+  const saved=studyResume();
+  if(saved){
+   const resume=document.createElement('section');resume.className='card study-resume';
+   const title=document.createElement('b');title.textContent='Resume: '+saved.title;
+   const progress=document.createElement('span');progress.className='caption';progress.textContent=saved.answered+'/'+saved.total+' checked';
+   const link=document.createElement('a');link.className='btn primary';link.href='#exam2/run/'+saved.id;link.textContent='Continue →';
+   resume.append(title,progress,link);heading.before(resume);
+  }
+  const options=document.createElement('details');options.className='card practice-options';
+  const summary=document.createElement('summary');summary.textContent='Practice options';
+  options.append(summary);grid.after(options);options.append(quick,card);
+ }
 }
 
 // Presentation annotations only; never modify question records or persistence.
 const originalHeader=typeof document!=='undefined'?document.querySelector('header.top').innerHTML:null;
+const isExam2Route=hash=>/^#exam2(?:\/|$)/.test(hash);
+function keepExam2Shell(hash,previousExam2){
+ return isExam2Route(hash)||previousExam2&&['#data','#sutherland'].includes(hash);
+}
+function exam2Tab(hash,runKind){
+ if(!isExam2Route(hash))return null;
+ const view=hash.split('/')[1]||'practice';
+ if(['focus','mocks'].includes(view))return 'focus';
+ if(view==='review')return 'review';
+ if(['progress','history','result','data'].includes(view))return 'progress';
+ if(view==='run'){
+  if(['final-mock','focus-coverage'].includes(runKind))return 'focus';
+  if(['review','missed-review'].includes(runKind))return 'review';
+ }
+ return 'study';
+}
+// Shared tool pages retain an explicit route origin only for this open document.
+// Direct tool loads and routes through Exam 1 never inherit Exam 2 context.
+let exam2ShellContext=typeof location!=='undefined'&&isExam2Route(location.hash);
+L.exam2Shell={keep:keepExam2Shell,tab:exam2Tab,resume:studyResume,headings:lessonHeadings,target:lessonTargetId};
 function decorate(){
- const inExam2=location.hash.startsWith('#exam2');
+ const hash=location.hash,inExam2=isExam2Route(hash);
+ exam2ShellContext=keepExam2Shell(hash,exam2ShellContext);
+ document.body.classList.toggle('uniform-exam2',exam2ShellContext);
  const header=document.querySelector('header.top');
- if(inExam2&&!header.dataset.accepted){header.innerHTML='<div class="bar">\n  <div class="brand">COMD 4590 Lab <small>Aural Rehabilitation · Study &amp; Practice</small></div>\n  <div class="preview-context"><span>Exam 2</span><details><summary>Tools</summary><div class="preview-tools"><a href="#exam2/sources">Sources & coverage</a><a href="#data">Backup / restore</a><a href="#exam2/history">Saved sessions</a><a href="#sutherland">Instructor study guidance</a><a href="#exam1">Exam 1</a></div></details></div>\n  <nav class="main" aria-label="Study"><a href="#exam2/practice">Study</a><a href="#exam2/review">Review</a><a href="#exam2/progress">My progress</a></nav>\n</div>';header.dataset.accepted='true';}
- if(!inExam2&&header.dataset.accepted){header.innerHTML=originalHeader;delete header.dataset.accepted;}
+ if(exam2ShellContext&&!header.dataset.accepted){header.innerHTML='<div class="bar">\n  <div class="brand">COMD 4590 <small>Aural Rehabilitation · Exam 2</small></div>\n  <div class="preview-context"><details><summary>Tools</summary><div class="preview-tools"><a href="#exam2/sources">Sources & coverage</a><a href="#exam2/data">Backup / restore</a><a href="#exam2/history">Saved sessions</a><a href="#sutherland">Instructor study guidance</a><a href="#exam1">Exam 1</a></div></details></div>\n  <nav class="main" aria-label="Study"><a href="#exam2/practice" data-exam2-tab="study">Study</a><a href="#exam2/focus" data-exam2-tab="focus">Exam focus</a><a href="#exam2/review" data-exam2-tab="review">Review</a><a href="#exam2/progress" data-exam2-tab="progress">Progress</a></nav>\n</div>';header.dataset.accepted='true';}
+ if(!exam2ShellContext&&header.dataset.accepted){
+  header.innerHTML=originalHeader;delete header.dataset.accepted;
+  const route=(hash||'#exam2').slice(1).split('/')[0];
+  header.querySelectorAll('nav.main a').forEach(a=>{const on=a.getAttribute('data-r')===route;a.classList.toggle('on',on);if(on)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
+ }
+ if(exam2ShellContext){
+  const tools=header.querySelector('.preview-context details');if(tools)tools.open=false;
+  const parts=hash.split('/'),run=inExam2&&parts[1]==='run'?L.exam2.get(parts[2]):null,active=exam2Tab(hash,run&&run.kind);
+  header.querySelectorAll('nav.main a').forEach(a=>{const on=a.dataset.exam2Tab===active;a.classList.toggle('on',on);if(on)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
+ }
  if(!inExam2){document.body.classList.remove('accepted-lesson');return;}
  if(location.hash==='#exam2/progress'&&!document.querySelector('#savedSessionsLink')){const link=document.createElement('a');link.id='savedSessionsLink';link.className='btn';link.href='#exam2/history';link.textContent='Saved sessions & history';document.querySelector('#e2body').prepend(link);}
  const activeId=location.hash.split('/')[2];
  const activeTopic=L.EXAM2_DATA.topics.find(x=>x.id===activeId);
  const first=!!activeTopic&&location.hash.startsWith('#exam2/topic/');
  document.body.classList.toggle('accepted-lesson',first);
- document.querySelectorAll('nav.main a').forEach(a=>{const r=location.hash;const dest=a.getAttribute('href');const on=dest==='#exam2/practice'?(r.includes('/topic/')||r==='#exam2/focus'||r==='#exam2/mocks'||r==='#exam2/practice'||r==='#exam2'||r==='#exam2/'):r.startsWith(dest);a.classList.toggle('on',on);if(on)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
  if(['#exam2/practice','#exam2','#exam2/'].includes(location.hash)){document.querySelector('main h1').textContent='Study · Exam 2';document.querySelector('main .lead').textContent='Choose a mini-chapter to learn it or practice it. Use mixed practice to work across topics.';customPractice();}
  if(!first)return;
  const main=document.querySelector('main');
  const lesson=main.querySelector('#lesson-notes');if(!lesson||lesson.dataset.previewDecorated)return;lesson.dataset.previewDecorated='true';
+ const jump=document.createElement('label');jump.className='lesson-jump';jump.htmlFor='lessonHeading';
+ const jumpLabel=document.createElement('span');jumpLabel.textContent='In this lesson';
+ const select=document.createElement('select');select.id='lessonHeading';
+ const placeholder=document.createElement('option');placeholder.value='';placeholder.textContent='Choose a heading';select.append(placeholder);
+ lessonHeadings(activeTopic).forEach(({label,href})=>{const option=document.createElement('option');option.value=href;option.textContent=label;select.append(option);});
+ select.onchange=()=>{const href=select.value;if(!href)return;if(href===location.hash)alignLessonTarget(activeTopic,href);else L.app.go(href.slice(1));select.value='';};
+ jump.append(jumpLabel,select);lesson.before(jump);
 
  const nav=main.querySelector('.navline');if(nav){nav.querySelector('a').textContent='← Study · all mini-chapters';nav.querySelector('a').href='#exam2/practice';nav.querySelector('[data-practice]').textContent='Practice this chapter';nav.querySelector('[data-practice]').classList.add('primary');}
 
@@ -84,6 +163,8 @@ function decorate(){
   footer.append(count,button);group.append(footer);
  });
  const mastery=main.querySelector('.topic-mastery');if(mastery)mastery.remove();
+ // The base renderer scrolls before these cards and controls change the layout.
+ if(lessonTargetId(activeTopic,hash))requestAnimationFrame(()=>alignLessonTarget(activeTopic,hash));
 }
-if(typeof window!=='undefined'&&window){window.addEventListener('hashchange',()=>requestAnimationFrame(decorate));window.addEventListener('DOMContentLoaded',()=>requestAnimationFrame(decorate));}
+if(typeof window!=='undefined'&&window){window.addEventListener('hashchange',()=>{exam2ShellContext=keepExam2Shell(location.hash,exam2ShellContext);requestAnimationFrame(decorate);});window.addEventListener('DOMContentLoaded',()=>requestAnimationFrame(decorate));}
 })();

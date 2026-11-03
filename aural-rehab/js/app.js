@@ -26,7 +26,7 @@
     main.innerHTML = '';
     main.classList.remove('e2');
     window.scrollTo(0, 0);
-    var pages = { exam2: function(args){L.exam2UI.render(main,args);}, exam1: function(args){L.exam1UI.render(main,args);}, home: pHome, guide: pGuide, practice: pPractice, session: pSession, review: pReview, cases: pCases, boss: pBoss, mock: pMock, progress: pProgress, data: pData, sources: pSources, sutherland: pProf };
+    var pages = { exam2: function(args){if(args[0]==='data'){main.classList.add('e2');pData();}else L.exam2UI.render(main,args);}, exam1: function(args){L.exam1UI.render(main,args);}, home: pHome, guide: pGuide, practice: pPractice, session: pSession, review: pReview, cases: pCases, boss: pBoss, mock: pMock, progress: pProgress, data: pData, sources: pSources, sutherland: pProf };
     (pages[r] || pHome)(h.slice(1));
     main.focus({ preventScroll: true });
   }

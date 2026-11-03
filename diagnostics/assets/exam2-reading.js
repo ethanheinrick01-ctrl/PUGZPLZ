@@ -56,7 +56,7 @@ function apply(root,view){
   root.querySelectorAll('.grid > .card > p,.lede').forEach(p=>{if(p.textContent===plan.source)annotate(p,plan);});
  }
  if(view==='focus')for(const plan of plans.focus){
-  root.querySelectorAll('.study-focus > section > .study-points li').forEach(li=>{
+  root.querySelectorAll('.study-focus > section > .study-points li,.dx-focus-targets .study-points li').forEach(li=>{
    const own=[...li.childNodes].filter(n=>n.nodeName!=='UL').map(n=>n.textContent).join('');
    if(own===plan.source)annotate(li,plan);
   });

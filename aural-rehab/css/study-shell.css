@@ -1,0 +1,124 @@
+/* Exam 2 presentation only; the course's learning and storage engines are unchanged. */
+body.uniform-exam2{--muted:#b4c0d1;--line:#354253;background:#0e1117;color:#e4e9f1}
+.uniform-exam2 .top{position:sticky;top:0;z-index:30;background:#10151e;border-bottom:1px solid #354253;backdrop-filter:none}
+.uniform-exam2 .top .bar{max-width:976px;padding:8px 28px 0;display:flex;flex-wrap:wrap!important;align-items:center;gap:0!important}
+.uniform-exam2 .brand{width:auto;min-width:0;margin-right:auto;font-size:20px;line-height:1.4;letter-spacing:0;font-weight:700;white-space:normal;color:#edf1f7;text-decoration:none}
+.uniform-exam2 .brand small{display:block;font-size:16px;line-height:1.4;font-weight:400;margin-top:4px;color:#b4c0d1}
+.uniform-exam2 .preview-context{width:auto;gap:0;font-size:18px}
+.uniform-exam2 .preview-context summary{padding:10px 6px;min-height:44px;color:#7cc4ff}
+.uniform-exam2 .preview-tools{top:48px;padding:8px;max-width:calc(100vw - 32px);box-shadow:0 6px 24px #0005}
+.uniform-exam2 .preview-tools a{padding:12px;font-size:16px;line-height:1.5;min-height:44px;text-decoration:none}
+.uniform-exam2 .top .bar nav.main{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px!important;flex:1 0 100%!important;margin-top:4px;overflow:visible!important}
+.uniform-exam2 .top .bar nav.main a{padding:12px 8px;min-height:48px;text-align:center;font-size:18px;line-height:24px;border-radius:0;border-bottom:3px solid transparent;background:none;color:#b4c0d1}
+.uniform-exam2 .top .bar nav.main a:hover{background:#1b2029;color:#e4e9f1}
+.uniform-exam2 .top .bar nav.main a[aria-current=page]{color:#7cc4ff;border-color:#7cc4ff;font-weight:700}
+.uniform-exam2 #main{max-width:976px;padding:16px 28px 40px;font-size:20px;line-height:1.75;min-width:0}
+.uniform-exam2 #main h1{font-size:34px;line-height:1.3;letter-spacing:-.02em;margin:0 0 12px}
+.uniform-exam2 #main h2{font-size:24px;line-height:1.4;color:#7cc4ff}
+.uniform-exam2 #main .eyebrow{font-size:16px;line-height:1.6;letter-spacing:0;margin:0 0 8px}
+.uniform-exam2 #main .lead{font-size:20px;line-height:1.7;margin:0 0 16px;color:#d1dae5}
+.uniform-exam2 #main .card{box-shadow:none;border:1px solid #354253;border-radius:14px;padding:22px 26px;margin-bottom:16px}
+.uniform-exam2 #main :is(.btn,.item .btn,.run-card .btn){min-height:44px;padding:10px 14px;border-radius:9px;font-size:18px;line-height:1.6;max-width:100%;white-space:normal;text-align:center}
+.uniform-exam2 #main .btn:is(.primary,.pri){background:#21629a;border-color:#4189c5;color:#fff}
+.uniform-exam2 #main .controls{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.uniform-exam2 #main :is(.caption,.small){font-size:16px;line-height:1.6;color:#b4c0d1}
+.uniform-exam2 #main summary{min-height:44px;padding:8px 0;font-size:18px;line-height:1.5;cursor:pointer}
+.uniform-exam2 :is(a,button,summary,input,select,textarea):focus-visible{outline:3px solid #9ed5ff;outline-offset:3px}
+.uniform-exam2 #main :is(input:not([type=checkbox]):not([type=radio]),select){min-height:44px;font-size:18px;background:#10151e;border:1px solid #354253;border-radius:8px;padding:8px 12px;max-width:100%}
+.uniform-exam2 #main .topic-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}
+.uniform-exam2 #main .topic-card{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 24px;padding:18px 22px;margin:0;min-height:0}
+.uniform-exam2 #main .topic-card>.eyebrow{display:none}
+.uniform-exam2 #main .topic-card>h2{grid-column:1;font-size:22px;line-height:1.4;margin:0}
+.uniform-exam2 #main .topic-card h2 a{color:#7cc4ff}
+.uniform-exam2 #main .topic-card>.small{grid-column:1;margin:0;min-height:0}
+.uniform-exam2 #main .topic-card>progress{grid-column:1;max-width:360px;margin:4px 0}
+.uniform-exam2 #main .topic-card>.controls{grid-column:2;grid-row:1 / span 3;align-content:center;justify-content:flex-end;min-height:0;max-width:350px;margin:0}
+.uniform-exam2 #main .topic-card>.topic-mastery{grid-column:1 / -1;border-top:1px solid #354253;margin:4px 0 0;padding:0}
+.uniform-exam2 #main .metric-grid{gap:16px}
+.uniform-exam2 #main .metric{background:#1b2029;padding:18px 22px;font-size:16px;line-height:1.5}
+.uniform-exam2 #main .metric strong{font-size:26px}
+.uniform-exam2 #main .focus-summary{padding:18px 22px;margin:16px 0}
+.uniform-exam2 #main .focus-summary h2{margin:0 0 10px}
+.focus-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.focus-metrics b{display:block;color:#7cc4ff;font-size:26px;line-height:1.3}
+.focus-metrics span{display:block;font-size:16px;line-height:1.4;margin-top:6px}
+.uniform-exam2 #main progress{display:block;height:7px;width:100%;border:0;border-radius:8px;background:#202733;overflow:hidden;appearance:none;margin:8px 0}
+.uniform-exam2 #main progress::-webkit-progress-bar{background:#202733;border-radius:8px}
+.uniform-exam2 #main progress::-webkit-progress-value{background:#7cc4ff;border-radius:8px}
+.uniform-exam2 #main progress::-moz-progress-bar{background:#7cc4ff;border-radius:8px}
+.focus-summary>.controls{margin-top:18px}
+.focus-summary>.caption{margin:10px 0 0}
+.focus-filters{display:flex;gap:16px;align-items:end;margin:24px 0}
+.focus-filters label{font-size:18px;display:grid;gap:8px}
+.focus-filters input{width:240px}
+.focus-index{display:grid;gap:12px}
+.uniform-exam2 #main .focus-index-card{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:6px 24px;padding:18px 22px;margin:0}
+.focus-index-card>:is(.eyebrow,h2,.controls){grid-column:1;margin:0!important}
+.uniform-exam2 #main .focus-index-card h2{font-size:22px;line-height:1.4}
+.focus-index-card .controls{align-self:end;padding-top:6px}
+.focus-index-card>.focus-record{grid-column:2;grid-row:1 / span 3}
+.focus-record{font-size:16px;line-height:1.5}
+.focus-record p{margin:0 0 6px}
+.uniform-exam2 #main .focus-record summary{font-size:16px;padding:6px 0}
+.focus-record ul{padding-left:20px}
+.focus-index+details{margin-top:24px}
+.focus-crumb{font-size:16px;line-height:1.6;margin:0 0 12px;color:#b4c0d1}
+.uniform-exam2 #main .focus-reading>h2{display:none}
+.uniform-exam2 #main .focus-note-stack{gap:16px;margin:16px 0}
+.uniform-exam2 #main :is(.focus-note-group,.section-study-card){padding:22px 26px;margin:0 0 16px;border:1px solid #354253;border-radius:14px;background:#1b2029}
+.uniform-exam2 #main :is(.focus-note-group :is(h2,h3),.section-study-card .note-heading){font-size:26px;line-height:1.4;margin:0 0 18px}
+.uniform-exam2 #main :is(.focus-note-group,.section-study-card) .note-points{font-size:24px;line-height:1.75;padding-left:22px}
+.uniform-exam2 #main :is(.focus-note-group,.section-study-card) .note-points>li{margin-bottom:18px}
+.uniform-exam2 #main .lesson-reading{padding:0;border:0;background:transparent;margin:16px 0}
+.uniform-exam2 #main .lesson-tools{font-size:18px;line-height:1.5;border-bottom:1px solid #354253;padding-bottom:12px;margin:12px 0}
+.uniform-exam2 #main .section-study-footer{padding-top:12px;margin-top:16px}
+.uniform-exam2 #main .e2-reading-key{font-size:16px;line-height:1.5;gap:8px 24px}
+.uniform-exam2 #main .focus-recap{padding:16px 18px;background:#232b36;border:1px solid #47515e;border-radius:8px;margin:16px 0}
+.focus-recap>b{color:#ffb78a;font-size:18px}
+.uniform-exam2 #main :is(.item,.run-card){max-width:none}
+.uniform-exam2 #main .prompt{font-size:24px;line-height:1.65}
+.uniform-exam2 #main :is(.item .opt,.item .fb){font-size:22px;line-height:1.65}
+.uniform-exam2 #main .final-forms{grid-template-columns:repeat(3,minmax(0,1fr));align-items:start}
+.uniform-exam2 #main .final-forms .card{padding:18px 22px;font-size:20px;line-height:1.6}
+.uniform-exam2 #main .final-forms h2{font-size:22px;margin:0 0 12px}
+.uniform-exam2 #main .final-format{font-size:20px;line-height:1.7}
+.uniform-exam2 #main .final-format h2{margin:0 0 12px}
+.uniform-exam2 #main [hidden]{display:none!important}
+.uniform-exam2 #main :is(.note-group,.focus-note-group,[id^=lesson-],#study-notes){scroll-margin-top:150px}
+@media(max-width:900px){
+ .uniform-exam2 #main .topic-card{grid-template-columns:1fr}
+ .uniform-exam2 #main .topic-card>.controls{grid-column:1;grid-row:auto;justify-content:flex-start;max-width:none}
+ .uniform-exam2 #main .final-forms{grid-template-columns:1fr}
+}
+@media(max-width:767px){
+ .uniform-exam2 .top .bar{padding:10px 16px 0}
+ .uniform-exam2 .brand{font-size:18px;max-width:calc(100% - 80px)}
+ .uniform-exam2 .brand small{font-size:14px}
+ .uniform-exam2 .preview-context{font-size:16px}
+ .uniform-exam2 .top .bar nav.main{gap:0!important}
+ .uniform-exam2 .top .bar nav.main a{font-size:15px;padding:10px 2px;min-height:47px}
+ .uniform-exam2 #main{padding:20px 16px 32px;font-size:18px}
+ .uniform-exam2 #main h1{font-size:28px}
+ .uniform-exam2 #main :is(.card,.section-study-card,.focus-note-group,.focus-summary,.topic-card,.focus-index-card){padding:18px}
+ .uniform-exam2 #main .lesson-reading{padding:0}
+ .uniform-exam2 #main .focus-index-card{grid-template-columns:1fr;gap:8px}
+ .focus-index-card>.focus-record{grid-column:1;grid-row:auto}
+ .focus-index-card>.controls{grid-row:4}
+ .focus-metrics{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+ .focus-metrics>div:last-child{grid-column:1/-1}
+ .focus-filters{display:block}
+ .focus-filters label{margin:14px 0}
+ .focus-filters input{width:100%}
+ .uniform-exam2 #main :is(.focus-note-group,.section-study-card) .note-points{font-size:20px}
+ .uniform-exam2 #main :is(.focus-note-group :is(h2,h3),.section-study-card .note-heading){font-size:24px}
+ .uniform-exam2 #main :is(.item .opt,.item .fb){font-size:20px}
+ .uniform-exam2 #main .prompt{font-size:22px}
+ .uniform-exam2 #main .metric-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .uniform-exam2 #main .figure-grid{grid-template-columns:1fr}
+ .uniform-exam2 #main .e2-reading-key{gap:6px 16px}
+}
+@media(max-height:600px){.uniform-exam2 .top{position:static}}
+@media print{.uniform-exam2 .top,.focus-filters{display:none}.uniform-exam2 #main{max-width:none;padding:0}.uniform-exam2 #main .card{background:white;color:black;box-shadow:none}}
+
+.uniform-exam2 .lesson-jump{display:flex;align-items:center;gap:14px;font-size:18px;color:#b4c0d1;margin:10px 0 16px}.uniform-exam2 .lesson-jump select{flex:1;min-width:0}.uniform-exam2 #main .practice-options{margin-top:24px}.uniform-exam2 #main .practice-options>.card{border:0;padding:0;background:none}.uniform-exam2 #main .study-resume h2{margin:0;font-size:22px}
+@media(max-width:767px){.uniform-exam2 .lesson-jump{display:block}.uniform-exam2 .lesson-jump select{display:block;width:100%;margin-top:8px}}
