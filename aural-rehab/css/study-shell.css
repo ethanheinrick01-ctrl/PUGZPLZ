@@ -122,3 +122,5 @@ body.uniform-exam2{--muted:#b4c0d1;--line:#354253;background:#0e1117;color:#e4e9
 
 .uniform-exam2 .lesson-jump{display:flex;align-items:center;gap:14px;font-size:18px;color:#b4c0d1;margin:10px 0 16px}.uniform-exam2 .lesson-jump select{flex:1;min-width:0}.uniform-exam2 #main .practice-options{margin-top:24px}.uniform-exam2 #main .practice-options>.card{border:0;padding:0;background:none}.uniform-exam2 #main .study-resume h2{margin:0;font-size:22px}
 @media(max-width:767px){.uniform-exam2 .lesson-jump{display:block}.uniform-exam2 .lesson-jump select{display:block;width:100%;margin-top:8px}}
+
+@media screen{.uniform-exam2 main.e2 .e2-definition{color:#b9e87c}}
