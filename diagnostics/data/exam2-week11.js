@@ -278,8 +278,8 @@
     },
     "e2-speaking-valves:4": {
       "terms": [
-        "tolerance",
-        "stridor"
+        "trial tolerance",
+        "Remove the valve"
       ],
       "gold": []
     },

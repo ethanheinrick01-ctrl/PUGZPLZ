@@ -159,7 +159,7 @@
     root.querySelector('[data-dx-clear-focus]').addEventListener('click',()=>{search.value='';select.value='all';update();search.focus();});
     update();
   }
-  function lessonNavigation(root,chapterId) {
+  function lessonNavigation(root) {
     const shell=root.querySelector('.topic-shell');
     if (!shell || shell.querySelector('.dx-lesson-toolbar')) return;
     const cards=[...shell.querySelectorAll('.guide-module .study-card')];
@@ -168,8 +168,10 @@
       if (!card.id) card.id='dx-reading-'+(card.dataset.readingSection || index).replace(/[^A-Za-z0-9_-]/g,'-');
       card.setAttribute('tabindex','-1');
     });
+    const reading=shell.querySelector('.reading-key');
+    if (reading) {reading.id='dx-reading-key';reading.setAttribute('tabindex','-1');}
     const media=shell.querySelector('.chapter-explainer');
-    const figures=[...shell.querySelectorAll('.e2-original,.guide-module figure,.guide-module .visual')];
+    const figures=[...shell.querySelectorAll('.e2-original:has(img),.guide-module figure,.guide-module .visual')];
     if (media) {if(!media.id)media.id='dx-lesson-watch';media.setAttribute('tabindex','-1');}
     figures.forEach((figure,index)=>{if(!figure.id)figure.id='dx-lesson-figure-'+index;figure.setAttribute('tabindex','-1');});
     const jumpTo=id=>{
@@ -178,21 +180,18 @@
       target.scrollIntoView({block:'start',behavior:'auto'});target.focus({preventScroll:true});
     };
     const toolbar=document.createElement('nav');toolbar.className='dx-lesson-toolbar';toolbar.setAttribute('aria-label','Lesson views');
-    toolbar.innerHTML=`<button type="button" data-dx-jump="${cards[0].id}">Read</button><button type="button" ${media?`data-dx-jump="${media.id}"`:'disabled'}>Watch / listen</button><button type="button" ${figures[0]?`data-dx-jump="${figures[0].id}"`:'disabled title="No separate figures in this lesson"'}>Figures</button>`;
+    toolbar.innerHTML=`<button type="button" data-dx-jump="${reading?.id || cards[0].id}">Read</button><button type="button" ${media?`data-dx-jump="${media.id}"`:'disabled'}>Watch / listen</button><button type="button" ${figures[0]?`data-dx-jump="${figures[0].id}"`:'disabled title="No separate figures in this lesson"'}>Figures</button>`;
     toolbar.querySelectorAll('[data-dx-jump]').forEach(button=>button.addEventListener('click',()=>jumpTo(button.dataset.dxJump)));
     const jump=document.createElement('label');jump.className='dx-lesson-jump';jump.htmlFor='dx-lesson-heading';
     jump.innerHTML=`In this lesson<select id="dx-lesson-heading"><option value="">Choose a heading</option>${cards.map(card=>`<option value="${card.id}">${escape(card.querySelector('h3,h2')?.textContent || 'Reading section')}</option>`).join('')}</select>`;
     jump.querySelector('select').addEventListener('change',event=>{if(event.target.value)jumpTo(event.target.value);});
     const anchor=shell.querySelector(':scope > .lede') || shell.querySelector('h1');
     anchor.after(toolbar,jump);
+    if (media) anchor.after(media);
     shell.querySelector('.reading-route')?.remove();
     // Move the existing nodes, retaining video listeners, controls, citations and notes.
     const chapterActions=shell.querySelector(':scope > .tabs');if(chapterActions)shell.append(chapterActions);
     shell.querySelectorAll(':scope > .e2-original').forEach(figure=>shell.append(figure));
-    if (media) {
-      if (['e2-resonance','e2-speaking-valves'].includes(chapterId)) anchor.after(media);
-      else shell.append(media);
-    }
   }
   window.DXTopic.render = function (api,parts) {
     currentAPI=api;
@@ -212,7 +211,7 @@
       }
     });
     if ((parts[0] || 'home') === 'focus') bindFilters(api.app);
-    if (parts[0] === 'learn') lessonNavigation(api.app,parts[1]);
+    if (parts[0] === 'learn') lessonNavigation(api.app);
   };
   window.DXExam2Shell = {focusSections,recordFor,matches,activeTab,continuation};
   if (document.body?.classList) document.body.classList.add('dx-exam2-shell');

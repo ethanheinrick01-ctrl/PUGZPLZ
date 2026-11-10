@@ -5,6 +5,7 @@ body.dx-exam2-shell {
  background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;position:relative;isolation:isolate;min-height:100vh;
 }
 body.dx-exam2-shell::before {content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:url('penelope-outline.png') repeat 8px 16px/160px 133px;opacity:.11;filter:grayscale(1)}
+.dx-exam2-shell .skip {background:var(--panel);color:var(--ink)}
 .dx-exam2-shell .top {position:sticky;top:0;z-index:30;background:var(--bg2);border-bottom:1px solid var(--line);backdrop-filter:none}
 .dx-exam2-shell .topin {display:block;box-sizing:border-box;width:100%;max-width:976px;margin:auto;padding:8px 28px 0}
 .dx-exam2-shell .dx-identity {display:flex;justify-content:space-between;align-items:center;gap:16px}
