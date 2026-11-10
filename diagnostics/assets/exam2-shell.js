@@ -5,7 +5,7 @@
   if (!T || window.DX_ACTIVE_EXAM !== T || !C || !window.DXTopic) return;
   const escape = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   // Existing Focus teaching selections, retained from the Exam 2 presentation config.
-  const focusGroups = [['e2-child',[0,1,6]],['e2-medical',[0]],['e2-neuro',[2,6]],['e2-dysphagia',[0,4]],['e2-fluency',[3,4,6]],['e2-pfd',[0]]];
+  const focusGroups = [['e2-child',[0,1,6]],['e2-medical',[0]],['e2-neuro',[2,6]],['e2-dysphagia',[0,4]],['e2-fluency',[3,4,6]],['e2-pfd',[0]],['e2-resonance',[1,5]],['e2-speaking-valves',[1,4]]];
   const focusSections = focusGroups.flatMap(([id, indexes]) => {
     const module = T.guide.find(m => m.id === id), chapter = T.chapters.find(ch => ch.id === id);
     return indexes.filter(i => module?.sections[i]).map(index => ({key:id+':'+index,module,chapter,index,section:module.sections[index]}));
@@ -62,12 +62,15 @@
     return focusSections.find(section => section.key === key) || null;
   }
   function stateLabel(record) {
+    if(!record.total)return 'Reading available · practice pending';
     return (record.complete ? 'Mastered' : record.started ? 'In progress' : 'Not started') + (record.review ? ' · Review due' : '');
   }
   function progress(record) {
+    if(!record.total)return '<p class="small">Reading is available. Linked practice and mastery checks are not yet available for this section.</p>';
     return `<p class="dx-focus-state" data-status="${record.status}"><strong>${stateLabel(record)}</strong></p><div class="progress" role="progressbar" aria-label="Linked concepts mastered" aria-valuemin="0" aria-valuemax="${record.total || 1}" aria-valuenow="${record.mastered}"><i style="width:${record.total ? record.mastered / record.total * 100 : 0}%"></i></div><p class="small">${record.mastered}/${record.total} linked concepts mastered</p>`;
   }
   function skillDetails(record, values = evidence()) {
+    if(!record.total)return '';
     return `<details class="dx-skill-details"><summary>Linked skills</summary><ul>${record.concepts.map(id=>`<li>${escape(T.concepts[id])}<span>${values[id]?.mastered?'Mastered':values[id]?.attempts?'In progress':'Not started'}${values[id]?.needsReview?' · Review due':''}</span></li>`).join('')}</ul></details>`;
   }
   function checkAction(record) {
@@ -112,7 +115,7 @@
     const linked = [...new Set(all.flatMap(item=>item.concepts))];
     const masteredConcepts = linked.filter(id=>values[id]?.mastered).length;
     const next = continuation(all);
-    return `<section class="card dx-dashboard-summary"><h2>Your Focus mastery</h2><div class="dx-focus-metrics"><div><b>${mastered}/${all.length}</b><span>Sections with linked skills mastered</span></div><div><b>${masteredConcepts}/${linked.length}</b><span>Linked concepts mastered</span></div><div><b>${due}</b><span>Sections needing review</span></div></div><p class="small">These sections use the existing course mastery record. Earned mastery stays earned when a later miss adds review.</p><div class="row"><a class="btn primary" href="#/topic/focus/${encodeURIComponent(next.key)}">Continue</a><a class="btn" href="#/topic/backup">Back up progress</a><a class="btn" href="#/topic/test">Mock exams</a></div></section><p class="dx-scope-notice">Study targets from the current packet; final Exam 2 scope and format remain unconfirmed.</p><form class="dx-focus-filters" role="search" aria-label="Filter focus sections"><label for="dx-focus-search">Filter focus sections<input id="dx-focus-search" type="search" value="${escape(filters.query)}" placeholder="Term, section or skill" autocomplete="off"></label><label for="dx-focus-status">Progress<select id="dx-focus-status">${[['all','All sections'],['new','Not started'],['learning','In progress'],['mastered','Mastered'],['review','Needs review']].map(([value,label])=>`<option value="${value}"${filters.status===value?' selected':''}>${label}</option>`).join('')}</select></label></form><p class="small" id="dx-focus-count" role="status" aria-live="polite"></p><div class="dx-focus-list">${all.map(record=>`<article class="card dx-focus-row" data-focus-key="${record.key}"><div class="dx-focus-copy"><p class="eyebrow">${escape(record.chapter.title)}</p><h2><a href="#/topic/focus/${encodeURIComponent(record.key)}">${escape(record.section.h)}</a></h2><div class="row"><a class="btn primary" href="#/topic/focus/${encodeURIComponent(record.key)}">Study this section</a>${checkAction(record)}</div></div><div class="dx-focus-record">${progress(record)}${skillDetails(record,values)}</div></article>`).join('')}</div><section class="card dx-filter-empty" hidden><h2>No matching sections</h2><p>Try another search or show all progress states.</p><button class="btn" type="button" data-dx-clear-focus>Clear filters</button></section><details class="dx-focus-targets card"><summary>Study targets from the packet</summary><p>These are study targets from the packet, not a confirmed exam blueprint.</p>${targets?.outerHTML || ''}</details>${packetDisclosure(template.content)}`;
+    return `<section class="card dx-dashboard-summary"><h2>Your Focus mastery</h2><div class="dx-focus-metrics"><div><b>${mastered}/${all.filter(item=>item.total>0).length}</b><span>Sections with linked skills mastered</span></div><div><b>${masteredConcepts}/${linked.length}</b><span>Linked concepts mastered</span></div><div><b>${due}</b><span>Sections needing review</span></div></div><p class="small">These sections use the existing course mastery record. Additional readings with practice pending do not count toward mastery. Earned mastery stays earned when a later miss adds review.</p><div class="row"><a class="btn primary" href="#/topic/focus/${encodeURIComponent(next.key)}">Continue</a><a class="btn" href="#/topic/backup">Back up progress</a><a class="btn" href="#/topic/test">Mock exams</a></div></section><p class="dx-scope-notice">Study targets from the current packet; final Exam 2 scope and format remain unconfirmed.</p><form class="dx-focus-filters" role="search" aria-label="Filter focus sections"><label for="dx-focus-search">Filter focus sections<input id="dx-focus-search" type="search" value="${escape(filters.query)}" placeholder="Term, section or skill" autocomplete="off"></label><label for="dx-focus-status">Progress<select id="dx-focus-status">${[['all','All sections'],['new','Not started'],['learning','In progress'],['mastered','Mastered'],['review','Needs review']].map(([value,label])=>`<option value="${value}"${filters.status===value?' selected':''}>${label}</option>`).join('')}</select></label></form><p class="small" id="dx-focus-count" role="status" aria-live="polite"></p><div class="dx-focus-list">${all.map(record=>`<article class="card dx-focus-row" data-focus-key="${record.key}"><div class="dx-focus-copy"><p class="eyebrow">${escape(record.chapter.title)}</p><h2><a href="#/topic/focus/${encodeURIComponent(record.key)}">${escape(record.section.h)}</a></h2><div class="row"><a class="btn primary" href="#/topic/focus/${encodeURIComponent(record.key)}">Study this section</a>${checkAction(record)}</div></div><div class="dx-focus-record">${progress(record)}${skillDetails(record,values)}</div></article>`).join('')}</div><section class="card dx-filter-empty" hidden><h2>No matching sections</h2><p>Try another search or show all progress states.</p><button class="btn" type="button" data-dx-clear-focus>Clear filters</button></section><details class="dx-focus-targets card"><summary>Study targets from the packet</summary><p>These are study targets from the packet, not a confirmed exam blueprint.</p>${targets?.outerHTML || ''}</details>${packetDisclosure(template.content)}`;
   };
 
   function installHeader() {
@@ -156,7 +159,7 @@
     root.querySelector('[data-dx-clear-focus]').addEventListener('click',()=>{search.value='';select.value='all';update();search.focus();});
     update();
   }
-  function lessonNavigation(root) {
+  function lessonNavigation(root,chapterId) {
     const shell=root.querySelector('.topic-shell');
     if (!shell || shell.querySelector('.dx-lesson-toolbar')) return;
     const cards=[...shell.querySelectorAll('.guide-module .study-card')];
@@ -186,7 +189,10 @@
     // Move the existing nodes, retaining video listeners, controls, citations and notes.
     const chapterActions=shell.querySelector(':scope > .tabs');if(chapterActions)shell.append(chapterActions);
     shell.querySelectorAll(':scope > .e2-original').forEach(figure=>shell.append(figure));
-    if(media)shell.append(media);
+    if (media) {
+      if (['e2-resonance','e2-speaking-valves'].includes(chapterId)) anchor.after(media);
+      else shell.append(media);
+    }
   }
   window.DXTopic.render = function (api,parts) {
     currentAPI=api;
@@ -206,7 +212,7 @@
       }
     });
     if ((parts[0] || 'home') === 'focus') bindFilters(api.app);
-    if (parts[0] === 'learn') lessonNavigation(api.app);
+    if (parts[0] === 'learn') lessonNavigation(api.app,parts[1]);
   };
   window.DXExam2Shell = {focusSections,recordFor,matches,activeTab,continuation};
   if (document.body?.classList) document.body.classList.add('dx-exam2-shell');
