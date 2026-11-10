@@ -77,9 +77,9 @@
   function startMissed(topicId){
    var rows=missed().filter(function(x){return !topicId||x.item.topic===topicId;});
    if(!rows.length)return null;
-   return start('missed-review','Exam 2 · missed questions',[],[],rows.map(function(x){return x.item;}));
+   return start('missed-review',(D.title||'Exam 2')+' · missed questions',[],[],rows.map(function(x){return x.item;}));
   }
-  function review(){return E.reviewPlan().filter(function(p){return p.c.indexOf('e2-')===0&&p.why!=='new';});}
+  function review(){return E.reviewPlan().filter(function(p){return Object.prototype.hasOwnProperty.call(D.conceptNames,p.c)&&p.why!=='new';});}
   function summary(topic){
    var cs=D.topics.find(function(t){return t.id===topic;}).concepts,st=E.conceptStats(),s=S.load();
    return {concepts:cs,mastered:cs.filter(function(c){return st[c]&&st[c].status==='mastered';}).length,total:cs.length,
@@ -88,5 +88,5 @@
   }
   return {state:state,touch:touch,get:get,start:start,select:select,pool:pool,answer:answer,draft:draft,reveal:reveal,rate:rate,score:score,finish:finish,review:review,missed:missed,startMissed:startMissed,summary:summary};
  }
- L.createStudyRuns=create;L.exam2=create('exam2',L.EXAM2_DATA);
+ L.createStudyRuns=create;L.exam2=create('exam2',L.EXAM2_DATA);if(L.EXAM3_DATA)L.exam3=create('exam3',L.EXAM3_DATA);
 })(typeof window!=='undefined'?window:globalThis);

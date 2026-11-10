@@ -7,6 +7,8 @@ echo "Syntax: PASS"
 node tests/validate-content.cjs
 node tests/unit.cjs
 node tests/exam1.cjs
+node tests/exam2.cjs
+node tests/exam3.cjs
 node tests/original-mocks.cjs
 node tests/question-quality.cjs
 node tests/drift-check.cjs .

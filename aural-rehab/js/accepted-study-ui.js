@@ -113,10 +113,14 @@ let exam2ShellContext=typeof location!=='undefined'&&isExam2Route(location.hash)
 L.exam2Shell={keep:keepExam2Shell,tab:exam2Tab,resume:studyResume,headings:lessonHeadings,target:lessonTargetId};
 function decorate(){
  const hash=location.hash,inExam2=isExam2Route(hash);
+ if(/^#(?:exam3|exams)(?:\/|$)/.test(hash)&&L.exam3Shell){exam2ShellContext=false;L.exam3Shell(hash);return;}
+ const priorHeader=document.querySelector('header.top');
+ if(priorHeader.dataset.accepted==='final'){priorHeader.innerHTML=originalHeader;delete priorHeader.dataset.accepted;}
+ document.body.classList.remove('final-exam');
  exam2ShellContext=keepExam2Shell(hash,exam2ShellContext);
  document.body.classList.toggle('uniform-exam2',exam2ShellContext);
  const header=document.querySelector('header.top');
- if(exam2ShellContext&&!header.dataset.accepted){header.innerHTML='<div class="bar">\n  <div class="brand">COMD 4590 <small>Aural Rehabilitation · Exam 2</small></div>\n  <div class="preview-context"><details><summary>Tools</summary><div class="preview-tools"><a href="#exam2/sources">Sources & coverage</a><a href="#exam2/data">Backup / restore</a><a href="#exam2/history">Saved sessions</a><a href="#sutherland">Instructor study guidance</a><a href="#exam1">Exam 1</a></div></details></div>\n  <nav class="main" aria-label="Study"><a href="#exam2/practice" data-exam2-tab="study">Study</a><a href="#exam2/focus" data-exam2-tab="focus">Exam focus</a><a href="#exam2/review" data-exam2-tab="review">Review</a><a href="#exam2/progress" data-exam2-tab="progress">Progress</a></nav>\n</div>';header.dataset.accepted='true';}
+ if(exam2ShellContext&&!header.dataset.accepted){header.innerHTML='<div class="bar">\n  <div class="brand">COMD 4590 <small>Aural Rehabilitation · Exam 2</small></div>\n  <div class="preview-context"><details><summary>Tools</summary><div class="preview-tools"><a href="#exams">Choose your exam</a><a href="#exam3">Final Exam</a><a href="#exam2/sources">Sources & coverage</a><a href="#exam2/data">Backup / restore</a><a href="#exam2/history">Saved sessions</a><a href="#sutherland">Instructor study guidance</a><a href="#exam1">Exam 1</a></div></details></div>\n  <nav class="main" aria-label="Study"><a href="#exam2/practice" data-exam2-tab="study">Study</a><a href="#exam2/focus" data-exam2-tab="focus">Exam focus</a><a href="#exam2/review" data-exam2-tab="review">Review</a><a href="#exam2/progress" data-exam2-tab="progress">Progress</a></nav>\n</div>';header.dataset.accepted='true';}
  if(!exam2ShellContext&&header.dataset.accepted){
   header.innerHTML=originalHeader;delete header.dataset.accepted;
   const route=(hash||'#exam2').slice(1).split('/')[0];

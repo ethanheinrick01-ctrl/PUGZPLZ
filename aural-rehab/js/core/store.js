@@ -16,7 +16,8 @@
     return { app: 'comd4590-lab', schema: 2, created: Date.now(), updated: Date.now(), attempts: [], mocks: [], mockActive: null, session: null,
       boss: {}, seenX: {}, guideRead: {}, teach: {}, legacy: null, settings: { includeHeld: false },
       masteryCredits: {}, masterySeeded: false, exam1: { runs: [], chapterRead: {}, lastRoute: 'exam1' },
-      exam2: {runs: [], read: {}, notes: {}, activeId: null} };
+      exam2: {runs: [], read: {}, notes: {}, activeId: null},
+      exam3: {runs: [], read: {}, notes: {}, activeId: null} };
   }
   function storageProblem(action, e) {
     if (e && (e.name === 'QuotaExceededError' || e.code === 22 || e.code === 1014)) return 'Browser storage is full, so this tab cannot save new progress.';
@@ -47,10 +48,12 @@
     if (!s.exam1 || typeof s.exam1 !== 'object') s.exam1 = b.exam1;
     if (!Array.isArray(s.exam1.runs)) s.exam1.runs = [];
     if (!s.exam1.chapterRead) s.exam1.chapterRead = {};
-    if (!s.exam2 || typeof s.exam2 !== 'object') s.exam2 = b.exam2;
-    if (!Array.isArray(s.exam2.runs)) s.exam2.runs = [];
-    if (!s.exam2.read) s.exam2.read = {};
-    if (!s.exam2.notes) s.exam2.notes = {};
+    ['exam2','exam3'].forEach(function(scope){
+    if (!s[scope] || typeof s[scope] !== 'object') s[scope] = b[scope];
+    if (!Array.isArray(s[scope].runs)) s[scope].runs = [];
+    if (!s[scope].read) s[scope].read = {};
+    if (!s[scope].notes) s[scope].notes = {};
+    });
     // Boss runs saved before the early-exit fix have no completion flag and cannot be trusted as a best score.
     if (s.boss && typeof s.boss === 'object') Object.keys(s.boss).forEach(function (k) {
       var b = s.boss[k]; if (!b || !Array.isArray(b.runs)) return;
@@ -190,9 +193,10 @@
     Object.keys(from.exam1.chapterRead || {}).forEach(function(k){into.exam1.chapterRead[k] = Math.max(into.exam1.chapterRead[k] || 0, from.exam1.chapterRead[k]);});
     if (!into.exam1.activeId && from.exam1.activeId) into.exam1.activeId = from.exam1.activeId;
     // Merge scoped runs by identity, preserving already checked question snapshots.
-    var e2index={};into.exam2.runs.forEach(function(r){e2index[r.id]=r;});
-    from.exam2.runs.forEach(function(r){
-      var old=e2index[r.id];if(!old){into.exam2.runs.push(r);e2index[r.id]=r;return;}
+    ['exam2','exam3'].forEach(function(scope){
+    var e2index={};into[scope].runs.forEach(function(r){e2index[r.id]=r;});
+    from[scope].runs.forEach(function(r){
+      var old=e2index[r.id];if(!old){into[scope].runs.push(r);e2index[r.id]=r;return;}
       var qi={};old.tasks.forEach(function(t,i){qi[t.uid]=i;});
       r.tasks.forEach(function(t){
         var n=qi[t.uid];if(n===undefined){qi[t.uid]=old.tasks.length;old.tasks.push(t);return;}
@@ -203,19 +207,20 @@
       });
       if((r.updated||0)>(old.updated||0)){old.cur=r.cur;old.ended=r.ended;old.updated=r.updated;}
     });
-    Object.keys(from.exam2.read).forEach(function(k){into.exam2.read[k]=Math.max(into.exam2.read[k]||0,from.exam2.read[k]);});
-    Object.keys(from.exam2.notes).forEach(function(k){
-      var incoming=from.exam2.notes[k],old=into.exam2.notes[k];
-      if(!old)into.exam2.notes[k]=incoming;
+    Object.keys(from[scope].read).forEach(function(k){into[scope].read[k]=Math.max(into[scope].read[k]||0,from[scope].read[k]);});
+    Object.keys(from[scope].notes).forEach(function(k){
+      var incoming=from[scope].notes[k],old=into[scope].notes[k];
+      if(!old)into[scope].notes[k]=incoming;
       else {
         var newer=(incoming.updated||0)>(old.updated||0)?incoming:old,older=newer===incoming?old:incoming,versions=[];
         (newer.alternates||[]).concat(older.alternates||[],[{text:older.text,updated:older.updated}]).forEach(function(a){
           if(a.text!==newer.text&&!versions.some(function(v){return v.text===a.text;}))versions.push(a);
         });
-        newer.alternates=versions;into.exam2.notes[k]=newer;
+        newer.alternates=versions;into[scope].notes[k]=newer;
       }
     });
-    if(!into.exam2.activeId&&from.exam2.activeId)into.exam2.activeId=from.exam2.activeId;
+    if(!into[scope].activeId&&from[scope].activeId)into[scope].activeId=from[scope].activeId;
+    });
   }
   // Returns {ok, kind, message}
   function importText(text) {
@@ -230,7 +235,7 @@
       var before = s.attempts.length; mergeV2(s, incoming);
       if (L.engine && L.engine.captureMasteryCredits) L.engine.captureMasteryCredits(s);
       var saved = save();
-      return { ok: saved, kind: 'v2', message: saved ? 'Merged progress: ' + (s.attempts.length - before) + ' new attempts, ' + s.exam1.runs.length + ' Exam 1 runs, '+s.exam2.runs.length+' Exam 2 runs, and ' + s.mocks.length + ' original mock records. Unfinished work is included.' : problem };
+      return { ok: saved, kind: 'v2', message: saved ? 'Merged progress: ' + (s.attempts.length - before) + ' new attempts, ' + s.exam1.runs.length + ' Exam 1 runs, '+s.exam2.runs.length+' Exam 2 runs, '+s.exam3.runs.length+' Final Exam runs, and ' + s.mocks.length + ' original mock records. Unfinished work is included.' : problem };
     }
     if (d && d.schema === 'comd4590-progress-backup-v1' && d.storage) {
       var p = {};

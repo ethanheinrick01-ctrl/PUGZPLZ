@@ -20,13 +20,13 @@
 
   // ---------------- Router ----------------
   function route() {
-    var h = (location.hash || '#exam2').slice(1).split('/'), r = h[0] || 'exam2';
+    var h = (location.hash || '#exams').slice(1).split('/'), r = h[0] || 'exams';
     setNav(r);
     document.onkeydown = null;
     main.innerHTML = '';
-    main.classList.remove('e2');
+    main.classList.remove('e2','e3');
     window.scrollTo(0, 0);
-    var pages = { exam2: function(args){if(args[0]==='data'){main.classList.add('e2');pData();}else L.exam2UI.render(main,args);}, exam1: function(args){L.exam1UI.render(main,args);}, home: pHome, guide: pGuide, practice: pPractice, session: pSession, review: pReview, cases: pCases, boss: pBoss, mock: pMock, progress: pProgress, data: pData, sources: pSources, sutherland: pProf };
+    var pages = { exams: function(){L.examPicker(main);}, exam3: function(args){if(args[0]==='data'){main.classList.add('e2','e3');pData();}else L.exam3UI.render(main,args);}, exam2: function(args){if(args[0]==='data'){main.classList.add('e2');pData();}else L.exam2UI.render(main,args);}, exam1: function(args){L.exam1UI.render(main,args);}, home: pHome, guide: pGuide, practice: pPractice, session: pSession, review: pReview, cases: pCases, boss: pBoss, mock: pMock, progress: pProgress, data: pData, sources: pSources, sutherland: pProf };
     (pages[r] || pHome)(h.slice(1));
     main.focus({ preventScroll: true });
   }
@@ -388,7 +388,7 @@
     // Capture the learner's current mastered set before any new response can
     // change it. This migration only adds a small credit map to the same key.
     if (E.seedMasteryCredits()) S.save();
-    if (!location.hash) root.history.replaceState(null, '', '#exam2');
+    if (!location.hash) root.history.replaceState(null, '', '#exams');
     window.addEventListener('hashchange', route);
     route();
   }

@@ -1,5 +1,10 @@
 {
-  "include": "^e2\\.",
+  "include": "^(e2\\.|e3-dc-)",
   "note": "COMD 4590 is a 4000-level clinical course; difficulty stays. The check blocks caveat wording in stems and choices. Allowed phrases are course content, not caveats.",
-  "allow": ["assume poor attention", "and assumes hearing loss", "with sound alone", "with vision alone"]
+  "allow": [
+    "assume poor attention",
+    "and assumes hearing loss",
+    "with sound alone",
+    "with vision alone"
+  ]
 }
