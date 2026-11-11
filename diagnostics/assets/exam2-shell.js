@@ -5,7 +5,7 @@
   if (!T || window.DX_ACTIVE_EXAM !== T || !C || !window.DXTopic) return;
   const escape = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   // Existing Focus teaching selections, retained from the Exam 2 presentation config.
-  const focusGroups = [['e2-child',[0,1,6]],['e2-medical',[0]],['e2-neuro',[2,6]],['e2-dysphagia',[0,4]],['e2-fluency',[3,4,6]],['e2-pfd',[0]],['e2-resonance',[1,5]],['e2-speaking-valves',[1,4]]];
+  const focusGroups = [['e2-child',[0,1,6]],['e2-medical',[0]],['e2-neuro',[2,6]],['e2-dysphagia',[0,4]],['e2-fluency',[3,4,6]],['e2-pfd',[0]]];
   const focusSections = focusGroups.flatMap(([id, indexes]) => {
     const module = T.guide.find(m => m.id === id), chapter = T.chapters.find(ch => ch.id === id);
     return indexes.filter(i => module?.sections[i]).map(index => ({key:id+':'+index,module,chapter,index,section:module.sections[index]}));
@@ -122,9 +122,9 @@
     if (!host || !nav || host.dataset.dxShell) return;
     const theme = document.getElementById('themebtn');
     const identity = document.createElement('div'); identity.className = 'dx-identity';
-    identity.innerHTML = `<a class="brand" href="#/topic/home">COMD 4756<span>Diagnostics · Exam 2</span></a><details class="dx-tools"><summary>Tools</summary><div class="dx-tools-menu"><a href="#/topic/practice">Practice builder</a><a href="#/topic/cases">Case decisions</a><a href="#/topic/test">Mock exams</a><a href="#/topic/sources">Sources and coverage</a><a href="#/topic/progress">Saved activity history</a><a href="#/topic/backup">Backup and restore</a><a href="#/tools">Numerical tools</a><a href="index.html#/topic/home">Exam 1</a><a href="../">All labs</a></div></details>`;
+    identity.innerHTML = `<a class="brand" href="#/topic/home">COMD 4756<span>Diagnostics · Exam 2</span></a><details class="dx-tools"><summary>Tools</summary><div class="dx-tools-menu"><a href="#/topic/practice">Practice builder</a><a href="#/topic/cases">Case decisions</a>${C.examPrepHidden?'':'<a href="#/topic/test">Mock exams</a>'}<a href="#/topic/sources">Sources and coverage</a><a href="#/topic/progress">Saved activity history</a><a href="#/topic/backup">Backup and restore</a><a href="#/tools">Numerical tools</a><a href="index.html#/topic/home">Exam 1</a><a href="../">All labs</a></div></details>`;
     if (theme) identity.querySelector('.dx-tools-menu').append(theme);
-    nav.innerHTML = [['home','study','Study'],['focus','focus','Exam focus'],['review','review','Review'],['progress','progress','Progress']].map(([route,tab,label])=>`<a href="#/topic/${route}" data-r="topic/${route}" data-dx-tab="${tab}">${label}</a>`).join('');
+    nav.innerHTML = [['home','study','Study'],['focus','focus','Exam focus'],['review','review','Review'],['progress','progress','Progress']].filter(([,tab])=>!C.examPrepHidden||tab!=='focus').map(([route,tab,label])=>`<a href="#/topic/${route}" data-r="topic/${route}" data-dx-tab="${tab}">${label}</a>`).join('');
     nav.setAttribute('aria-label','Primary');
     host.replaceChildren(identity,nav); host.dataset.dxShell='true';
   }
@@ -194,6 +194,9 @@
   }
   window.DXTopic.render = function (api,parts) {
     currentAPI=api;
+    if (C.examPrepHidden && ['focus','focus-paper','test','paper','exams','exam'].includes(parts[0])) {
+      parts=['home']; window.location.hash='#/topic/home';
+    }
     prior.render(api,parts);
     if (!document.createElement || !api.app?.querySelector) return;
     updateNavigation();
@@ -213,7 +216,7 @@
     if (parts[0] === 'learn') lessonNavigation(api.app);
   };
   window.DXExam2Shell = {focusSections,recordFor,matches,activeTab,continuation};
-  if (document.body?.classList) document.body.classList.add('dx-exam2-shell');
+  if (document.body?.classList) {document.body.classList.add('dx-exam2-shell');document.body.dataset.examPrepHidden=String(!!C.examPrepHidden);}
   if (window.addEventListener) window.addEventListener('hashchange',()=>{
     if (!document.querySelector) return;
     updateNavigation();

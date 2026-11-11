@@ -12,6 +12,7 @@ body.dx-exam2-shell::before {content:"";position:fixed;inset:0;z-index:-1;pointe
 .dx-exam2-shell .brand {font-size:20px;line-height:28px;letter-spacing:0;font-weight:700;white-space:normal;color:var(--ink)}
 .dx-exam2-shell .brand span {display:block;color:var(--mute);font-size:16px;line-height:22.4px;font-weight:400;margin-top:4px}
 .dx-exam2-shell .nav {display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-top:4px;overflow:visible;width:100%}
+.dx-exam2-shell[data-exam-prep-hidden="true"] .nav {grid-template-columns:repeat(3,minmax(0,1fr))}
 .dx-exam2-shell .nav a {display:block;min-width:0;min-height:48px;padding:12px 8px;text-align:center;font-size:18px;line-height:24px;text-decoration:none;border:0;border-bottom:3px solid transparent;border-radius:0;color:var(--mute);background:transparent;white-space:nowrap}
 .dx-exam2-shell .nav a:hover {background:var(--panel);color:var(--ink)}
 .dx-exam2-shell .nav a[aria-current="page"] {color:var(--acc);border-bottom-color:var(--acc);font-weight:700}
