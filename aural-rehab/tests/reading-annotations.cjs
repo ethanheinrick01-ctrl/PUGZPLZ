@@ -43,6 +43,6 @@ test('legacy Exam 2 Guide uses the same reading and retains lesson navigation',(
  let count=0;Object.values(lab.GUIDE).flat().forEach(card=>{const topic=D.topics.find(t=>card.id==='e2-'+t.id+'-guide');if(!topic)return;count++;assert(card.html.includes('e2-definition'));assert(card.html.includes('checkpoint-label'));baseline.exam2GuideLinks[card.id].forEach(href=>assert(card.html.includes('href="'+href+'"')));});assert.equal(count,19);
 });
 test('renderer wiring limits annotation to teaching and retains neutral assessment routing',()=>{
- const ui=fs.readFileSync(path.join(ROOT,'js/ui/exam2.js'),'utf8');assert(!ui.includes('Color guides reading;'));assert(ui.includes('Lime</strong> · definition, explanation or sequence'));assert.equal((ui.match(/L\.studyAnnotations\.points/g)||[]).length,2);assert.equal((ui.match(/L\.studyAnnotations\.source/g)||[]).length,3);assert(ui.includes('location.hash)?L.studyAnnotations.source(code,p.text):esc(p.text)'));
+ const ui=fs.readFileSync(path.join(ROOT,'js/ui/exam2.js'),'utf8')+fs.readFileSync(path.join(ROOT,'js/study-view.js'),'utf8');assert(!ui.includes('Color guides reading;'));assert(ui.includes('Lime</strong> · definition, explanation or sequence'));assert.equal((ui.match(/L\.studyAnnotations\.points/g)||[]).length,2);assert.equal((ui.match(/L\.studyAnnotations\.source/g)||[]).length,3);assert(ui.includes('location.hash)?L.studyAnnotations.source(code,p.text):esc(p.text)'));
 });
 console.log(`${passed} annotation suites passed`);

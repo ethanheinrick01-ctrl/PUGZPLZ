@@ -1,6 +1,5 @@
-/* Reuse the accepted course shell and reading colors. */
+/* Final Exam uses the shared course shell and teaching styles. */
 .exam-picker{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}.exam-picker .card{display:flex;flex-direction:column}.exam-picker .btn{margin-top:auto;align-self:flex-start}
-.uniform-exam2 #main.e3 .topic-card{display:block;margin:0 0 20px}.uniform-exam2 #main.e3 .topic-card h2{margin:0 0 12px}
-.uniform-exam2 #main.e3 .lesson-reading{padding:30px 32px;margin:24px 0;font-size:24px;line-height:1.75}.e2.e3 .lesson-reading>h2{display:block!important;font-size:26px!important}.e3 .note-points{font-size:inherit}.e3 .note-points>li{margin-bottom:18px}.e3 .sources{font-size:16px}.e3 .source-card img{display:block;width:100%;height:auto}.e3 .source-text{white-space:pre-wrap}.e3 .understanding-checkpoint{background:#232b36;border:1px solid #47515e;padding:16px 18px;border-radius:8px}.e3 .checkpoint-label{display:block;color:#ffb78a;font-size:18px}.e3 .e2-term{color:#ff4fd8}.e3 .e2-definition{color:#b9e87c}.e3 video{width:100%;height:auto;aspect-ratio:16/9}.e3 section[id]{scroll-margin-top:150px}.e3 textarea{width:100%;min-height:140px}.e3 .e3-choice{display:block;padding:10px}.e3 fieldset{margin:20px 0;border:1px solid #354253;min-width:0}.e3 legend{white-space:normal}.e3 .transcript{white-space:pre-line}.e3 .player{margin:24px 0}
-@media(max-width:560px){.exam-picker{grid-template-columns:1fr}.uniform-exam2 #main.e3 .lesson-reading{padding:24px 18px;font-size:20px}.e2.e3 .lesson-reading>h2{font-size:24px!important}.e3 .e2-reading-key{flex-wrap:wrap}}
-.uniform-exam2 #main.e3 .lesson-reading{background:#1b2029;border:1px solid #354253;border-radius:14px;box-shadow:none}.e3 .note-points>li:has(>.understanding-checkpoint){list-style:none}.e3 .lesson-reading .sources{font-size:16px;font-weight:400}
+.e3 .source-text{white-space:pre-wrap}.e3 textarea{width:100%;min-height:140px}.e3 .transcript{white-space:pre-line}
+.e3 .e3-choice{display:block;padding:10px}.e3 fieldset{margin:20px 0;border:1px solid #354253;min-width:0}.e3 legend{white-space:normal}
+@media(max-width:560px){.exam-picker{grid-template-columns:1fr}}

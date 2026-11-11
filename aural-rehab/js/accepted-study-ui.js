@@ -14,20 +14,20 @@ sections[2].points[1]=sections[2].points[1].replace('<strong class="e2-term">Coc
 sections[2].points[1]=mark(sections[2].points[1],['Nucleus 22','behind-the-ear processor']);
 sections[2].points[2]=sections[2].points[2].replace('class="e2-term"','class="historical-note"');
 
-function studyResume(){
- const X=L.exam2,run=X.get(X.state().activeId);if(!run)return null;
+function studyResume(exam='exam2'){
+ const X=L[exam],run=X.get(X.state().activeId);if(!run)return null;
  const score=X.score(run);return score.complete?null:{id:run.id,title:run.title,answered:score.answered,total:score.total};
 }
-function lessonHeadings(topic){
- return topic.sections.map((section,index)=>({label:section.outlineTitle||section.title,href:'#exam2/topic/'+topic.id+'/section-'+index}));
+function lessonHeadings(topic,exam='exam2'){
+ return topic.sections.map((section,index)=>({label:section.outlineTitle||section.title,href:'#'+exam+'/topic/'+topic.id+'/section-'+index}));
 }
 
 function lessonTargetId(topic,hash){
- const parts=hash.split('/');if(parts[0]!=='#exam2'||parts[1]!=='topic'||parts[2]!==topic.id||!parts[3])return null;
+ const parts=hash.split('/');if(!['#exam2','#exam3'].includes(parts[0])||parts[1]!=='topic'||parts[2]!==topic.id||!parts[3])return null;
  const target=parts[3];
  if(/^section-\d+$/.test(target))return Number(target.slice(8))<topic.sections.length?target:null;
  if(['lesson-notes','lesson-media','lesson-figures','study-notes'].includes(target))return target;
- const concept=target.replace(/^e2-/,''),index=topic.sections.findIndex(section=>(section.concepts||[]).some(id=>id.replace(/^e2-/,'')===concept));
+ const concept=target.replace(/^e[23]-/,''),index=topic.sections.findIndex(section=>(section.concepts||[]).some(id=>id.replace(/^e[23]-/,'')===concept));
  return index<0?null:'section-'+index;
 }
 function alignLessonTarget(topic,hash){
@@ -41,20 +41,21 @@ function alignLessonTarget(topic,hash){
  const focus=heading||target;focus.setAttribute('tabindex','-1');focus.focus({preventScroll:true});
 }
 
-function customPractice(){
- const main=document.querySelector('main'),host=main.querySelector('#e2body');if(!host||host.querySelector('#customPractice'))return;
- const D=L.EXAM2_DATA,X=L.exam2,esc=L.util.esc;
- function start(cs,n,title,figures){const ids=X.select(null,n,!!figures,cs);if(!ids.length)return;const run=X.start(figures?'figures':'topic',title,ids);location.hash='#exam2/run/'+run.id;}
- const quick=host.querySelector('.card');quick.querySelector('h2').textContent='Quick start · Exam 2';
+function customPractice(exam='exam2'){
+ const main=document.querySelector('main'),host=main.querySelector(exam==='exam3'?'#e3body':'#e2body');if(!host||host.querySelector('#customPractice'))return;
+ const D=L[exam.toUpperCase()+'_DATA'],X=L[exam],esc=L.util.esc,label=exam==='exam3'?'Final Exam':'Exam 2';
+ function start(cs,n,title,figures){const ids=X.select(null,n,!!figures,cs);if(!ids.length)return;const run=X.start(figures?'figures':'topic',title,ids,null,null,exam==='exam3'?cs:undefined);location.hash='#'+exam+'/run/'+run.id;}
+ const quick=host.querySelector('.card');quick.querySelector('h2').textContent='Quick start · '+label;
+ if(exam==='exam3')quick.querySelector('button').onclick=()=>start(D.topics.flatMap(t=>t.concepts),15,'Final Exam · mixed practice');
  const row=document.createElement('div');row.className='controls';
- [['Lecture 4 · cochlear implants','Lecture 4'],['Lecture 5 · listening & acoustics','Lecture 5'],['Lecture 6 · auditory training','Lecture 6'],['Lecture 7 · visual communication','Lecture 7']].forEach(([label,part])=>{
+ (exam==='exam3'?[['Deaf Culture','Deaf Culture'],['Language and Speech','Language and Speech']]:[['Lecture 4 · cochlear implants','Lecture 4'],['Lecture 5 · listening & acoustics','Lecture 5'],['Lecture 6 · auditory training','Lecture 6'],['Lecture 7 · visual communication','Lecture 7']]).forEach(([rowLabel,part])=>{
   const cs=D.topics.filter(t=>t.part===part||t.part.startsWith(part+' ·')).flatMap(t=>t.concepts);if(!cs.length)return;
-  const b=document.createElement('button');b.className='btn';b.textContent=label+' · 15';b.onclick=()=>start(cs,15,'Exam 2 · '+part+' quick practice');row.append(b);
+  const b=document.createElement('button');b.className='btn';b.textContent=rowLabel+' · 15';b.onclick=()=>start(cs,15,label+' · '+part+' quick practice');row.append(b);
  });quick.append(row);
- const focusLink=document.createElement('a');focusLink.className='btn primary';focusLink.href='#exam2/focus';focusLink.textContent='Exam 2 focus & 65-question mocks';quick.prepend(focusLink);
- const formats=document.createElement('details');formats.innerHTML='<summary>More practice formats</summary><div class="controls"><a class="btn" href="#exam2/writing">Optional short answers</a><a class="btn" href="#exam2/cases">Clinical cases</a><a class="btn" href="#exam2/boss">Challenge</a><a class="btn" href="#exam2/partial">Earlier partial practice</a></div>';quick.append(formats);
+ const focusLink=document.createElement('a');focusLink.className='btn primary';focusLink.href='#exam2/focus';focusLink.textContent='Exam 2 focus & 65-question mocks';if(exam==='exam2')quick.prepend(focusLink);
+ const formats=document.createElement('details');formats.innerHTML='<summary>More practice formats</summary><div class="controls"><a class="btn" href="#exam2/writing">Optional short answers</a><a class="btn" href="#exam2/cases">Clinical cases</a><a class="btn" href="#exam2/boss">Challenge</a><a class="btn" href="#exam2/partial">Earlier partial practice</a></div>';if(exam==='exam2')quick.append(formats);
  const card=document.createElement('details');card.className='card custom-practice';card.id='customPractice';card.setAttribute('aria-labelledby','customHeading');
- card.innerHTML='<summary id="customHeading">Build your own practice</summary><p>Choose concepts from Exam 2 and set your question count. Original answers stay in your history; misses and low-confidence answers may add follow-up questions.</p><div class="controls"><label for="customCount">Number of questions <select id="customCount"><option>10</option><option selected>15</option><option>20</option><option>30</option></select></label><button class="btn" type="button" id="customAll">Select all concepts</button><button class="btn" type="button" id="customClear">Clear selection</button></div>'+D.topics.map((t,i)=>'<details class="custom-topic"><summary>'+esc(t.title)+' <span class="caption">· '+t.concepts.length+' concepts</span></summary><div class="custom-options"><label><input type="checkbox" data-topic-choice="'+t.id+'"> All concepts in this topic</label>'+t.concepts.map(c=>'<label><input type="checkbox" class="custom-concept" data-topic="'+t.id+'" value="'+c+'"> '+esc(D.conceptNames[c])+'</label>').join('')+'</div></details>').join('')+'<p id="customStatus" role="status"></p><button class="btn primary" id="customStart" disabled>Start selected practice</button>';
+ card.innerHTML='<summary id="customHeading">Build your own practice</summary><p>Choose concepts from '+label+' and set your question count. Original answers stay in your history; misses and low-confidence answers may add follow-up questions.</p><div class="controls"><label for="customCount">Number of questions <select id="customCount"><option>10</option><option selected>15</option><option>20</option><option>30</option></select></label><button class="btn" type="button" id="customAll">Select all concepts</button><button class="btn" type="button" id="customClear">Clear selection</button></div>'+D.topics.map((t,i)=>'<details class="custom-topic"><summary>'+esc(t.title)+' <span class="caption">· '+t.concepts.length+' concepts</span></summary><div class="custom-options"><label><input type="checkbox" data-topic-choice="'+t.id+'"> All concepts in this topic</label>'+t.concepts.map(c=>'<label><input type="checkbox" class="custom-concept" data-topic="'+t.id+'" value="'+c+'"> '+esc(D.conceptNames[c])+'</label>').join('')+'</div></details>').join('')+'<p id="customStatus" role="status"></p><button class="btn primary" id="customStart" disabled>Start selected practice</button>';
  quick.after(card);
  const boxes=Array.from(card.querySelectorAll('.custom-concept'));
  const stats=L.engine.conceptStats(),review=new Set(X.review().map(x=>x.c));
@@ -71,16 +72,16 @@ function customPractice(){
  card.querySelector('#customCount').onchange=update;
  card.querySelector('#customAll').onclick=()=>{boxes.forEach(b=>b.checked=true);update();};
  card.querySelector('#customClear').onclick=()=>{boxes.forEach(b=>b.checked=false);update();};
- card.querySelector('#customStart').onclick=()=>start(selected(),+card.querySelector('#customCount').value,'Exam 2 · custom practice');update();
+ card.querySelector('#customStart').onclick=()=>start(selected(),+card.querySelector('#customCount').value,label+' · custom practice');update();
  const grid=host.querySelector('.topic-grid');
  if(grid){
   const heading=document.createElement('h2');heading.id='miniChaptersHeading';heading.textContent='Mini-chapters';grid.before(heading);
-  const saved=studyResume();
+  const saved=studyResume(exam);
   if(saved){
    const resume=document.createElement('section');resume.className='card study-resume';
    const title=document.createElement('b');title.textContent='Resume: '+saved.title;
    const progress=document.createElement('span');progress.className='caption';progress.textContent=saved.answered+'/'+saved.total+' checked';
-   const link=document.createElement('a');link.className='btn primary';link.href='#exam2/run/'+saved.id;link.textContent='Continue →';
+   const link=document.createElement('a');link.className='btn primary';link.href='#'+exam+'/run/'+saved.id;link.textContent='Continue →';
    resume.append(title,progress,link);heading.before(resume);
   }
   const options=document.createElement('details');options.className='card practice-options';
@@ -113,7 +114,7 @@ let exam2ShellContext=typeof location!=='undefined'&&isExam2Route(location.hash)
 L.exam2Shell={keep:keepExam2Shell,tab:exam2Tab,resume:studyResume,headings:lessonHeadings,target:lessonTargetId};
 function decorate(){
  const hash=location.hash,inExam2=isExam2Route(hash);
- if(/^#(?:exam3|exams)(?:\/|$)/.test(hash)&&L.exam3Shell){exam2ShellContext=false;L.exam3Shell(hash);return;}
+ if(/^#(?:exam3|exams)(?:\/|$)/.test(hash)&&L.exam3Shell){exam2ShellContext=false;L.exam3Shell(hash);if(['#exam3','#exam3/','#exam3/practice'].includes(hash))customPractice('exam3');if(hash.startsWith('#exam3/topic/'))decorateLesson(L.EXAM3_DATA.topics.find(t=>t.id===hash.split('/')[2]),'exam3');return;}
  const priorHeader=document.querySelector('header.top');
  if(priorHeader.dataset.accepted==='final'){priorHeader.innerHTML=originalHeader;delete priorHeader.dataset.accepted;}
  document.body.classList.remove('final-exam');
@@ -139,17 +140,22 @@ function decorate(){
  document.body.classList.toggle('accepted-lesson',first);
  if(['#exam2/practice','#exam2','#exam2/'].includes(location.hash)){document.querySelector('main h1').textContent='Study · Exam 2';document.querySelector('main .lead').textContent='Choose a mini-chapter to learn it or practice it. Use mixed practice to work across topics.';customPractice();}
  if(!first)return;
+ decorateLesson(activeTopic,'exam2');
+}
+function decorateLesson(activeTopic,exam){
+ if(!activeTopic)return;
+ const hash=location.hash,X=L[exam];
  const main=document.querySelector('main');
  const lesson=main.querySelector('#lesson-notes');if(!lesson||lesson.dataset.previewDecorated)return;lesson.dataset.previewDecorated='true';
  const jump=document.createElement('label');jump.className='lesson-jump';jump.htmlFor='lessonHeading';
  const jumpLabel=document.createElement('span');jumpLabel.textContent='In this lesson';
  const select=document.createElement('select');select.id='lessonHeading';
  const placeholder=document.createElement('option');placeholder.value='';placeholder.textContent='Choose a heading';select.append(placeholder);
- lessonHeadings(activeTopic).forEach(({label,href})=>{const option=document.createElement('option');option.value=href;option.textContent=label;select.append(option);});
+ lessonHeadings(activeTopic,exam).forEach(({label,href})=>{const option=document.createElement('option');option.value=href;option.textContent=label;select.append(option);});
  select.onchange=()=>{const href=select.value;if(!href)return;if(href===location.hash)alignLessonTarget(activeTopic,href);else L.app.go(href.slice(1));select.value='';};
  jump.append(jumpLabel,select);lesson.before(jump);
 
- const nav=main.querySelector('.navline');if(nav){nav.querySelector('a').textContent='← Study · all mini-chapters';nav.querySelector('a').href='#exam2/practice';nav.querySelector('[data-practice]').textContent='Practice this chapter';nav.querySelector('[data-practice]').classList.add('primary');}
+ const nav=main.querySelector('.navline');if(nav){nav.querySelector('a').textContent='← Study · all mini-chapters';nav.querySelector('a').href='#'+exam+'/practice';nav.querySelector('[data-practice]').textContent='Practice this chapter';nav.querySelector('[data-practice]').classList.add('primary');}
 
  const groups=main.querySelectorAll('.note-group');
  const t=activeTopic,sections=t.sections;
@@ -157,13 +163,13 @@ function decorate(){
   group.classList.add('section-study-card');
   group.querySelectorAll('.checkpoint-label').forEach(label=>{const li=label.parentElement;if(li.tagName==='LI'&&!li.classList.contains('source-context'))li.classList.add('learning-checkpoint');});
   const old=group.querySelector('.note-heading');const heading=document.createElement('h2');heading.className=old.className;heading.textContent=old.textContent;old.replaceWith(heading);
-  const cs=sections[index].concepts.map(c=>c.startsWith('e2-')?c:'e2-'+c);
-  const available=L.exam2.pool(t.id).filter(i=>cs.includes(i.c)).length,n=Math.min(8,available);
+  const cs=sections[index].concepts.map(c=>c.startsWith('e'+exam.slice(-1)+'-')?c:'e'+exam.slice(-1)+'-'+c);
+  const available=X.pool(t.id).filter(i=>cs.includes(i.c)).length,n=Math.min(8,available);
   const footer=document.createElement('div');footer.className='section-study-footer';
   const count=document.createElement('p');count.className='caption';count.textContent=available+' aligned questions available · '+n+' in this set';
   const sectionTitle=sections[index].outlineTitle||sections[index].title;
   const button=document.createElement('button');button.type='button';button.className='btn primary';button.textContent='Study this section · '+n+' questions →';button.setAttribute('aria-label','Study this section: '+sectionTitle+' · '+n+' questions');button.disabled=!n;
-  button.onclick=()=>{const ids=L.exam2.select(t.id,n,false,cs);const run=L.exam2.start('topic',sectionTitle+' · section practice',ids);location.hash='#exam2/run/'+run.id;};
+  button.onclick=()=>{const ids=X.select(t.id,n,false,cs);const run=X.start('topic',sectionTitle+' · section practice',ids,null,null,exam==='exam3'?cs:undefined);location.hash='#'+exam+'/run/'+run.id;};
   footer.append(count,button);group.append(footer);
  });
  const mastery=main.querySelector('.topic-mastery');if(mastery)mastery.remove();

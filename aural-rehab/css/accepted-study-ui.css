@@ -70,3 +70,5 @@ main.e2 .reading-supplement p{margin-bottom:0}
 .annotated-reading .e2-definition{color:#c1e86a;font-weight:600}
 .annotated-reading .checkpoint-label{display:block;color:#ffb78a;font-weight:700;margin-bottom:6px}
 .annotated-reading .reading-checkpoint{list-style:none;border:1px solid #47515e;border-radius:8px;padding:14px 16px;margin:14px 0}
+
+.e2 :is(.figure-grid figcaption,.source-card .caption){overflow-wrap:anywhere}
