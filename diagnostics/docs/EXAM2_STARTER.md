@@ -1,3 +1,11 @@
+# Week 12 addition — November 17, 2026
+
+Putting all the pieces together adds 12 reading sections, four separately tracked concepts, 32 original multiple-choice questions, four written prompts and a narrated schematic explainer. Study, Review and Progress reuse the existing course records. Earlier completion totals stay intact; no Exam focus or mock content was added.
+
+The 39-slide Week 12 deck supports the full chapter. The November 16 recording supports the discussion through the clinical reasoning framework; the later case and code tables are slide-supported. F80.81 retains the childhood-onset qualifier from the ASHA descriptor. Code examples illustrate the course distinctions and are not payer-specific billing instructions.
+
+---
+
 # Diagnostics Exam 2 starter
 
 The packet now covers eight chapters across Weeks 8–11. The November 9 extension adds resonance and speaking-valve evaluation from 20 supplied slides, including the image-only procedure, airflow and documentation panels. The six earlier chapters remain: spoken language in children, medical conditions and clinical significance, acquired neurogenic disorders, dysphagia, fluency and pediatric feeding disorders. October 14, 16 and 21 lectures support the earlier material; no Week 10 or Week 11 lecture transcript was supplied. No oral emphasis is inferred from ordinary slide inclusion.
