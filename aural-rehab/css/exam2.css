@@ -67,7 +67,7 @@ body{background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,B
 .e2 .topic-card>.topic-mastery>summary{min-height:44px;align-content:center}
 .e2 .topic-mastery>summary{color:var(--acc);font-size:.88rem}
 .e2 .btn.primary{background:#24649a;border-color:#438dce;color:#fff}
-.e2 .e2-reading-key{display:flex;flex-wrap:wrap;gap:8px 24px;margin:12px 0 16px;color:var(--muted);font-size:13px;line-height:1.5}
+.e2-reading-key{display:flex;flex-wrap:wrap;gap:8px 24px;margin:12px 0 16px;color:var(--muted);font-size:13px;line-height:1.5}
 .e2-reading-key>span{display:inline-flex;align-items:center;gap:8px}
 .e2-reading-key small{flex-basis:100%;font-size:12px}
 .e2-key-dot{display:inline-block;width:7px;height:7px;border-radius:50%;flex-shrink:0}

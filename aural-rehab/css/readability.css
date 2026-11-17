@@ -3,6 +3,7 @@
   #main { font-size: 20px; line-height: 1.75; }
   #main .card { font-size: 22px; line-height: 1.75; min-width: 0; overflow-wrap: anywhere; }
   #main :is(.e1lesson, .focus-note-group > ul, .focus-checkpoint p) { font-size: 22px; line-height: 1.75; }
+  #main .e1lesson.annotated-reading { font-size: 24px; }
   #main :is(.e1lesson li, .focus-note-group > ul > li) { margin-bottom: 18px; }
   #main .final-focus-card { padding: 30px 32px; }
   #main .final-focus-card :is(h2, .focus-note-group h3) { font-size: 26px; line-height: 1.4; }
@@ -24,7 +25,7 @@
   #main :is(.checkpoint-label, .learning-checkpoint > b, .focus-checkpoint > b) { color: #ffb78a; font-size: 18px; font-weight: 700; }
   #main :is(.learning-checkpoint, .focus-checkpoint, .study-reading .traps, .e1detail .traps) { background: #232b36; border: 1px solid #47515e; border-radius: 8px; padding: 16px 18px; }
   #main :is(.study-reading .traps, .e1detail .traps) > b { display: block; color: #ffb78a; font-size: 18px; margin-bottom: 8px; }
-  #main .e2-reading-key { font-size: 18px; line-height: 1.6; }
+  #main .e2-reading-key { font-size: 16px; line-height: 1.5; }
   #main .e2-reading-key small { font-size: 16px; }
   #main .focus-note-group { border: 1px solid #354253; border-radius: 14px; padding: 24px; background: #1b2029; }
   #main .focus-note-group .note-points { font-size: 22px; line-height: 1.75; padding-left: 22px; }
@@ -36,7 +37,7 @@
 }
 @media screen and (max-width: 767px) {
   #main { font-size: 18px; }
-  #main .card, #main :is(.e1lesson, .focus-note-group > ul, .focus-checkpoint p) { font-size: 20px; }
+  #main .card, #main .e1lesson.annotated-reading, #main :is(.e1lesson, .focus-note-group > ul, .focus-checkpoint p) { font-size: 20px; }
   #main .final-focus-card { padding: 24px 18px; }
   #main .final-focus-card :is(h2, .focus-note-group h3) { font-size: 24px; }
   #main :is(.study-reading, .e1lesson, .e1detail) { padding: 24px 18px; }

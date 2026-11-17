@@ -17,12 +17,20 @@ for(const exam of ['exam2','exam3']){
   }
  }
 }
+for(const chapter of lab.EXAM1_DATA.chapters){
+ const formatted=lab.exam1Reading(chapter);
+ assert(formatted.includes('e2-term')&&formatted.includes('e2-definition')&&formatted.includes('reading-checkpoint'),chapter.id);
+ assert.equal(plain(formatted.replace(/<b class="checkpoint-label">[^<]*<\/b>/g,'')),plain(chapter.html),chapter.id);
+}
 for(const topic of lab.EXAM3_DATA.topics)for(const section of topic.sections){
  assert(section.outline,'missing outline '+topic.id);const html=lab.studyAnnotations.points(section.outline);
  assert(html.includes('note-subpoints')&&html.includes('reading-checkpoint')&&html.includes('checkpoint-label'));
  assert(html.includes('e2-term')&&html.includes('e2-definition'));
  // Full existing paragraphs, including source qualifications, must still appear verbatim.
- for(const point of section.points)assert(plain(html).includes(plain(point)),topic.id+' lost text: '+point);
+ for(const point of section.points){
+  const body=point.replace(/<strong class="checkpoint-label">[^<]*<\/strong>/g,'');
+  assert(plain(html).includes(plain(body)),topic.id+' lost text: '+point);
+ }
  const concepts=section.concepts,ids=lab.exam3.select(topic.id,8,false,concepts);assert.equal(ids.length,8);
  assert(ids.every(id=>concepts.includes(lab.exam3.pool().find(i=>i.id===id).c)));
 }

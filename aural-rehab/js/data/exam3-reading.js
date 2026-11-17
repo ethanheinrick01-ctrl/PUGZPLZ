@@ -28,7 +28,12 @@ var L=root.L,plans=[
             ]
           ],
           4
-        ]
+        ],
+        "pairs": {
+          "1": ["Deaf culture", "centers on shared meanings and experiences related to a Deaf identity"],
+          "3": ["lowercase deaf", "people who tend to prefer spoken language, auditory assistance, and socializing with hearing people"]
+        },
+        "checkpoint": "Ask about identity"
       },
       {
         "source": [
@@ -43,12 +48,20 @@ var L=root.L,plans=[
           [
             1,
             [
-              2,
-              3,
+              2
+            ]
+          ],
+          [
+            3,
+            [
               4
             ]
           ]
-        ]
+        ],
+        "pairs": {
+          "3": ["“deaf impaired”", "reverses the deficit framing: it describes hearing people who lack knowledge of Deaf culture or sign language"]
+        },
+        "checkpoint": "Notice who the label centers"
       }
     ]
   },
@@ -81,7 +94,12 @@ var L=root.L,plans=[
               6
             ]
           ]
-        ]
+        ],
+        "pairs": {
+          "1": ["Ottoman Court", "signed communication and secrecy were valued"],
+          "4": ["American School for the Deaf", "1817, Connecticut marks the opening of the school now called"]
+        },
+        "checkpoint": "Connect dates with events"
       },
       {
         "source": [
@@ -115,7 +133,11 @@ var L=root.L,plans=[
               6
             ]
           ]
-        ]
+        ],
+        "pairs": {
+          "0": ["Mabel Hubbard Bell", "was deaf, chose to speak, and preferred to associate with hearing people"]
+        },
+        "checkpoint": "Compare who made the decisions"
       }
     ]
   },
@@ -146,7 +168,12 @@ var L=root.L,plans=[
             ]
           ],
           4
-        ]
+        ],
+        "pairs": {
+          "1": ["Deaf clubs", "provided recurring places to meet and sustain relationships"],
+          "3": ["NAD", "illustrates organized advocacy"]
+        },
+        "checkpoint": "Follow relationships beyond school"
       },
       {
         "source": [
@@ -170,7 +197,8 @@ var L=root.L,plans=[
           ],
           4,
           6
-        ]
+        ],
+        "checkpoint": "Explain both perspectives"
       }
     ]
   },
@@ -207,7 +235,11 @@ var L=root.L,plans=[
               6
             ]
           ]
-        ]
+        ],
+        "pairs": {
+          "3": ["caregiver participation", "in clinic or home. Parents practice communication in daily routines"]
+        },
+        "checkpoint": "Identify the role of visual cues"
       },
       {
         "source": [
@@ -241,7 +273,12 @@ var L=root.L,plans=[
             ]
           ],
           6
-        ]
+        ],
+        "pairs": {
+          "3": ["bilingual-bicultural approach", "teaches ASL as the first language and English as a second language in written form"],
+          "5": ["Signing Exact English (SEE II)", "follows English word order"]
+        },
+        "checkpoint": "Compare what each system represents"
       }
     ]
   },
@@ -280,7 +317,8 @@ var L=root.L,plans=[
               7
             ]
           ]
-        ]
+        ],
+        "checkpoint": "Locate the language domain"
       },
       {
         "source": [
@@ -306,7 +344,12 @@ var L=root.L,plans=[
               5
             ]
           ]
-        ]
+        ],
+        "pairs": {
+          "3": ["personal FM systems", "improve access to the intended speaker in noise"],
+          "4": ["Illustrative repair", "repeat or clarify “the red one,” point, or ask for help"]
+        },
+        "checkpoint": "Check for a successful repair"
       }
     ]
   },
@@ -347,6 +390,16 @@ var L=root.L,plans=[
               8
             ]
           ]
+        ],
+        "pairs": {
+          "0": ["Assessment", "determines the need for intervention, develops intervention goals, and evaluates progress and treatment effectiveness"],
+          "3": ["The Integrated Scale", "includes listening, receptive and expressive language, speech, cognition, and social communication"],
+          "7": ["morphological analysis", "identify structures used or missing in spontaneous language"]
+        },
+        "checkpoint": "Compare scores with a language sample",
+        "emphasis": [
+          "A sample can support a test result or reveal a mismatch requiring interpretation.",
+          "ARLS-29"
         ]
       },
       {
@@ -369,7 +422,11 @@ var L=root.L,plans=[
             ]
           ],
           4
-        ]
+        ],
+        "pairs": {
+          "2": ["later probe", "describe the supported response as qualitative information for interpretation and treatment planning"]
+        },
+        "checkpoint": "Keep the original score"
       }
     ]
   },
@@ -389,18 +446,23 @@ var L=root.L,plans=[
           [
             0,
             [
-              1,
-              2,
-              3
+              1
             ]
           ],
+          2,
           [
-            4,
+            3,
             [
+              4,
               5
             ]
           ]
-        ]
+        ],
+        "pairs": {
+          "2": ["mild to moderate hearing loss", "often involved intelligible speech with single-consonant or blend errors"],
+          "3": ["severe-to-profound", "lists respiration, phonation, resonance, articulation, and suprasegmentals"]
+        },
+        "checkpoint": "Identify the level affected"
       },
       {
         "source": [
@@ -412,8 +474,12 @@ var L=root.L,plans=[
           "<aside class=\"understanding-checkpoint\"><strong class=\"checkpoint-label\">Check your understanding</strong><p>An articulation test can identify a specific sound error. An intelligibility measure asks how much of the message a listener recognizes. These outcomes can provide different information about the same speaker.</p></aside>"
         ],
         "groups": [
-          0,
-          1,
+          [
+            0,
+            [
+              1
+            ]
+          ],
           [
             2,
             [
@@ -422,7 +488,12 @@ var L=root.L,plans=[
               5
             ]
           ]
-        ]
+        ],
+        "pairs": {
+          "3": ["words accurately identified", "divided by words in the sample, multiplied by 100"],
+          "4": ["whole speech passage", "rate how recognizable the words were"]
+        },
+        "checkpoint": "Separate sound accuracy from recognizability"
       }
     ]
   },
@@ -446,16 +517,25 @@ var L=root.L,plans=[
               1
             ]
           ],
-          2,
           [
-            3,
+            2,
             [
-              4,
-              6
+              [
+                3,
+                [
+                  4,
+                  6
+                ]
+              ],
+              5
             ]
-          ],
-          5
-        ]
+          ]
+        ],
+        "pairs": {
+          "0": ["Language therapy", "can increase communication with parents, peers, and adults"],
+          "2": ["Speech therapy", "goals include appropriately timed vocalizations requiring coordinated vocal-tract movements, larger phonetic and phonemic repertoires"]
+        },
+        "checkpoint": "Check listening and production separately"
       },
       {
         "source": [
@@ -479,7 +559,11 @@ var L=root.L,plans=[
               4
             ]
           ]
-        ]
+        ],
+        "pairs": {
+          "0": ["children implanted early", "typically developing better intelligibility and segmental/suprasegmental speech than children with profound hearing loss using hearing aids"]
+        },
+        "checkpoint": "Compare initial learning with maintenance"
       }
     ]
   }
@@ -492,12 +576,20 @@ plans.forEach(function(plan){
   if(!section||JSON.stringify(section.points)!==JSON.stringify(expected.source))return;
   function point(i){
    var html=section.points[i],checkpoint=html.match(new RegExp("^<aside class=\"understanding-checkpoint\"><strong class=\"checkpoint-label\">([^<]+)</strong><p>([\\s\\S]+)</p></aside>$"));
-   if(!checkpoint)return html;
-   L.studyAnnotations.plans[checkpoint[2]]={terms:[],definitions:[],checkpoint:checkpoint[1]};
+   if(!checkpoint){
+    var pair=expected.pairs&&expected.pairs[i];
+    if(!pair)return html;
+    var unmarked=html.replace(/<(strong|span) class="e2-(?:term|definition)">([^<]*)<\/\1>/g,'$2');
+    return L.studyAnnotations.markHTML(unmarked,{
+     terms:[pair[0]],definitions:[pair[1]]
+    });
+   }
+   L.studyAnnotations.plans[checkpoint[2]]={checkpoint:expected.checkpoint||checkpoint[1]};
    return checkpoint[2];
   }
   function node(group){return typeof group==='number'?point(group):{text:point(group[0]),children:group[1].map(node)};}
   section.outline=expected.groups.map(node);
+  if(expected.emphasis)section.outline=L.studyReading.highlight(section.outline,expected.emphasis[0],expected.emphasis[1]);
  });
 });
 })(typeof window!=='undefined'?window:globalThis);

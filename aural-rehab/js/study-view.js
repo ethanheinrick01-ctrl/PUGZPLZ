@@ -1,6 +1,11 @@
 /* Shared Exam 2 / Final Exam teaching views. Assessment records stay in their existing engines. */
 (function(root){'use strict';
 var L=root.L;
+ function readingKey(reading){
+  var hasEmphasis=/e2-emphasis/.test(JSON.stringify(reading));
+  return '<aside class="e2-reading-key" aria-label="Reading color key"><span><strong class="e2-term">Magenta</strong> · terms and names</span>'+(hasEmphasis?'<span><mark class="e2-emphasis">Yellow highlight</mark> · lecture emphasis</span>':'')+'<span><strong class="e2-definition">Lime</strong> · definition, explanation or sequence</span><span><strong class="checkpoint-label">Peach + label</strong> · understanding checkpoint</span></aside>';
+ }
+ L.studyReadingKey=readingKey;
 L.createStudyView=function(exam,D,X){
  var E=L.engine,S=L.store,esc=L.util.esc,main,filmResize,bodyId=exam==='exam3'?'e3body':'e2body';
  function go(route){location.hash='#'+exam+(route?'/'+route:'');}
@@ -15,10 +20,6 @@ L.createStudyView=function(exam,D,X){
   var heading='<div class="eyebrow">COMD 4590 · Fall 2026 · Whitney Sutherland</div><h1>'+title+'</h1>'+(lead?'<p class="lead">'+lead+'</p>':'');
   var navigation='<nav class="subnav" aria-label="Exam 2">'+tabs.map(function(t){return '<a href="#'+exam+(t[0]?'/'+t[0]:'')+'"'+(view===t[0]?' aria-current="page"':'')+'>'+t[1]+'</a>';}).join('')+'<a href="#'+exam+'/data">Backup / restore</a></nav>';
   main.innerHTML=(exam==='exam3'?heading:(view==='guide'?navigation+heading:heading+navigation))+'<div id="'+bodyId+'"></div>';
- }
- function readingKey(reading){
-  var hasEmphasis=/e2-emphasis/.test(JSON.stringify(reading));
-  return '<aside class="e2-reading-key" aria-label="Reading color key"><span><strong class="e2-term">Magenta</strong> · terms and names</span>'+(hasEmphasis?'<span><mark class="e2-emphasis">Yellow highlight</mark> · lecture emphasis</span>':'')+'<span><strong class="e2-definition">Lime</strong> · definition, explanation or sequence</span><span><strong class="checkpoint-label">Peach + label</strong> · understanding checkpoint</span></aside>';
  }
  function mastery(t){
   var r=X.summary(t.id),st=E.conceptStats();
