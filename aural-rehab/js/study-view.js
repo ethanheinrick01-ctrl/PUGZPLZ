@@ -67,7 +67,7 @@ L.createStudyView=function(exam,D,X){
  function film(t){
   var f=(L[exam.toUpperCase()+'_FILMS']||{})[t.id];if(!f)return '';
   var path=f.path||f.basePath||('assets/'+exam+'/films/'+t.id),v=f.version||'20261026',codes=f.sources||(f.source?[f.source]:[]),query=f.path?'':'?v='+v;
-  var tracks=f.burnedCaptions?'':'<track kind="captions" src="'+path+'.vtt'+query+'" srclang="en" label="English" default>';
+  var tracks=f.burnedCaptions?'':'<track kind="captions" src="'+path+'.vtt'+query+'" srclang="en" label="English" default'+(Number.isFinite(f.captionLine)?' data-caption-line="'+f.captionLine+'"':'')+'>';
   return '<section class="card player"><h2>Watch the concept unfold</h2><p>'+esc(f.title)+'</p><p class="caption">Original instructional diagrams · synthetic Ethan voice. '+esc(f.reviewLabel||'Listening review pending.')+'</p><p class="film-mobile-hint">For diagram detail, use full screen and turn your phone sideways.</p><video id="lessonFilm" controls playsinline preload="metadata" style="width:100%;height:auto;aspect-ratio:16/9" poster="'+path+'.jpg'+query+'"><source src="'+path+'.mp4'+query+'" type="video/mp4">'+tracks+'</video><div class="controls" aria-label="Film chapters">'+f.chapters.map(function(c){return '<button class="btn" type="button" data-film-seek="'+c[0]+'">'+esc(c[1])+'</button>';}).join('')+'</div><label>Film speed <select id="filmSpeed"><option value=".75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option></select></label> · <a href="'+path+'.mp4'+query+'" download>Save video</a> · <a href="'+path+'.vtt'+query+'" download>Save captions</a><details><summary>Read the film transcript</summary><p class="transcript">'+L.studyAnnotations.source((exam==='exam3'?'media3:':'media:')+t.id,f.text)+'</p></details><details><summary>Visual sources and diagram notes</summary><p>'+esc(f.visualNote||'Original course-based teaching diagrams. Illustrative examples are not patient measurements or published test items.')+'</p>'+((f.references||[]).map(function(r){return '<p><a href="'+esc(r.url)+'" target="_blank" rel="noopener noreferrer">'+esc(r.label)+'</a></p>';}).join(''))+'</details><p class="caption">'+(f.burnedCaptions?'Captions are included in the video. ':'')+'Watching does not award mastery.</p>'+(codes.length?sources(codes):'')+'</section>';
  }
 
@@ -89,7 +89,7 @@ L.createStudyView=function(exam,D,X){
   if(el('audioSpeed'))el('audioSpeed').onchange=function(){el('lessonAudio').playbackRate=+this.value;};
   var video=el('lessonFilm');if(video){
    function placeCaptions(){
-    var line=video.clientWidth<700?55:82;
+    var line=captionTrack?.dataset.captionLine ? Number(captionTrack.dataset.captionLine) : video.clientWidth<700 ? 55 : 82;
     Array.from(video.textTracks).forEach(function(track){Array.from(track.cues||[]).forEach(function(cue){cue.snapToLines=false;cue.line=line;});});
    }
    var captionTrack=video.querySelector('track');if(captionTrack)captionTrack.addEventListener('load',placeCaptions);

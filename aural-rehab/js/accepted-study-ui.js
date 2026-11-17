@@ -48,7 +48,7 @@ function customPractice(exam='exam2'){
  const quick=host.querySelector('.card');quick.querySelector('h2').textContent='Quick start · '+label;
  if(exam==='exam3')quick.querySelector('button').onclick=()=>start(D.topics.flatMap(t=>t.concepts),15,'Final Exam · mixed practice');
  const row=document.createElement('div');row.className='controls';
- (exam==='exam3'?[['Deaf Culture','Deaf Culture'],['Language and Speech','Language and Speech']]:[['Lecture 4 · cochlear implants','Lecture 4'],['Lecture 5 · listening & acoustics','Lecture 5'],['Lecture 6 · auditory training','Lecture 6'],['Lecture 7 · visual communication','Lecture 7']]).forEach(([rowLabel,part])=>{
+ (exam==='exam3'?[['Deaf Culture','Deaf Culture'],['Language and Speech','Language and Speech'],['Counseling','Psychosocial Aspects and Counseling']]:[['Lecture 4 · cochlear implants','Lecture 4'],['Lecture 5 · listening & acoustics','Lecture 5'],['Lecture 6 · auditory training','Lecture 6'],['Lecture 7 · visual communication','Lecture 7']]).forEach(([rowLabel,part])=>{
   const cs=D.topics.filter(t=>t.part===part||t.part.startsWith(part+' ·')).flatMap(t=>t.concepts);if(!cs.length)return;
   const b=document.createElement('button');b.className='btn';b.textContent=rowLabel+' · 15';b.onclick=()=>start(cs,15,label+' · '+part+' quick practice');row.append(b);
  });quick.append(row);
