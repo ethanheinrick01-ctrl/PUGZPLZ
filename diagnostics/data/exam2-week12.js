@@ -340,7 +340,9 @@
       "terms": [
         "diagnostic report"
       ],
-      "gold": []
+      "gold": [
+        "A list of scores alone does not show this reasoning."
+      ]
     },
     "e2-clinical-reasoning:1": {
       "terms": [
@@ -350,7 +352,7 @@
     },
     "e2-clinical-reasoning:2": {
       "terms": [
-        "clinical impression"
+        "Results"
       ],
       "gold": []
     },
@@ -362,19 +364,19 @@
     },
     "e2-clinical-reasoning:4": {
       "terms": [
-        "phonological questions"
+        "Articulation questions"
       ],
       "gold": []
     },
     "e2-clinical-reasoning:5": {
       "terms": [
-        "relative strength"
+        "mixed receptive-expressive language disorder"
       ],
       "gold": []
     },
     "e2-clinical-reasoning:6": {
       "terms": [
-        "Functional impact"
+        "Strengths"
       ],
       "gold": []
     },
@@ -382,23 +384,25 @@
       "terms": [
         "Recommendations"
       ],
-      "gold": []
+      "gold": [
+        "a recommendation needs support in the body of the report"
+      ]
     },
     "e2-clinical-reasoning:8": {
       "terms": [
-        "report audit"
+        "reasoning sequence"
       ],
       "gold": []
     },
     "e2-clinical-reasoning:9": {
       "terms": [
-        "CPT"
+        "ICD-10-CM"
       ],
       "gold": []
     },
     "e2-clinical-reasoning:10": {
       "terms": [
-        "F80.81"
+        "F80.1"
       ],
       "gold": []
     },

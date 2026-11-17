@@ -89,7 +89,7 @@ body.dx-exam2-shell::before {content:"";position:fixed;inset:0;z-index:-1;pointe
 .dx-exam2-shell #app .dx-lesson-toolbar button:disabled {color:var(--mute);opacity:.65;cursor:default;text-decoration:none}
 .dx-exam2-shell #app .dx-lesson-jump {display:flex;align-items:center;gap:14px;font-size:18px;color:var(--mute);margin:10px 0 16px}
 .dx-exam2-shell #app .dx-lesson-jump select {flex:1;min-width:0}
-.dx-exam2-shell #app [id^=dx-reading-],.dx-exam2-shell #app [id^=dx-lesson-figure-],.dx-exam2-shell #app #dx-lesson-watch {scroll-margin-top:160px}
+.dx-exam2-shell #app :is([id^=dx-reading-],[id^=dx-lesson-figure-],#dx-lesson-read,#dx-lesson-watch) {scroll-margin-top:160px}
 .dx-exam2-shell #app .guide-module-head {margin-top:18px}
 .dx-exam2-shell #app :is(.study-card,.study-focus .study-card) {padding:22px 26px;margin-bottom:16px}
 .dx-exam2-shell #app :is(.study-prose,.study-prose p,.study-prose li,.study-points,.study-subpoints,.study-note p,.study-note li,.study-target small,.chapter-explainer .source-box>p,.dx-focus-targets li,.study-table,.study-table th,.study-table td) {font-size:24px;line-height:1.75}
@@ -111,7 +111,8 @@ body.dx-exam2-shell::before {content:"";position:fixed;inset:0;z-index:-1;pointe
 .dx-exam2-shell #app :is(.tablewrap,.table-scroll) {max-width:100%;overflow-x:auto}
 .dx-exam2-shell #app table {font-size:20px;line-height:1.6}
 .dx-exam2-shell #app :is(video,img,svg) {max-width:100%;height:auto}
-.dx-exam2-shell #app .movie-stage {gap:8px}
+.dx-exam2-shell #app .movie-stage {gap:8px;align-items:stretch}
+.dx-exam2-shell #app .movie-stage a {align-self:center}
 .dx-exam2-shell #app .movie-stage .btn {flex:1 1 180px}
 .dx-exam2-shell #app .progress i {background:var(--acc)}
 .dx-exam2-shell [hidden] {display:none!important}

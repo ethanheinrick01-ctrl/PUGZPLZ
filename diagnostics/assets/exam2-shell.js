@@ -179,7 +179,8 @@
       target.scrollIntoView({block:'start',behavior:'auto'});target.focus({preventScroll:true});
     };
     const toolbar=document.createElement('nav');toolbar.className='dx-lesson-toolbar';toolbar.setAttribute('aria-label','Lesson views');
-    toolbar.innerHTML=`<button type="button" data-dx-jump="${reading?.id || cards[0].id}">Read</button><button type="button" ${media?`data-dx-jump="${media.id}"`:'disabled'}>Watch / listen</button><button type="button" ${figures[0]?`data-dx-jump="${figures[0].id}"`:'disabled title="No separate figures in this lesson"'}>Figures</button>`;
+    toolbar.id='dx-lesson-read';toolbar.tabIndex=-1;
+    toolbar.innerHTML=`<button type="button" data-dx-jump="${toolbar.id}">Read</button><button type="button" ${media?`data-dx-jump="${media.id}"`:'disabled'}>Watch / listen</button><button type="button" ${figures[0]?`data-dx-jump="${figures[0].id}"`:'disabled title="No separate figures in this lesson"'}>Figures</button>`;
     toolbar.querySelectorAll('[data-dx-jump]').forEach(button=>button.addEventListener('click',()=>jumpTo(button.dataset.dxJump)));
     const jump=document.createElement('label');jump.className='dx-lesson-jump';jump.htmlFor='dx-lesson-heading';
     jump.innerHTML=`In this lesson<select id="dx-lesson-heading"><option value="">Choose a heading</option>${cards.map(card=>`<option value="${card.id}">${escape(card.querySelector('h3,h2')?.textContent || 'Reading section')}</option>`).join('')}</select>`;
